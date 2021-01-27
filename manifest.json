@@ -3,7 +3,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"<all_urls>"
+				"https://rolz.org/dr?*"
 			],
 			"js": [
 				"jquery-2.2.4.min.js",
