@@ -1,0 +1,34 @@
+{
+	"name": "My Cool Extension",
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"jquery-2.2.4.min.js",
+				"content.js"
+			]
+		}
+	],
+	"browser_action": {
+	},
+	"background": {
+		"description": "desc",
+		"scripts": [
+			"background.js"
+		]
+	},
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+A",
+				"mac": "Command+Shift+A"
+			},
+			"description": "runs the button"
+		}
+//		"description": "command desc"
+	},
+	"manifest_version": 2,
+	"version": "0.2"
+}
