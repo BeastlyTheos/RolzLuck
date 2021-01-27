@@ -11,6 +11,7 @@ chrome.runtime.onMessage.addListener(
       var firstHref = $("a[href^='http']").eq(0).attr("href");
 
       alert(firstHref);
+      chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
     }
   }
 );
