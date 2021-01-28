@@ -13,12 +13,11 @@ throw err;
 
 // content.js
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  function(request, sender, sendResponse) {customErr( function(){
 try {
 var e = $("#output")
 window.prompt("", JSON.stringify(e.text()));
-}// end try
-catch (err) {alert("error! " + err);}
+}})
   }
 );
 
