@@ -7,12 +7,14 @@ customErr = function(func) {
 	}
 }
 
+str = JSON.stringify
+
 //var firstHref = $("a[href^='http']").eq(0).attr("href");
 
 //alert("Hello from your script " + firstHref)
 
 // content.js
-chrome.runtime.onMessage.addListener(
+      chrome.runtime.onMessage.addListener(
 function(request, sender, sendResponse) {
 	customErr( function() {
 		var e = $("#output")
@@ -20,12 +22,12 @@ function(request, sender, sendResponse) {
 	}//end of handled code
 	         )//end of call to customErr
 }//end of event handler function
-)//end of call to add listener
+      )//end of call to add listener
 
 
 customErr(function() {
 // Select the node that will be observed for mutations
-	const targetNode = document.ogetElementById("output");
+	const targetNode = document.getElementById("output");
 //window.prompt("", JSON.stringify(targetNode.text()));
 
 
@@ -37,10 +39,20 @@ customErr(function() {
 		// Use traditional 'for loops' for IE 11
 		for(const mutation of mutationsList) {
 			if (mutation.type === 'childList') {
-				alert('A child node has been added or removed.');
-			}
+				var text = 'A child node has been added or removed. ' + str(mutation.target)
+				           var text = text +  ". the removed nodes are: "
+				                      for ( const node of mutation.removedNodes)
+					                      text = text +  node.outerHTML
+					                             text = text+ ". the added nodes are "
+					                                    for (const node of mutation.addedNodes)
+						                                    text = text +  node.outerHTML
+						                                            window.prompt("child node: ", text)
+					}
 			else if (mutation.type === 'attributes') {
-				alert('The ' + mutation.attributeName + ' attribute was modified.');
+				window.prompt('The ' + mutation.attributeName + ' attribute was modified.');
+			}
+			else if (mutation.type === 'characterData') {
+				window.prompt('The character data ' + JSON.stringify(mutation.target) + ' was modified');
 			}
 		}
 	};
