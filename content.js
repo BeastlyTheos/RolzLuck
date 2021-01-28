@@ -1,3 +1,12 @@
+
+customErr = function(func) {
+try{ func();
+} catch (err) {
+window.prompt("error!", err);
+throw err;
+}
+}
+
 //var firstHref = $("a[href^='http']").eq(0).attr("href");
 
 //alert("Hello from your script " + firstHref)
@@ -13,8 +22,11 @@ catch (err) {alert("error! " + err);}
   }
 );
 
+
+
+customErr(function(){
 // Select the node that will be observed for mutations
-const targetNode = document.getElementById("output");
+const targetNode = document.ogetElementById("output");
 //window.prompt("", JSON.stringify(targetNode.text()));
 
 
@@ -42,3 +54,4 @@ observer.observe(targetNode, config);
 
 // Later, you can stop observing
 //observer.disconnect();
+});
