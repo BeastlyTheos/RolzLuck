@@ -8,3 +8,11 @@ errorWrapper = function(func) {
 }
 
 str = JSON.stringify
+
+function isNewMessageMutation(mutation) {
+	return true
+}
+
+if (! (typeof require !== 'undefined' && typeof module !== 'undefined' && require.main === module)) {
+	module.exports.isNewMessageMutation = isNewMessageMutation
+}

@@ -6,13 +6,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 })
 
 
-function isNewMessageMutation(mutation) {
-	return true
-}
-//module.exports.isNewMessageMutation = isNewMessageMutation
-
-
-
 errorWrapper(function() {
 	// Select the node that will be observed for mutations
 	const targetNode = document.getElementById("output");

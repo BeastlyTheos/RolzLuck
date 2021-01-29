@@ -1,4 +1,4 @@
-const content = require("./content")
+const content = require("./utils")
 
 class MockMutation {
 	constructor(type) {
