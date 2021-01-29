@@ -1,2 +1,5 @@
 {
+  "scripts": {
+    "test": "jest"
+  }
 }
