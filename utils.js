@@ -9,6 +9,12 @@ errorWrapper = function(func) {
 
 str = JSON.stringify
 
+class RollLog {
+	constructor(name) {
+		this.name = name
+	}
+}
+
 function isNewMessageMutation(mutation) {
 	if(mutation.type !== "childList" || ! mutation.addedNodes.length)
 		return false
@@ -19,6 +25,14 @@ function isNewMessageMutation(mutation) {
 			                                    return false
 		}
 
+function parseNewMessageMutation(node) {
+	var div = node.addedNodes[0]
+	          var span = div.getElementsByClassName("username")
+	                     var name = span[0].innerHTML
+	                                return new RollLog(name)
+}
+
 if (typeof module !== 'undefined') {
 	module.exports.isNewMessageMutation = isNewMessageMutation
+	                                      module.exports.parseNewMessageMutation = parseNewMessageMutation
 }

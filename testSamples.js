@@ -8,7 +8,7 @@ const sample1= `
 		</div>
 		<div class="line-content">
 			<!---->
-			<span class="username" style="">_Alfredh</span>:
+			<span class="username" style="">_Alfred</span>:
 			<span style="">
 				u
 			</span>
@@ -26,7 +26,7 @@ const sample2 = `
 		</div>
 		<div class="line-content">
 			<!---->
-			<span class="username" style="">_Alfredh</span>
+			<span class="username" style="">_Alfred</span>
 			<span class="gray">rolls
     			
 				<a onclick="loadLinkCli($(event.target), false, '#');">d20 </a> = 
@@ -52,7 +52,7 @@ const sample3 = `
 		</div>
 		<div class="line-content">
 			<!---->
-			<span class="username" style="">_Alfredh</span>:
+			<span class="username" style="">_Alfred</span>:
 			
 			<span style="">
 				first #d30 # hello
@@ -71,7 +71,7 @@ const sample4 = `
 		</div>
 		<div class="line-content">
 			<!---->
-			<span class="username" style="">_Alfredh</span>
+			<span class="username" style="">_Alfred</span>
 			<span class="gray">rolls
 			
 				<a onclick="loadLinkCli($(event.target), false, '#');">d48 </a> = 
@@ -95,7 +95,7 @@ const sample5 = `
 		</div>
 		<div class="line-content">
 			<!---->
-			<span class="username" style="">_Alfredh</span>:
+			<span class="username" style="">_Alfred</span>:
 			
 			<span style="">
 				hello 
@@ -117,7 +117,7 @@ const sample5 = `
 const sample6 = `
 <div class="chline  privatesrvmsg ctx_">
 		<div class="line-icon">?</div>
-		<div class="line-content">Welcome, _Alfredh! Lines starting with a / (slash) are chat commands. Lines starting with a # (hash) or a - (minus) will be interpreted as dice codes. Anything else is text. For more details, refer to the help screen on the right.
+		<div class="line-content">Welcome, _Alfred! Lines starting with a / (slash) are chat commands. Lines starting with a # (hash) or a - (minus) will be interpreted as dice codes. Anything else is text. For more details, refer to the help screen on the right.
  You are in "unnamed_room".</div>
 	</div>
 `

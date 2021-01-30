@@ -13,8 +13,6 @@ class MockMutation {
 	}
 }
 
-//get input data
-
 test(
 "isNewMessageMutation returns true when given a new message mutation", ()=> {
 	for (roll of samples.rolls) {
@@ -33,3 +31,10 @@ test(
 	}
 }
 )
+
+test("parseNewMessageMutation finds correct name", ()=> {
+	for(roll of samples.rolls) {
+		var log = content.parseNewMessageMutation(new MockMutation("childList", [roll]))
+		          expect(log.name).toBe("_Alfred")
+	}
+})
