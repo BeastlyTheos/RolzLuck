@@ -1,7 +1,5 @@
 const content = require("./utils")
                 const samples = require("./testSamples")
-//const fs = require("fs")
-
 
 class MockMutation {
 	constructor(type, addedNodes) {
@@ -9,7 +7,7 @@ class MockMutation {
 		            this.addedNodes = []
 		for (const addedNode of addedNodes) {
 			var node = document.createElement("div")
-			           node.outerHTML = addedNode
+			           node.innerHTML = addedNode
 			                            this.addedNodes[this.addedNodes.length] = node
 		}
 	}
@@ -25,6 +23,7 @@ test(
 	}
 }
 )
+
 
 test(
 "isNewMessageMutation returns false when given anything that is not a new message mutation", ()=> {
