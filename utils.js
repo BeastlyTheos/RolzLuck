@@ -10,8 +10,10 @@ errorWrapper = function(func) {
 str = JSON.stringify
 
 function isNewMessageMutation(mutation) {
-	return true
-}
+	if(mutation.type === "childList" && mutation.addedNodes.length === 1)
+		return true
+		       return false
+	}
 
 if (typeof module !== 'undefined') {
 	module.exports.isNewMessageMutation = isNewMessageMutation
