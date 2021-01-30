@@ -13,6 +13,6 @@ function isNewMessageMutation(mutation) {
 	return true
 }
 
-if (! (typeof require !== 'undefined' && typeof module !== 'undefined' && require.main === module)) {
+if (typeof module !== 'undefined') {
 	module.exports.isNewMessageMutation = isNewMessageMutation
 }

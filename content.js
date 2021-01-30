@@ -21,14 +21,19 @@ errorWrapper(function() {
 		for(const mutation of mutationsList) {
 			if (mutation.type === 'childList') {
 				var text = 'A child node has been added or removed. ' + str(mutation.target)
-				           var text = text +  ". the removed nodes are: "
-				                      for ( const node of mutation.removedNodes)
-					                      text = text +  node.outerHTML
-					                             text = text+ ". the added nodes are "
-					                                    for (const node of mutation.addedNodes)
-						                                    text = text +  node.outerHTML
-						                                            window.prompt("child node: ", text)
+				           text = text + ". the type is " + mutation.addedNodes.constructor.name
+
+				                  text = text +  ". the removed nodes are: "
+				                         for ( const node of mutation.removedNodes)
+					                         text = text +  node.outerHTML
+					                                text = text+ ". the added nodes are "
+					for (const node of mutation.addedNodes) {
+						text = text + ". the type of this node is " + node.constructor.name
+						       text = text +  node.outerHTML
 					}
+				window.prompt("child node: ", text)
+			}
+
 			else if (mutation.type === 'attributes') {
 				window.prompt('The ' + mutation.attributeName + ' attribute was modified.');
 			}
