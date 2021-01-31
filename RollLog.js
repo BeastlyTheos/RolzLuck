@@ -15,7 +15,12 @@ class RollLog {
 		           var span = node.getElementsByClassName("username")
 		                      var name = span[0].innerHTML
 		                                 this.name = name
-	}
+
+		                                         this.diceCodes = []
+		                                                 for(const ancor of node.getElementsByTagName("a"))
+			                                                 if(ancor.hasAttribute("onclick"))
+				                                                 this.diceCodes[this.diceCodes.length] = ancor.innerHTML
+			}
 
 	static isNewMessageMutation(mutation) {
 		if(mutation.type !== "childList" || ! mutation.addedNodes.length)

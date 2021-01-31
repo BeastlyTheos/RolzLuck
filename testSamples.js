@@ -1,7 +1,8 @@
 class sampleData {
-	constructor(mutation, name) {
+	constructor(mutation, name, diceCodes) {
 		this.mutation = mutation
 		                this.name = name
+		this.diceCodes = diceCodes
 	}
 }
 
@@ -60,7 +61,7 @@ const mutation2= new MockMutation("childList", [`
 		</div>
 	</div>
 `])
-const roll1 = new sampleData(mutation2, "_alfred")
+const roll1 = new sampleData(mutation2, "_Alfred", ["d20 "])
 
 //3, plaintext, looks like a dice code
 const mutation3 = new MockMutation("childList", [`
@@ -104,7 +105,7 @@ const mutation4 = new MockMutation("childList", [`
 		</div>
 	</div>
 `])
-const roll2 = new sampleData(mutation4, "_alfred")
+const roll2 = new sampleData(mutation4, "_Alfred", ["d48 "])
 
 //5, plaintext with inline rolls
 const mutation5 = new MockMutation("childList", [`
@@ -133,7 +134,7 @@ const mutation5 = new MockMutation("childList", [`
 			</span>
 		</div>
 `])
-const roll3 = new sampleData(mutation5, "_alfred")
+const roll3 = new sampleData(mutation5, "_Alfred", ["d8"])
 
 //6, server message
 const mutation6 = new MockMutation("childList", [`
@@ -144,5 +145,40 @@ const mutation6 = new MockMutation("childList", [`
 	</div>
 `])
 
-module.exports.rolls = [mutation2, mutation4, mutation5]
-module.exports.nonRolls = [mutation1, mutation3, mutation6]
+//7, two embedded rolls
+const mutation7 = new MockMutation("childList", [`
+<div class="chline txtmsg   ctx_">
+		<div class="line-icon">
+			<a href="/info?jjl36b1b8r:kkkuvhxp" target="_blank" data-title="">
+				<img src="/img/d6-32px.png" width="16" style="opacity:0.5" align="absmiddle"></a>
+		</div>
+		<div class="line-content">
+		<!---->
+			<span class="username" style="">_Alfredh</span>:
+			<span style="">
+			before 
+				[ <a onclick="loadLinkCli($(event.target), false, '#');">d20</a> =
+				( (6) )
+				<span class="">
+					<span class="result2">6</span>
+			</span>
+			<span class="comment"></span> ]
+			 middle 
+				[ <a onclick="loadLinkCli($(event.target), false, '#');">d12</a> =
+				( (11) )
+				<span class="">
+					<span class="result2">11</span>
+			</span>
+			<span class="comment"></span> ]
+				 after
+		</span>
+		</div>
+	</div>
+`])
+const roll4 = new sampleData(mutation7, "_Alfredh", ["d20", "d12"]) 
+//, [6, 11])
+
+
+module.exports.rollMutations = [mutation2, mutation4, mutation5]
+module.exports.nonRollMutations = [mutation1, mutation3, mutation6]
+module.exports.rolls = [roll1, roll2, roll3, roll4]
