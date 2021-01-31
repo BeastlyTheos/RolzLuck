@@ -23,6 +23,7 @@ class RollLog {
 		this.results = []
 		                 for(const span of node.getElementsByClassName("result2"))
 			                 this.results[this.results.length] = parseInt(span.innerHTML)
+		this.time = Date.now()
 			}
 
 	static isNewMessageMutation(mutation) {
