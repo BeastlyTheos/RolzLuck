@@ -1,4 +1,4 @@
-const RollLog = require("./utils")
+const RollLog = require("./RollLog")
                 const samples = require("./testSamples")
 
 class MockMutation {
