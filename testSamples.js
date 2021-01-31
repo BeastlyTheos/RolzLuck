@@ -1,8 +1,9 @@
 class sampleData {
-	constructor(mutation, name, diceCodes) {
+	constructor(mutation, name, diceCodes, results) {
 		this.mutation = mutation
 		                this.name = name
 		this.diceCodes = diceCodes
+		this.results = results
 	}
 }
 
@@ -61,7 +62,7 @@ const mutation2= new MockMutation("childList", [`
 		</div>
 	</div>
 `])
-const roll1 = new sampleData(mutation2, "_Alfred", ["d20 "])
+const roll1 = new sampleData(mutation2, "_Alfred", ["d20 "], [1])
 
 //3, plaintext, looks like a dice code
 const mutation3 = new MockMutation("childList", [`
@@ -105,7 +106,7 @@ const mutation4 = new MockMutation("childList", [`
 		</div>
 	</div>
 `])
-const roll2 = new sampleData(mutation4, "_Alfred", ["d48 "])
+const roll2 = new sampleData(mutation4, "_Alfred", ["d48 "], [34])
 
 //5, plaintext with inline rolls
 const mutation5 = new MockMutation("childList", [`
@@ -134,7 +135,7 @@ const mutation5 = new MockMutation("childList", [`
 			</span>
 		</div>
 `])
-const roll3 = new sampleData(mutation5, "_Alfred", ["d8"])
+const roll3 = new sampleData(mutation5, "_Alfred", ["d8"], [5])
 
 //6, server message
 const mutation6 = new MockMutation("childList", [`
@@ -175,8 +176,7 @@ const mutation7 = new MockMutation("childList", [`
 		</div>
 	</div>
 `])
-const roll4 = new sampleData(mutation7, "_Alfredh", ["d20", "d12"]) 
-//, [6, 11])
+const roll4 = new sampleData(mutation7, "_Alfredh", ["d20", "d12"], [6, 11])
 
 
 module.exports.rollMutations = [mutation2, mutation4, mutation5]

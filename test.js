@@ -24,11 +24,15 @@ test("parseNewMessageMutation finds correct name", ()=> {
 	}
 })
 
-test("RollLog constructor extracts the text of all dice codes", ()=> {
+test("RollLog constructor extracts the text and results of all dice codes", ()=> {
 	for(roll of samples.rolls) {
 		log = new RollLog(roll.mutation)
 		expect(log.name).toBe(roll.name)
+		//dice codes
 		expect(log.diceCodes).toEqual(expect.arrayContaining(roll.diceCodes))
 		expect(roll.diceCodes).toEqual(expect.arrayContaining(log.diceCodes))
+		//results
+		expect(log.results).toEqual(expect.arrayContaining(roll.results))
+		expect(roll.results).toEqual(expect.arrayContaining(log.results))
 	}
 })
