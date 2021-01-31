@@ -10,29 +10,24 @@ errorWrapper = function(func) {
 str = JSON.stringify
 
 class RollLog {
-	constructor(name) {
-		this.name = name
+	constructor(mutation) {
+		var node = mutation.addedNodes[0]
+		           var span = node.getElementsByClassName("username")
+		                      var name = span[0].innerHTML
+		                                 this.name = name
 	}
-}
 
-function isNewMessageMutation(mutation) {
-	if(mutation.type !== "childList" || ! mutation.addedNodes.length)
-		return false
-		       var node = mutation.addedNodes[0]
-		                  var span = node.getElementsByClassName("result2")
-		                             if(span.length)
-			                             return true
-			                                    return false
-		}
-
-function parseNewMessageMutation(node) {
-	var div = node.addedNodes[0]
-	          var span = div.getElementsByClassName("username")
-	                     var name = span[0].innerHTML
-	                                return new RollLog(name)
+	static isNewMessageMutation(mutation) {
+		if(mutation.type !== "childList" || ! mutation.addedNodes.length)
+			return false
+			       var node = mutation.addedNodes[0]
+			                  var span = node.getElementsByClassName("result2")
+			                             if(span.length)
+				                             return true
+				                                    return false
+			}
 }
 
 if (typeof module !== 'undefined') {
-	module.exports.isNewMessageMutation = isNewMessageMutation
-	                                      module.exports.parseNewMessageMutation = parseNewMessageMutation
+	module.exports = RollLog
 }

@@ -1,4 +1,4 @@
-const content = require("./utils")
+const RollLog = require("./utils")
                 const samples = require("./testSamples")
 
 class MockMutation {
@@ -17,7 +17,7 @@ test(
 "isNewMessageMutation returns true when given a new message mutation", ()=> {
 	for (roll of samples.rolls) {
 		m = new MockMutation("childList", [roll])
-		expect(content.isNewMessageMutation(m)).toBe(true)
+		expect(RollLog.isNewMessageMutation(m)).toBe(true)
 	}
 }
 )
@@ -27,14 +27,14 @@ test(
 "isNewMessageMutation returns false when given anything that is not a new message mutation", ()=> {
 	for(nonRoll of samples.nonRolls) {
 		m = new MockMutation("childList", [nonRoll])
-		expect(content.isNewMessageMutation(m)).toBe(false)
+		expect(RollLog.isNewMessageMutation(m)).toBe(false)
 	}
 }
 )
 
 test("parseNewMessageMutation finds correct name", ()=> {
 	for(roll of samples.rolls) {
-		var log = content.parseNewMessageMutation(new MockMutation("childList", [roll]))
-		          expect(log.name).toBe("_Alfred")
+		var log = new RollLog(new MockMutation("childList", [roll]))
+		expect(log.name).toBe("_Alfred")
 	}
 })
