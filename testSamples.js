@@ -1,5 +1,24 @@
+class sampleData {
+	constructor(mutation, name) {
+		this.mutation = mutation
+		                this.name = name
+	}
+}
+
+class MockMutation {
+	constructor(type, addedNodes) {
+		this.type = type
+		            this.addedNodes = []
+		for (const addedNode of addedNodes) {
+			var node = document.createElement("div")
+			           node.innerHTML = addedNode
+			                            this.addedNodes[this.addedNodes.length] = node
+		}
+	}
+}
+
 //1, plaintext
-const sample1= `
+const mutation1 = new MockMutation("childList", [`
 <div class="chline txtmsg   ctx_">
 	<div class="line-icon">
 		<a href="/info?jjl36b1b8r:kkhg8vkr" target="_blank" data-title="">
@@ -14,10 +33,10 @@ const sample1= `
 			</span>
 		</div>
 	</div>
-`
+`])
 
 //2, rolls comment, natural 1
-const sample2 = `
+const mutation2= new MockMutation("childList", [`
 <div class="chline dicemsg   ctx_ ctx_">
 	<div class="line-icon">
 		<a href="/info?jjl36b1b8r:kkhgawq6" aria-label="dice roll" target="_blank" data-title="">
@@ -40,10 +59,11 @@ const sample2 = `
 			<span class="comment">#testing</span>
 		</div>
 	</div>
-`
+`])
+const roll1 = new sampleData(mutation2, "_alfred")
 
 //3, plaintext, looks like a dice code
-const sample3 = `
+const mutation3 = new MockMutation("childList", [`
 <div class="chline txtmsg   ctx_">
 	<div class="line-icon">
 		<a href="/info?jjl36b1b8r:kkhgi753" target="_blank" data-title="">
@@ -59,10 +79,10 @@ const sample3 = `
 			</span>
 		</div>
 	</div>                
-`
+`])
 
 //4, rolls comment
-const sample4 = `
+const mutation4 = new MockMutation("childList", [`
 <div class="chline dicemsg   ctx_ ctx_">
 	<div class="line-icon">
 		<a href="/info?jjl36b1b8r:kkhgizi8" aria-label="dice roll" target="_blank" data-title="">
@@ -83,10 +103,11 @@ const sample4 = `
 			<span class="comment">#final</span>
 		</div>
 	</div>
-`
+`])
+const roll2 = new sampleData(mutation4, "_alfred")
 
 //5, plaintext with inline rolls
-const sample5 = `
+const mutation5 = new MockMutation("childList", [`
 <div class="chline txtmsg   ctx_">
 	<div class="line-icon">
 		<a href="/info?jjl36b1b8r:kkhgou3p" target="_blank" data-title="">
@@ -111,16 +132,17 @@ const sample5 = `
 			
 			</span>
 		</div>
-`
+`])
+const roll3 = new sampleData(mutation5, "_alfred")
 
 //6, server message
-const sample6 = `
+const mutation6 = new MockMutation("childList", [`
 <div class="chline  privatesrvmsg ctx_">
 		<div class="line-icon">?</div>
 		<div class="line-content">Welcome, _Alfred! Lines starting with a / (slash) are chat commands. Lines starting with a # (hash) or a - (minus) will be interpreted as dice codes. Anything else is text. For more details, refer to the help screen on the right.
  You are in "unnamed_room".</div>
 	</div>
-`
+`])
 
-module.exports.rolls = [sample2, sample4, sample5]
-module.exports.nonRolls = [sample1, sample3, sample6]
+module.exports.rolls = [mutation2, mutation4, mutation5]
+module.exports.nonRolls = [mutation1, mutation3, mutation6]

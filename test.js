@@ -1,40 +1,25 @@
 const RollLog = require("./RollLog")
                 const samples = require("./testSamples")
 
-class MockMutation {
-	constructor(type, addedNodes) {
-		this.type = type
-		            this.addedNodes = []
-		for (const addedNode of addedNodes) {
-			var node = document.createElement("div")
-			           node.innerHTML = addedNode
-			                            this.addedNodes[this.addedNodes.length] = node
-		}
-	}
-}
-
-test(
+                                test(
 "isNewMessageMutation returns true when given a new message mutation", ()=> {
-	for (roll of samples.rolls) {
-		m = new MockMutation("childList", [roll])
-		expect(RollLog.isNewMessageMutation(m)).toBe(true)
+	for (mutation of samples.rolls) {
+		expect(RollLog.isNewMessageMutation(mutation)).toBe(true)
 	}
 }
-)
-
+                                )
 
 test(
 "isNewMessageMutation returns false when given anything that is not a new message mutation", ()=> {
-	for(nonRoll of samples.nonRolls) {
-		m = new MockMutation("childList", [nonRoll])
-		expect(RollLog.isNewMessageMutation(m)).toBe(false)
+	for(mutation of samples.nonRolls) {
+		expect(RollLog.isNewMessageMutation(mutation)).toBe(false)
 	}
 }
 )
 
 test("parseNewMessageMutation finds correct name", ()=> {
-	for(roll of samples.rolls) {
-		var log = new RollLog(new MockMutation("childList", [roll]))
+	for(mutation of samples.rolls) {
+		var log = new RollLog(mutation)
 		expect(log.name).toBe("_Alfred")
 	}
 })
