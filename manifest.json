@@ -7,7 +7,7 @@
 			],
 			"js": [
 				"jquery-2.2.4.min.js",
-				"utils.js",
+				"RollLog.js",
 				"content.js"
 			]
 		}
