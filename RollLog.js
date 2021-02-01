@@ -16,15 +16,15 @@ class RollLog {
 		                      var name = span[0].innerHTML
 		                                 this.name = name
 
-		this.diceCodes = []
-		                 for(const ancor of node.getElementsByTagName("a"))
-			                 if(ancor.hasAttribute("onclick"))
-				                 this.diceCodes[this.diceCodes.length] = ancor.innerHTML
-		this.results = []
-		                 for(const span of node.getElementsByClassName("result2"))
-			                 this.results[this.results.length] = parseInt(span.innerHTML)
-		this.time = Date.now()
-			}
+		                                         this.diceCodes = []
+		                                                 for(const ancor of node.getElementsByTagName("a"))
+			                                                 if(ancor.hasAttribute("onclick"))
+				                                                 this.diceCodes[this.diceCodes.length] = ancor.innerHTML
+				                                                         this.results = []
+				                                                                 for(const span of node.getElementsByClassName("result2"))
+					                                                                 this.results[this.results.length] = parseInt(span.innerHTML)
+					                                                                         this.time = Date.now()
+				}
 
 	static isNewMessageMutation(mutation) {
 		if(mutation.type !== "childList" || ! mutation.addedNodes.length)

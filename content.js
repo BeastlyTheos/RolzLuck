@@ -1,7 +1,8 @@
+var logs = []
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	errorWrapper( function() {
-		var e = $("#output")
-		        window.prompt("", JSON.stringify(e.text()))
+		window.prompt("", JSON.stringify(logs))
 	})
 })
 
@@ -13,10 +14,21 @@ errorWrapper(function() {
 
 
 	// Options for the observer (which mutations to observe)
-	const config = { attributes: true, childList: true, subtree: true };
+	const config = { childList: true};
 
 	// Callback function to execute when mutations are observed
 	const callback = function(mutationsList, observer) {
+		errorWrapper(()=> {
+			for(const mutation of mutationsList)
+				if (RollLog.isNewMessageMutation(mutation)) {
+					var log = new RollLog(mutation)
+					logs[logs.length] = log
+				}
+		})
+	}
+
+//debugger callback function for displaying mutations as they happen
+	const debuggerCallback = function(mutationsList, observer) {
 		// Use traditional 'for loops' for IE 11
 		for(const mutation of mutationsList) {
 			if (mutation.type === 'childList') {
