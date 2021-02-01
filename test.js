@@ -1,31 +1,27 @@
 const RollLog = require("./RollLog")
-                const samples = require("./testSamples")
+const samples = require("./testSamples")
 
-                                test(
-"isNewMessageMutation returns true when given a new message mutation", ()=> {
+test("isNewMessageMutation returns true when given a new message mutation", () => {
 	for (mutation of samples.rollMutations) {
 		expect(RollLog.isNewMessageMutation(mutation)).toBe(true)
 	}
-}
-                                )
+})
 
-test(
-"isNewMessageMutation returns false when given anything that is not a new message mutation", ()=> {
-	for(mutation of samples.nonRollMutations) {
+test("isNewMessageMutation returns false when given anything that is not a new message mutation", () => {
+	for (mutation of samples.nonRollMutations) {
 		expect(RollLog.isNewMessageMutation(mutation)).toBe(false)
 	}
-}
-)
+})
 
-test("parseNewMessageMutation finds correct name", ()=> {
-	for(mutation of samples.rollMutations) {
+test("parseNewMessageMutation finds correct name", () => {
+	for (mutation of samples.rollMutations) {
 		var log = new RollLog(mutation)
 		expect(log.name).toBe("_Alfred")
 	}
 })
 
-test("RollLog constructor extracts the text and results of all dice codes", ()=> {
-	for(roll of samples.rolls) {
+test("RollLog constructor extracts the text and results of all dice codes", () => {
+	for (roll of samples.rolls) {
 		log = new RollLog(roll.mutation)
 		expect(log.name).toBe(roll.name)
 		//dice codes

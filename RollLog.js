@@ -1,9 +1,9 @@
-errorWrapper = function(func) {
+errorWrapper = function (func) {
 	try {
-		func();
+		func()
 	} catch (err) {
-		window.prompt("error!", err);
-		throw err;
+		window.prompt("error!", err)
+		throw err
 	}
 }
 
@@ -12,31 +12,30 @@ str = JSON.stringify
 class RollLog {
 	constructor(mutation) {
 		var node = mutation.addedNodes[0]
-		           var span = node.getElementsByClassName("username")
-		                      var name = span[0].innerHTML
-		                                 this.name = name
+		var span = node.getElementsByClassName("username")
+		var name = span[0].innerHTML
+		this.name = name
 
-		                                         this.diceCodes = []
-		                                                 for(const ancor of node.getElementsByTagName("a"))
-			                                                 if(ancor.hasAttribute("onclick"))
-				                                                 this.diceCodes[this.diceCodes.length] = ancor.innerHTML
-				                                                         this.results = []
-				                                                                 for(const span of node.getElementsByClassName("result2"))
-					                                                                 this.results[this.results.length] = parseInt(span.innerHTML)
-					                                                                         this.time = Date.now()
-				}
+		this.diceCodes = []
+		for (const ancor of node.getElementsByTagName("a"))
+			if (ancor.hasAttribute("onclick"))
+				this.diceCodes[this.diceCodes.length] = ancor.innerHTML
+		this.results = []
+		for (const span of node.getElementsByClassName("result2"))
+			this.results[this.results.length] = parseInt(span.innerHTML)
+		this.time = Date.now()
+	}
 
 	static isNewMessageMutation(mutation) {
-		if(mutation.type !== "childList" || ! mutation.addedNodes.length)
+		if (mutation.type !== "childList" || !mutation.addedNodes.length)
 			return false
-			       var node = mutation.addedNodes[0]
-			                  var span = node.getElementsByClassName("result2")
-			                             if(span.length)
-				                             return true
-				                                    return false
-			}
+		var node = mutation.addedNodes[0]
+		var span = node.getElementsByClassName("result2")
+		if (span.length) return true
+		return false
+	}
 }
 
-if (typeof module !== 'undefined') {
+if (typeof module !== "undefined") {
 	module.exports = RollLog
 }

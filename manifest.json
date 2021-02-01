@@ -2,23 +2,14 @@
 	"name": "My Cool Extension",
 	"content_scripts": [
 		{
-			"matches": [
-				"https://rolz.org/dr?*"
-			],
-			"js": [
-				"jquery-2.2.4.min.js",
-				"RollLog.js",
-				"content.js"
-			]
+			"matches": ["https://rolz.org/dr?*"],
+			"js": ["jquery-2.2.4.min.js", "RollLog.js", "content.js"]
 		}
 	],
-	"browser_action": {
-	},
+	"browser_action": {},
 	"background": {
 		"description": "desc",
-		"scripts": [
-			"background.js"
-		]
+		"scripts": ["background.js"]
 	},
 	"commands": {
 		"_execute_browser_action": {
@@ -28,7 +19,7 @@
 			},
 			"description": "runs the button"
 		}
-//		"description": "command desc"
+		//		"description": "command desc"
 	},
 	"manifest_version": 2,
 	"version": "0.2"
