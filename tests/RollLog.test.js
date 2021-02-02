@@ -1,4 +1,4 @@
-const RollLog = require("./RollLog")
+const RollLog = require("../RollLog")
 const samples = require("./testSamples")
 
 test("isNewMessageMutation returns true when given a new message mutation", () => {
