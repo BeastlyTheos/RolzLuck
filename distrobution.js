@@ -1,7 +1,29 @@
+function min(arr) {
+	var len = arr.length,
+		min = Infinity
+	while (len--) {
+		if (arr[len] < min) {
+			min = arr[len]
+		}
+	}
+	return min
+}
+
+function max(arr) {
+	var len = arr.length,
+		max = -Infinity
+	while (len--) {
+		if (arr[len] > max) {
+			max = arr[len]
+		}
+	}
+	return max
+}
+
 class Distrobution {
 	constructor(probabilities) {
 		this.distro = probabilities
-		this.min = min(this.distro)
+		this.min = min(probabilities) //this.distro)
 		this.max = max(this.distro)
 	}
 
@@ -43,4 +65,8 @@ class roll {
 	luck = function () {
 		return this.distro.luckOfResult(this.result)
 	}
+}
+
+if (typeof module !== "undefined") {
+	module.exports = Distrobution
 }
