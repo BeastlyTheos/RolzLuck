@@ -26,9 +26,13 @@ class Distrobution {
 		this.min = 1
 	}
 
+	probabilityOfResult = function (result) {
+		return this.distro[result - this.min]
+	}
+
 	addNumber = function (num) {
-		min += num
-		max += num
+		this.min += num
+		this.max += num
 	}
 
 	combine = function () {
@@ -50,10 +54,6 @@ class roll {
 	constructor(probabilities, result) {
 		this.distro = new Distrobution(probabilities)
 		this.result = result
-	}
-
-	probabilityOfResult = function (result) {
-		return this.distro[result - this.distro.min]
 	}
 
 	addRoll = function (roll) {
