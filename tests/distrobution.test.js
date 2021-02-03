@@ -13,3 +13,17 @@ test("probabilityOfDistrabution", () => {
 	expect(distroMultiple2.probabilityOfResult(2)).toBe(42)
 	expect(distroD6.probabilityOfResult(5)).toBe(5)
 })
+
+test("addNumber", () => {
+	distro1.addNumber(12)
+	expect(distro1.probabilityOfResult(13)).toBe(1)
+	distro1.addNumber(-12)
+	expect(distro1.probabilityOfResult(1)).toBe(1)
+
+	distroMultiple1.addNumber(20)
+	expect(distroMultiple1.probabilityOfResult(21)).toBe(4)
+	expect(distroMultiple1.probabilityOfResult(22)).toBe(9)
+	distroMultiple1.addNumber(-20)
+	expect(distroMultiple1.probabilityOfResult(1)).toBe(4)
+	expect(distroMultiple1.probabilityOfResult(2)).toBe(9)
+})

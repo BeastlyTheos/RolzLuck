@@ -32,7 +32,7 @@ class Distrobution {
 
 	addNumber = function (num) {
 		this.min += num
-		this.max += num
+		console.log(this.min)
 	}
 
 	combine = function () {
