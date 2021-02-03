@@ -23,8 +23,7 @@ function max(arr) {
 class Distrobution {
 	constructor(probabilities) {
 		this.distro = probabilities
-		this.min = min(probabilities) //this.distro)
-		this.max = max(this.distro)
+		this.min = 1
 	}
 
 	addNumber = function (num) {
