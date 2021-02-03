@@ -20,6 +20,15 @@ function max(arr) {
 	return max
 }
 
+function sum(arr) {
+	var len = arr.length,
+		sum = 0
+	while (len--) {
+		sum += arr[len]
+	}
+	return sum
+}
+
 class Distrobution {
 	constructor(probabilities) {
 		this.distro = probabilities
@@ -35,6 +44,14 @@ class Distrobution {
 		console.log(this.min)
 	}
 
+	luckOfResult = function (result) {
+		result -= this.min
+		return (
+			(sum(this.distro.slice(0, result)) + this.distro[result] / 2) /
+			sum(this.distro)
+		)
+	}
+
 	combine = function () {
 		//create new array that has size of maxA+maxB - minA-minB
 		//for each value of b
@@ -42,11 +59,6 @@ class Distrobution {
 		//	increment by value
 		//	add into result array
 		//set result array to this.distro
-	}
-
-	luckOfResult = function (result) {
-		result = result - this.min
-		//return this.distro[result]/2 + sum(this.distro[min:result-1])
 	}
 }
 

@@ -27,3 +27,12 @@ test("addNumber", () => {
 	expect(distroMultiple1.odds(1)).toBe(4)
 	expect(distroMultiple1.odds(2)).toBe(9)
 })
+
+test("luckOfResult", () => {
+	expect(distro1.luckOfResult(1)).toBe(0.5)
+	expect(distroNegative.luckOfResult(1)).toBe(0.5)
+	expect(distroMultiple1.luckOfResult(1)).toBe(2 / 13)
+	expect(distroMultiple1.luckOfResult(2)).toBe(8.5 / 13)
+	expect(distroD6.luckOfResult(1)).toBe(0.5 / 21)
+	expect(distroD6.luckOfResult(4)).toBe(8 / 21)
+})
