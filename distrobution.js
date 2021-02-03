@@ -26,7 +26,7 @@ class Distrobution {
 		this.min = 1
 	}
 
-	probabilityOfResult = function (result) {
+	odds = function (result) {
 		return this.distro[result - this.min]
 	}
 
