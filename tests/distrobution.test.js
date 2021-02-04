@@ -6,6 +6,11 @@ const distroMultiple1 = new Distrobution([4, 9])
 const distroMultiple2 = new Distrobution([18, 42])
 const distroD6 = new Distrobution([1, 2, 3, 4, 5, 6])
 
+arrayEqual = function (a, b) {
+	expect(a).toEqual(expect.arrayContaining(b))
+	expect(b).toEqual(expect.arrayContaining(a))
+}
+
 test("probabilityOfDistrabution", () => {
 	expect(distro1.odds(1)).toBe(1)
 	expect(distroNegative.odds(1)).toBe(-3)
@@ -35,4 +40,16 @@ test("luckOfResult", () => {
 	expect(distroMultiple1.luckOfResult(2)).toBe(8.5 / 13)
 	expect(distroD6.luckOfResult(1)).toBe(0.5 / 21)
 	expect(distroD6.luckOfResult(4)).toBe(8 / 21)
+})
+
+test("combine", () => {
+	var distro1 = new Distrobution([1])
+	distro1.combine(distro1)
+	arrayEqual(distro1.distro, [1])
+
+	var distroD4 = new Distrobution([1, 1, 1, 1])
+	var distroD6 = new Distrobution([1, 1, 1, 1, 1, 1])
+	distroD4.combine(distroD6)
+	expect(distroD4.distro).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
+	expect(distroD4.min).toBe(2)
 })

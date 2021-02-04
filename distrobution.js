@@ -41,7 +41,6 @@ class Distrobution {
 
 	addNumber = function (num) {
 		this.min += num
-		console.log(this.min)
 	}
 
 	luckOfResult = function (result) {
@@ -52,13 +51,16 @@ class Distrobution {
 		)
 	}
 
-	combine = function () {
-		//create new array that has size of maxA+maxB - minA-minB
-		//for each value of b
-		//	copy a to dummie array
-		//	increment by value
-		//	add into result array
-		//set result array to this.distro
+	combine = function (other) {
+		var combined = new Array(this.distro.length + other.distro.length - 1).fill(
+			0
+		)
+		const min = this.min + other.min
+		for (var i = 0; i < this.distro.length; i++)
+			for (var j = 0; j < other.distro.length; j++)
+				combined[i + j] += this.distro[i] * other.distro[j]
+	this.distro = combined
+		this.min = min
 	}
 }
 
