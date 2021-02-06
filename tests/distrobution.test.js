@@ -1,10 +1,10 @@
-const Distrobution = require("../distrobution")
+const Distribution = require("../distribution")
 
-const distro1 = new Distrobution([1])
-const distroNegative = new Distrobution([-3])
-const distroMultiple1 = new Distrobution([4, 9])
-const distroMultiple2 = new Distrobution([18, 42])
-const distroD6 = new Distrobution([1, 2, 3, 4, 5, 6])
+const distro1 = new Distribution([1])
+const distroNegative = new Distribution([-3])
+const distroMultiple1 = new Distribution([4, 9])
+const distroMultiple2 = new Distribution([18, 42])
+const distroD6 = new Distribution([1, 2, 3, 4, 5, 6])
 
 arrayEqual = function (a, b) {
 	expect(a).toEqual(expect.arrayContaining(b))
@@ -43,12 +43,12 @@ test("luckOfResult", () => {
 })
 
 test("combine", () => {
-	var distro1 = new Distrobution([1])
+	var distro1 = new Distribution([1])
 	distro1.combine(distro1)
 	arrayEqual(distro1.distro, [1])
 
-	var distroD4 = new Distrobution([1, 1, 1, 1])
-	var distroD6 = new Distrobution([1, 1, 1, 1, 1, 1])
+	var distroD4 = new Distribution([1, 1, 1, 1])
+	var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
 	distroD4.combine(distroD6)
 	expect(distroD4.distro).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
 	expect(distroD4.min).toBe(2)

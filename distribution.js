@@ -29,7 +29,7 @@ function sum(arr) {
 	return sum
 }
 
-class Distrobution {
+class Distribution {
 	constructor(probabilities) {
 		this.distro = probabilities
 		this.min = 1
@@ -59,20 +59,20 @@ class Distrobution {
 		for (var i = 0; i < this.distro.length; i++)
 			for (var j = 0; j < other.distro.length; j++)
 				combined[i + j] += this.distro[i] * other.distro[j]
-	this.distro = combined
+		this.distro = combined
 		this.min = min
 	}
 }
 
 class roll {
 	constructor(probabilities, result) {
-		this.distro = new Distrobution(probabilities)
+		this.distro = new Distribution(probabilities)
 		this.result = result
 	}
 
-	addRoll = function (roll) {
-		this.distro.add(roll.distro)
-		this.result = roll.result
+	combineRoll = function (roll) {
+		this.distro.combine(roll.distro)
+		this.result += roll.result
 	}
 
 	luck = function () {
@@ -81,5 +81,5 @@ class roll {
 }
 
 if (typeof module !== "undefined") {
-	module.exports = Distrobution
+	module.exports = Distribution
 }
