@@ -1,12 +1,14 @@
-const Distribution = require("./distribution").Distribution
-const Roll = require("./distribution").Roll
-const parse = require("./parse")
+if (typeof module !== "undefined") {
+	Distribution = require("./distribution").Distribution
+	Roll = require("./distribution").Roll
+	parseDiceCode = require("./parse").parseDiceCode
+}
 
 errorWrapper = function (func) {
 	try {
 		func()
 	} catch (err) {
-		window.prompt("error!", err)
+		window.prompt("error!", err.stack)
 		throw err
 	}
 }
@@ -30,7 +32,7 @@ class RollLog {
 		this.rolls = []
 		for (var i = 0; i < this.diceCodes.length; i++)
 			this.rolls[this.rolls.length] = new Roll(
-				parse.parseDiceCode(this.diceCodes[i]),
+				parseDiceCode(this.diceCodes[i]),
 				this.results[i]
 			)
 

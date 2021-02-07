@@ -31,6 +31,8 @@ function sum(arr) {
 
 class Distribution {
 	constructor(probabilities) {
+		if (!Array.isArray(probabilities))
+			throw new TypeError(JSON.stringify(probabilities) + " is not an array.")
 		this.distro = probabilities
 		this.min = 1
 	}
@@ -66,17 +68,17 @@ class Distribution {
 
 class Roll {
 	constructor(probabilities, result) {
-		this.distro = new Distribution(probabilities)
+		this.dist = probabilities
 		this.result = result
 	}
 
 	combineRoll = function (roll) {
-		this.distro.combine(roll.distro)
+		this.dist.combine(roll.dist)
 		this.result += roll.result
 	}
 
 	luck = function () {
-		return this.distro.luckOfResult(this.result)
+		return this.dist.luckOfResult(this.result)
 	}
 }
 

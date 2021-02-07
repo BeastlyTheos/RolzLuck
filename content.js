@@ -20,7 +20,18 @@ errorWrapper(function () {
 			for (const mutation of mutationsList)
 				if (RollLog.isNewMessageMutation(mutation)) {
 					var log = new RollLog(mutation)
-					logs[logs.length] = log
+					try {
+						for (var i = 0; i < log.rolls.length; i++)
+							logs[logs.length] = JSON.stringify({
+								name: log.name,
+								diceCode: log.diceCodes[i],
+								result: log.results[i],
+								luck: log.rolls[i].luck(),
+								time: log.time,
+							})
+					} catch (TypeError) {
+						//throw new Error("improper distro object : "+ log.diceCodes[i] + " produced distro "+ JSON.stringify(log.rolls[i].distro))
+					}
 				}
 		})
 	}

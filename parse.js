@@ -1,4 +1,6 @@
-const Distribution = require("./Distribution").Distribution
+if (typeof module !== "undefined") {
+	Distribution = require("./Distribution").Distribution
+}
 
 parseDiceCode = function (diceCode) {
 	values = []
