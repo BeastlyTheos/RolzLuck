@@ -1,4 +1,4 @@
-const Distribution = require("./Distribution")
+const Distribution = require("./Distribution").Distribution
 
 parseDiceCode = function (diceCode) {
 	values = []

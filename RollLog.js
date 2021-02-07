@@ -1,3 +1,7 @@
+const Distribution = require("./distribution").Distribution
+const Roll = require("./distribution").Roll
+const parse = require("./parse")
+
 errorWrapper = function (func) {
 	try {
 		func()
@@ -23,6 +27,13 @@ class RollLog {
 		this.results = []
 		for (const span of node.getElementsByClassName("result2"))
 			this.results[this.results.length] = parseInt(span.innerHTML)
+		this.rolls = []
+		for (var i = 0; i < this.diceCodes.length; i++)
+			this.rolls[this.rolls.length] = new Roll(
+				parse.parseDiceCode(this.diceCodes[i]),
+				this.results[i]
+			)
+
 		this.time = Date.now()
 	}
 

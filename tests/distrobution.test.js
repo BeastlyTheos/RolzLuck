@@ -1,4 +1,4 @@
-const Distribution = require("../distribution")
+const Distribution = require("../distribution").Distribution
 
 const distro1 = new Distribution([1])
 const distroNegative = new Distribution([-3])

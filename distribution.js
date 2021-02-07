@@ -64,7 +64,7 @@ class Distribution {
 	}
 }
 
-class roll {
+class Roll {
 	constructor(probabilities, result) {
 		this.distro = new Distribution(probabilities)
 		this.result = result
@@ -81,5 +81,6 @@ class roll {
 }
 
 if (typeof module !== "undefined") {
-	module.exports = Distribution
+	module.exports.Distribution = Distribution
+	module.exports.Roll = Roll
 }
