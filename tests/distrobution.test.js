@@ -52,4 +52,10 @@ test("combine", () => {
 	distroD4.combine(distroD6)
 	expect(distroD4.distro).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
 	expect(distroD4.min).toBe(2)
+
+	var distroD2 = new Distribution([1, 1])
+	var distro1 = new Distribution([1])
+	distroD2.combine(distro1)
+	expect(distroD2.distro).toEqual([1, 1])
+	expect(distroD2.min).toBe(2)
 })

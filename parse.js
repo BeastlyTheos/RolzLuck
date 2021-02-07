@@ -22,7 +22,7 @@ parseDiceCode = function (diceCode) {
 			num += diceCode[i] - "0"
 			i++
 		}
-		if (roll) var dist = new Distribution(new Array(parseInt).fill(1))
+		if (roll) var dist = new Distribution(new Array(parseInt(num)).fill(1))
 		else {
 			var dist = new Distribution([1])
 			dist.min = num
@@ -30,6 +30,9 @@ parseDiceCode = function (diceCode) {
 		if (sign == "-") dist.min = -1 * dist.min + 1 - dist.distro.length
 		values[values.length] = dist
 		i++
+		sign = "+"
+		roll = false
+		num = 0
 	}
 	var distro = values[0]
 	for (var i = 1; i < values.length; i++) distro.combine(values[i])
