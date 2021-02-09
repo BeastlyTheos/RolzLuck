@@ -9,18 +9,21 @@ class RollMessage {
 		var span = this.node.getElementsByClassName("username")
 		var name = span[0].innerHTML
 		this.name = name
+		this.rolls = []
 
-		this.diceCodes = []
+		var diceCodes = []
 		for (const ancor of this.node.getElementsByTagName("a"))
 			if (ancor.hasAttribute("onclick"))
-				this.diceCodes[this.diceCodes.length] = ancor.innerHTML
+				diceCodes[diceCodes.length] = ancor.innerHTML
+		var resultNodes = this.node.getElementsByClassName("result2")
+		for (var i = 0; i < diceCodes.length; i++)
+			this.rolls[this.rolls.length] = new Roll(
+				diceCodes[i],
+				parseInt(resultNodes[i].innerHTML),
+				resultNodes[i]
+			)
 
-		this.results = []
-		for (const span of this.node.getElementsByClassName("result2"))
-			this.results[this.results.length] = parseInt(span.innerHTML)
-
-		this.rolls = new Array().fill(null)
-		this.combined = null
+		this.combinedRoll = null
 		this.time = Date.now()
 	}
 
@@ -36,4 +39,5 @@ class RollMessage {
 
 if (typeof module !== "undefined") {
 	module.exports = RollMessage
+	module.exports.Roll = Roll
 }
