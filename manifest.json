@@ -7,7 +7,7 @@
 				"jquery-2.2.4.min.js",
 				"parse.js",
 				"distribution.js",
-				"RollLog.js",
+				"RollMessage.js",
 				"content.js"
 			]
 		}

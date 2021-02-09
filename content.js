@@ -1,5 +1,18 @@
 var logs = []
 
+errorWrapper = function (func) {
+	try {
+		func()
+	} catch (err) {
+		window.prompt("error!", err.stack)
+		throw err
+	}
+}
+
+str = JSON.stringify
+
+// code to execute when receiving a message from the background script
+// currently runs whenever the browser action is requested
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	errorWrapper(function () {
 		window.prompt("", JSON.stringify(logs))
@@ -9,7 +22,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 errorWrapper(function () {
 	// Select the node that will be observed for mutations
 	const targetNode = document.getElementById("output")
-	//window.prompt("", JSON.stringify(targetNode.text()));
 
 	// Options for the observer (which mutations to observe)
 	const config = {childList: true}
@@ -18,8 +30,8 @@ errorWrapper(function () {
 	const callback = function (mutationsList, observer) {
 		errorWrapper(() => {
 			for (const mutation of mutationsList)
-				if (RollLog.isNewMessageMutation(mutation)) {
-					var log = new RollLog(mutation)
+				if (RollMessage.isNewMessageMutation(mutation)) {
+					var log = new RollMessage(mutation)
 					try {
 						for (var i = 0; i < log.rolls.length; i++)
 							logs[logs.length] = JSON.stringify({
@@ -72,7 +84,4 @@ errorWrapper(function () {
 
 	// Start observing the target node for configured mutations
 	observer.observe(targetNode, config)
-
-	// Later, you can stop observing
-	//observer.disconnect();
 })
