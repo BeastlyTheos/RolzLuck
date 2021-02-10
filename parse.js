@@ -4,6 +4,7 @@ if (typeof module !== "undefined") {
 }
 
 let lexer = moo.compile({
+	WS: {match: /\s+/, value: (s) => "", lineBreaks: true},
 	int: {match: /\d+/, value: (x) => parseInt(x)},
 	plus: "+",
 })
