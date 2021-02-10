@@ -30,7 +30,8 @@ function sum(arr) {
 }
 
 class Distribution {
-	constructor(probabilities) {
+	constructor(diceCode) {
+		//parse diceCode into a series of distributions then combine them
 		if (!Array.isArray(probabilities))
 			throw new TypeError(JSON.stringify(probabilities) + " is not an array.")
 		this.distro = probabilities
@@ -66,10 +67,12 @@ class Distribution {
 	}
 }
 
-class Roll {
-	constructor(probabilities, result) {
-		this.dist = probabilities
+class Roll extends Distribution {
+	constructor(diceCode, result, resultNode) {
+		this.diceCode = diceCode
 		this.result = result
+		this.resultNode = resultNode
+		this.dist = new Distribution(this.diceCode)
 	}
 
 	combineRoll = function (roll) {
@@ -77,8 +80,9 @@ class Roll {
 		this.result += roll.result
 	}
 
-	luck = function () {
-		return this.dist.luckOfResult(this.result)
+	getLuck = function () {
+		if (!this.luck) this.luck = this.dist.luckOfResult(this.result)
+		return this.luck
 	}
 }
 

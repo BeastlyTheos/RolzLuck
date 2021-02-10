@@ -1,6 +1,7 @@
 if (typeof module !== "undefined") {
 	Distribution = require("./Distribution").Distribution
 }
+// use this library to tokenize and parse. https://nearley.js.org/docs/tokenizers
 
 parseDiceCode = function (diceCode) {
 	values = []
