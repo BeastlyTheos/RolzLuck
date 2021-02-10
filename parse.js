@@ -1,7 +1,12 @@
 if (typeof module !== "undefined") {
 	Distribution = require("./Distribution").Distribution
+	moo = require("./moo")
 }
-// use this library to tokenize and parse. https://nearley.js.org/docs/tokenizers
+
+let lexer = moo.compile({
+	int: {match: /\d+/, value: (x) => parseInt(x)},
+	plus: "+",
+})
 
 parseDiceCode = function (diceCode) {
 	values = []
@@ -44,4 +49,5 @@ parseDiceCode = function (diceCode) {
 
 if (typeof module !== "undefined") {
 	module.exports.parseDiceCode = parseDiceCode
+	module.exports.lexer = lexer
 }

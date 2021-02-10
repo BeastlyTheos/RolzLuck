@@ -1,16 +1,16 @@
 const parse = require("../parse")
 
-test("parseDiceCode", () => {
-	check("1", [1])
-	check("+1", [1], 1)
-	check("-1", [1], -1)
-	check(" d4", [1, 1, 1, 1], 1)
-	check(" - d3", [1, 1, 1], -3)
-	check("d2+1", [1, 1], 2)
+describe("lexer", () => {
+	test("lexer tokenizes", () => {
+		parse.lexer.reset("1+2")
+		for (const expectedTok of [
+			["int", 1],
+			["plus", "+"],
+			["int", 2],
+		]) {
+			tok = parse.lexer.next()
+			expect(tok.type).toBe(expectedTok[0])
+			expect(tok.value).toBe(expectedTok[1])
+		}
+	})
 })
-
-check = function (diceCode, expectedDistro, expectedMin = 1) {
-	var distro = parse.parseDiceCode(diceCode)
-	expect(distro.distro).toEqual(expectedDistro)
-	expect(distro.min).toBe(expectedMin)
-}
