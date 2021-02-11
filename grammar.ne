@@ -8,7 +8,9 @@ class dice {
 %}
 
 
-expr -> dice
+expr -> sum {% id %}
+sum -> sum "+" scalar | scalar {% id %}
+scalar -> dice| int {% id %}
 dice -> int [Dd] int {%
 	function ([numDice, d, sides]) {
 		return new dice(sides, numDice) 
