@@ -6,16 +6,23 @@ const compiledGrammar = nearley.Grammar.fromCompiled(grammar)
 
 class sample {}
 test("parsing atomic dice codes", () => {
-	for ([code, sides] of [
-		["D1", 1],
-		["d6", 6],
-		["d20", 20],
-		["D48", 48],
+	for ([code, numDice, sides] of [
+		["D1", 1, 1],
+		["d6", 1, 6],
+		["d20", 1, 20],
+		["D48", 1, 48],
+		["3D8", 3, 8],
+		["4d6", 4, 6],
 	]) {
-		parser = new nearley.Parser(compiledGrammar)
-		parser.feed(code)
-		expect(parser.results.length).toBe(1)
-		res = parser.results[0]
-		expect(res[0]).toBe(sides)
+		try {
+			parser = new nearley.Parser(compiledGrammar)
+			parser.feed(code)
+			expect(parser.results.length).toBe(1)
+			res = parser.results[0]
+			expect(res[0].sides).toBe(sides)
+		} catch (err) {
+			err.message += "\nProblem with " + code
+			throw err
+		}
 	}
 })
