@@ -1,29 +1,21 @@
-const parse = require("../parse")
+const nearley = require("nearley")
+const lexer = require("../parse").lexer
+const grammar = require("../grammar.js")
 
-describe("lexer", () => {
-	test("lexer tokenizes", () => {
-		testLexer("1+2", [
-			["int", 1],
-			["plus", "+"],
-			["int", 2],
-		])
-		testLexer("\t 32 +\t 1111 \t", [
-			["WS", ""],
-			["int", 32],
-			["WS", ""],
-			["plus", "+"],
-			["WS", ""],
-			["int", 1111],
-			["WS", ""],
-		])
-	})
-})
+const compiledGrammar = nearley.Grammar.fromCompiled(grammar)
 
-testLexer = function (input, expectedTokens) {
-	parse.lexer.reset(input)
-	for (const expectedTok of expectedTokens) {
-		tok = parse.lexer.next()
-		expect(tok.type).toBe(expectedTok[0])
-		expect(tok.value).toBe(expectedTok[1])
+class sample {}
+test("parsing atomic dice codes", () => {
+	for ([code, sides] of [
+		["D1", 1],
+		["d6", 6],
+		["d20", 20],
+		["D48", 48],
+	]) {
+		parser = new nearley.Parser(compiledGrammar)
+		parser.feed(code)
+		expect(parser.results.length).toBe(1)
+		res = parser.results[0]
+		expect(res[0]).toBe(sides)
 	}
-}
+})
