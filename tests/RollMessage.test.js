@@ -1,5 +1,6 @@
 const RollMessage = require("../RollMessage")
 const samples = require("./testSamples")
+Roll = RollMessage.Roll.prototype.constructor = jest.fn()
 
 test("isNewMessageMutation returns true when given a new message mutation", () => {
 	for (mutation of samples.rollMutations) {
@@ -20,15 +21,15 @@ test("parseNewMessageMutation finds correct name", () => {
 	}
 })
 
-test("RollMessage constructor extracts the text and results of all dice codes", () => {
-	for (roll of samples.rolls) {
-		log = new RollMessage(roll.mutation)
-		expect(log.name).toBe(roll.name)
-		//dice codes
-		expect(log.diceCodes).toEqual(expect.arrayContaining(roll.diceCodes))
-		expect(roll.diceCodes).toEqual(expect.arrayContaining(log.diceCodes))
-		//results
-		expect(log.results).toEqual(expect.arrayContaining(roll.results))
-		expect(roll.results).toEqual(expect.arrayContaining(log.results))
+test("RollMessage constructor", () => {
+	for (sampleRoll of samples.rolls) {
+		Roll.mockClear()
+		log = new RollMessage(sampleRoll.mutation)
+		expect(log.name).toBe(sampleRoll.name)
+		expect(Roll.mock.calls.length).toBe(sampleRoll.diceCodes.length)
+		for (i = 0; i < sampleRoll.diceCodes.length; i++) {
+			expect(Roll.mock.calls[i][0]).toBe(sampleRoll.diceCodes[i])
+			expect(Roll.mock.calls[i][1]).toBe(sampleRoll.results[i])
+		}
 	}
 })

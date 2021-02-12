@@ -1,6 +1,13 @@
 if (typeof module !== "undefined") {
 	Distribution = require("./Distribution").Distribution
+	moo = require("./moo")
 }
+
+let lexer = moo.compile({
+	WS: {match: /\s+/, value: (s) => "", lineBreaks: true},
+	int: {match: /\d+/, value: (x) => parseInt(x)},
+	plus: "+",
+})
 
 parseDiceCode = function (diceCode) {
 	values = []
@@ -43,4 +50,5 @@ parseDiceCode = function (diceCode) {
 
 if (typeof module !== "undefined") {
 	module.exports.parseDiceCode = parseDiceCode
+	module.exports.lexer = lexer
 }

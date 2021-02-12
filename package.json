@@ -1,5 +1,9 @@
 {
 	"scripts": {
 		"test": "jest"
+	},
+	"dependencies": {
+		"a": "^2.1.2",
+		"nearley": "^2.20.1"
 	}
 }
