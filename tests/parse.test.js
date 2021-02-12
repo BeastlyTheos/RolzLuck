@@ -1,9 +1,4 @@
-const nearley = require("nearley")
-const lexer = require("../parse").lexer
-const grammar = require("../grammar.js")
-
-const compiledGrammar = nearley.Grammar.fromCompiled(grammar)
-
+const parser = require("../parse")
 const zip = (a, b) => a.map((e, i) => [e, b[i]])
 
 test("parsing atomic dice codes", () => {
@@ -16,10 +11,9 @@ test("parsing atomic dice codes", () => {
 		["4d6", 4, 6],
 	]) {
 		try {
-			parser = new nearley.Parser(compiledGrammar)
-			parser.feed(code)
-			expect(parser.results.length).toBe(1)
-			res = parser.results[0]
+			results = parser.feed(code)
+			expect(results.length).toBe(1)
+			res = results[0]
 			expect(res.sides).toBe(sides)
 		} catch (err) {
 			err.message += "\nProblem with " + code + "\nres is " + res
@@ -43,10 +37,9 @@ test("simple addition and subtraction", () => {
 			["-+12", -12],
 			["+83+92+-12", [[83, "+", 92], "+", -12]],
 		])
-			parser = new nearley.Parser(compiledGrammar)
-		parser.feed(expr)
-		expect(parser.results.length).toBe(1)
-		res = parser.results[0]
+			results = parser.feed(expr)
+		expect(results.length).toBe(1)
+		res = results[0]
 		expect(res).toEqual(expectedTree)
 		treeEquality(res, expectedTree)
 	} catch (err) {
@@ -69,14 +62,13 @@ test("unary plus and minus", () => {
 			["-+13", -13],
 			["+83+92+-12", [[83, "+", 92], "+", -12]],
 		])
-			parser = new nearley.Parser(compiledGrammar)
-		parser.feed(expr)
-		expect(parser.results.length).toBe(1)
-		res = parser.results[0]
+			results = parser.feed(expr)
+		expect(results.length).toBe(1)
+		res = results[0]
 		expect(res).toEqual(expectedTree)
 		treeEquality(res, expectedTree)
 	} catch (err) {
-		err.message += "\nexpression: " + expr + "\n" + res
+		err.message += "\nexpression: " + expr
 		throw err
 	}
 })
@@ -90,10 +82,9 @@ test("adding scalars and dice codes", () => {
 			["4+92D12+83", [[4, "+", {numDice: 92, sides: 12}], "+", 83]],
 			["4-92D12-83", [[4, "-", {numDice: 92, sides: 12}], "-", 83]],
 		])
-			parser = new nearley.Parser(compiledGrammar)
-		parser.feed(expr)
-		expect(parser.results.length).toBe(1)
-		res = parser.results[0]
+			results = parser.feed(expr)
+		expect(results.length).toBe(1)
+		res = results[0]
 		treeEquality(res, expectedTree)
 	} catch (err) {
 		err.message += "\nexpression: " + expr
