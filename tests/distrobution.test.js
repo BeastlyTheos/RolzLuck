@@ -33,6 +33,7 @@ test("addNumber", () => {
 	expect(distroMultiple1.odds(2)).toBe(9)
 })
 
+/*
 test("luckOfResult", () => {
 	expect(distro1.luckOfResult(1)).toBe(0.5)
 	expect(distroNegative.luckOfResult(1)).toBe(0.5)
@@ -41,21 +42,22 @@ test("luckOfResult", () => {
 	expect(distroD6.luckOfResult(1)).toBe(0.5 / 21)
 	expect(distroD6.luckOfResult(4)).toBe(8 / 21)
 })
+*/
 
 test("combine", () => {
 	var distro1 = new Distribution([1])
 	distro1.combine(distro1)
-	arrayEqual(distro1.distro, [1])
+	arrayEqual(distro1.dist, [1])
 
 	var distroD4 = new Distribution([1, 1, 1, 1])
 	var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
 	distroD4.combine(distroD6)
-	expect(distroD4.distro).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
+	expect(distroD4.dist).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
 	expect(distroD4.min).toBe(2)
 
 	var distroD2 = new Distribution([1, 1])
 	var distro1 = new Distribution([1])
 	distroD2.combine(distro1)
-	expect(distroD2.distro).toEqual([1, 1])
+	expect(distroD2.dist).toEqual([1, 1])
 	expect(distroD2.min).toBe(2)
 })
