@@ -30,8 +30,7 @@ function sum(arr) {
 }
 
 class Distribution {
-	constructor(diceCode) {
-		//parse diceCode into a series of distributions then combine them
+	constructor(probabilities) {
 		if (!Array.isArray(probabilities))
 			throw new TypeError(JSON.stringify(probabilities) + " is not an array.")
 		this.distro = probabilities
