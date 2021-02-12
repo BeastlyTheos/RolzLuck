@@ -38,6 +38,36 @@ test("simple addition and subtraction", () => {
 			["1-1", [1, "-", 1]],
 			["8-9+3", [[8, "-", 9], "+", 3]],
 			["5+2-8", [[5, "+", 2], "-", 8]],
+			["-5+2-8", [[-5, "+", 2], "-", 8]],
+			["+-12", -12],
+			["-+12", -12],
+			["+83+92+-12", [[83, "+", 92], "+", -12]],
+		])
+			parser = new nearley.Parser(compiledGrammar)
+		parser.feed(expr)
+		expect(parser.results.length).toBe(1)
+		res = parser.results[0]
+		expect(res).toEqual(expectedTree)
+		treeEquality(res, expectedTree)
+	} catch (err) {
+		err.message += "\nexpression: " + expr + "\n" + res
+		throw err
+	}
+})
+
+test("unary plus and minus", () => {
+	try {
+		for ([expr, expectedTree] of [
+			["-10", -10],
+			["-+9", 9],
+			["1+-1", [1, "+", -1]],
+			["2-+4", [2, "+", 4]],
+			["-5+2-8", [[-5, "+", 2], "-", 8]],
+			["-12", -12],
+			["+42", 42],
+			["+-090", -90],
+			["-+13", -13],
+			["+83+92+-12", [[83, "+", 92], "+", -12]],
 		])
 			parser = new nearley.Parser(compiledGrammar)
 		parser.feed(expr)

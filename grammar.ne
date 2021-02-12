@@ -23,3 +23,4 @@ dice -> int [Dd] int {%
 		return new dice(sides)
 	} %}
 int -> [0-9]:+ {% (data) => { return parseInt(data[0].join("")) } %}
+	| [+-] int {% ([operator, value]) => "-"==operator? -1*value: value %}
