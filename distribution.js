@@ -29,6 +29,20 @@ function sum(arr) {
 	return sum
 }
 
+class Dice {
+	constructor(sides, numDice = 1) {
+		this.numDice = numDice
+		this.sides = sides
+	}
+
+	createDistribution = function () {
+		var odds = new Array(this.sides).fill(1)
+		var dist = new Distribution(odds)
+		for (var i = 1; i < this.numDice; i++) dist.combine(new Distribution(odds))
+		return dist
+	}
+}
+
 class Distribution {
 	constructor(odds, min = 1) {
 		this.dist = odds
@@ -81,6 +95,7 @@ class Roll extends Distribution {
 }
 
 if (typeof module !== "undefined") {
+	module.exports.Dice = Dice
 	module.exports.Distribution = Distribution
 	module.exports.Roll = Roll
 }
