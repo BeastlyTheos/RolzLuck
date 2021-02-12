@@ -10,6 +10,7 @@ class dice {
 
 expr -> sum {% id %}
 sum -> sum "+" scalar
+	| sum "-" scalar
 	| scalar {% id %}
 scalar -> dice{% id %}
 	| int {% id %}

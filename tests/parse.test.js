@@ -28,13 +28,16 @@ test("parsing atomic dice codes", () => {
 	}
 })
 
-test("simple addition", () => {
+test("simple addition and subtraction", () => {
 	try {
 		for ([expr, expectedTree] of [
 			["10", 10],
 			["1+1", [1, "+", 1]],
 			["2+4", [2, "+", 4]],
 			["83+92+12", [[83, "+", 92], "+", 12]],
+			["1-1", [1, "-", 1]],
+			["8-9+3", [[8, "-", 9], "+", 3]],
+			["5+2-8", [[5, "+", 2], "-", 8]],
 		])
 			parser = new nearley.Parser(compiledGrammar)
 		parser.feed(expr)
@@ -55,6 +58,7 @@ test("adding scalars and dice codes", () => {
 			["d20+4", [{numDice: 1, sides: 20}, 4]],
 			["92D12+83", [{numDice: 92, sides: 12}, 83]],
 			["4+92D12+83", [[4, "+", {numDice: 92, sides: 12}], "+", 83]],
+			["4-92D12-83", [[4, "-", {numDice: 92, sides: 12}], "-", 83]],
 		])
 			parser = new nearley.Parser(compiledGrammar)
 		parser.feed(expr)
