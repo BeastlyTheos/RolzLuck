@@ -69,7 +69,74 @@ describe("creating distributions from dice codes", () => {
 	test("trivial dice codes", () => {
 		for (sides of [1, 2, 3, 0, 10, 20, 103]) {
 			dist = new Dice(sides).createDistribution()
-			expect(dist.dist).toEqual(new Array(sides).fill(2))
+			expect(dist.dist).toEqual(new Array(sides).fill(1))
+		}
+	})
+
+	test("dice codes with few dice", () => {
+		try {
+			for ([numDice, sides, expectedDist] of [
+				[2, 1, [1]],
+				[2, 2, [1, 2, 1]],
+				[3, 3, [1, 3, 6, 7, 6, 3, 1]],
+			]) {
+				dist = new Dice(sides, numDice).createDistribution()
+				expect(dist.min).toBe(numDice)
+				expect(dist.dist).toEqual(expectedDist)
+			}
+		} catch (err) {
+			err.message += "\nnumDice " + numDice + ". sides " + sides
+			throw err
+		}
+	})
+
+	test("dice codes with huge numbers of dice", () => {
+		try {
+			for ([numDice, sides] of [
+				[1, 1],
+				[1, 2],
+				[1, 3],
+				[1, 0],
+				[1, 10],
+				[1, 20],
+				[1, 103],
+				[2, 1],
+				[2, 2],
+				[2, 3],
+				[2, 0],
+				[2, 10],
+				[2, 20],
+				[2, 103],
+				[7, 1],
+				[7, 2],
+				[7, 3],
+				[7, 0],
+				[7, 10],
+				[7, 20],
+				[7, 103],
+				[0, 1],
+				[0, 2],
+				[0, 3],
+				[0, 0],
+				[0, 10],
+				[0, 20],
+				[0, 103],
+				[93, 1],
+				[93, 2],
+				[93, 3],
+				[93, 0],
+				[93, 10],
+				[93, 20],
+				[93, 103],
+			]) {
+				dist = new Dice(sides, numDice).createDistribution()
+				expect(dist.min).toBe(numDice)
+				expect(dist.dist.length).toBe(numDice * sides - numDice + 1)
+				expect(dist.dist[0]).toBe(1)
+				expect(dist.dist[dist.dist.length - 1]).toBe(1)
+			}
+		} catch (err) {
+			err.message += "\nnumDice " + numDice + ". sides " + sides
 		}
 	})
 })
