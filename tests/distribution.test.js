@@ -12,41 +12,25 @@ arrayEqual = function (a, b) {
 	expect(b).toEqual(expect.arrayContaining(a))
 }
 
-describe("distribution", () => {
-	test("probabilityOfDistrabution", () => {
-		expect(distro1.odds(1)).toBe(1)
-		expect(distroNegative.odds(1)).toBe(-3)
-		expect(distroMultiple2.odds(1)).toBe(18)
-		expect(distroMultiple2.odds(2)).toBe(42)
-		expect(distroD6.odds(5)).toBe(5)
+describe("misc distribution functions", () => {
+	test("oddsOfResult", () => {
+		expect(distro1.oddsOfResult(1)).toBe(1)
+		expect(distroNegative.oddsOfResult(1)).toBe(-3)
+		expect(distroMultiple2.oddsOfResult(1)).toBe(18)
+		expect(distroMultiple2.oddsOfResult(2)).toBe(42)
+		expect(distroD6.oddsOfResult(5)).toBe(5)
 	})
 
-	test("addNumber", () => {
-		distro1.addNumber(12)
-		expect(distro1.odds(13)).toBe(1)
-		distro1.addNumber(-12)
-		expect(distro1.odds(1)).toBe(1)
-
-		distroMultiple1.addNumber(20)
-		expect(distroMultiple1.odds(21)).toBe(4)
-		expect(distroMultiple1.odds(22)).toBe(9)
-		distroMultiple1.addNumber(-20)
-		expect(distroMultiple1.odds(1)).toBe(4)
-		expect(distroMultiple1.odds(2)).toBe(9)
+	test("luckOfResult", () => {
+		expect(distro1.luckOfResult(1)).toBe(0.5)
+		expect(distroNegative.luckOfResult(1)).toBe(0.5)
+		expect(distroMultiple1.luckOfResult(1)).toBe(2 / 13)
+		expect(distroMultiple1.luckOfResult(2)).toBe(8.5 / 13)
+		expect(distroD6.luckOfResult(1)).toBe(0.5 / 21)
+		expect(distroD6.luckOfResult(4)).toBe(8 / 21)
 	})
 
-	/*
-test("luckOfResult", () => {
-	expect(distro1.luckOfResult(1)).toBe(0.5)
-	expect(distroNegative.luckOfResult(1)).toBe(0.5)
-	expect(distroMultiple1.luckOfResult(1)).toBe(2 / 13)
-	expect(distroMultiple1.luckOfResult(2)).toBe(8.5 / 13)
-	expect(distroD6.luckOfResult(1)).toBe(0.5 / 21)
-	expect(distroD6.luckOfResult(4)).toBe(8 / 21)
-})
-*/
-
-	test("combine", () => {
+	test("combine distributions", () => {
 		var distro1 = new Distribution([1])
 		distro1.combine(distro1)
 		arrayEqual(distro1.dist, [1])
@@ -138,5 +122,21 @@ describe("creating distributions from dice codes", () => {
 		} catch (err) {
 			err.message += "\nnumDice " + numDice + ". sides " + sides
 		}
+	})
+})
+
+describe("mathematical operations on distributions", () => {
+	test("addNumber", () => {
+		distro1.addNumber(12)
+		expect(distro1.oddsOfResult(13)).toBe(1)
+		distro1.addNumber(-12)
+		expect(distro1.oddsOfResult(1)).toBe(1)
+
+		distroMultiple1.addNumber(20)
+		expect(distroMultiple1.oddsOfResult(21)).toBe(4)
+		expect(distroMultiple1.oddsOfResult(22)).toBe(9)
+		distroMultiple1.addNumber(-20)
+		expect(distroMultiple1.oddsOfResult(1)).toBe(4)
+		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
 	})
 })

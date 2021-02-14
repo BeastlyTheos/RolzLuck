@@ -49,12 +49,8 @@ class Distribution {
 		this.min = min
 	}
 
-	odds = function (result) {
+	oddsOfResult = function (result) {
 		return this.dist[result - this.min]
-	}
-
-	addNumber = function (num) {
-		this.min += num
 	}
 
 	luckOfResult = function (result) {
@@ -72,6 +68,10 @@ class Distribution {
 				combined[i + j] += this.dist[i] * other.dist[j]
 		this.dist = combined
 		this.min = min
+	}
+
+	addNumber = function (num) {
+		this.min += num
 	}
 }
 
