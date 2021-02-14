@@ -139,4 +139,18 @@ describe("mathematical operations on distributions", () => {
 		expect(distroMultiple1.oddsOfResult(1)).toBe(4)
 		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
 	})
+
+	test("negate distribution", () => {
+		distro1.negate()
+		expect(distro1.oddsOfResult(-1)).toBe(1)
+		distro1.negate()
+		expect(distro1.oddsOfResult(1)).toBe(1)
+
+		distroMultiple1.negate()
+		expect(distroMultiple1.oddsOfResult(-1)).toBe(4)
+		expect(distroMultiple1.oddsOfResult(-2)).toBe(9)
+		distroMultiple1.negate()
+		expect(distroMultiple1.oddsOfResult(1)).toBe(4)
+		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
+	})
 })

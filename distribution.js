@@ -68,10 +68,17 @@ class Distribution {
 				combined[i + j] += this.dist[i] * other.dist[j]
 		this.dist = combined
 		this.min = min
+		return this
 	}
 
 	addNumber = function (num) {
 		this.min += num
+	}
+
+	negate = function () {
+		this.min = -1 * this.min - this.dist.length + 1
+		this.dist.reverse()
+		return this
 	}
 }
 
