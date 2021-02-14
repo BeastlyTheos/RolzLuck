@@ -29,40 +29,49 @@ function sum(arr) {
 	return sum
 }
 
+class Dice {
+	constructor(sides, numDice = 1) {
+		this.numDice = numDice
+		this.sides = sides
+	}
+
+	createDistribution = function () {
+		var odds = new Array(this.sides).fill(1)
+		var dist = new Distribution(odds)
+		for (var i = 1; i < this.numDice; i++) dist.combine(new Distribution(odds))
+		return dist
+	}
+}
+
 class Distribution {
-	constructor(probabilities) {
-		if (!Array.isArray(probabilities))
-			throw new TypeError(JSON.stringify(probabilities) + " is not an array.")
-		this.distro = probabilities
-		this.min = 1
+	constructor(odds, min = 1) {
+		this.dist = odds
+		this.min = min
 	}
 
-	odds = function (result) {
-		return this.distro[result - this.min]
-	}
-
-	addNumber = function (num) {
-		this.min += num
+	oddsOfResult = function (result) {
+		return this.dist[result - this.min]
 	}
 
 	luckOfResult = function (result) {
 		result -= this.min
 		return (
-			(sum(this.distro.slice(0, result)) + this.distro[result] / 2) /
-			sum(this.distro)
+			(sum(this.dist.slice(0, result)) + this.dist[result] / 2) / sum(this.dist)
 		)
 	}
 
 	combine = function (other) {
-		var combined = new Array(this.distro.length + other.distro.length - 1).fill(
-			0
-		)
+		var combined = new Array(this.dist.length + other.dist.length - 1).fill(0)
 		const min = this.min + other.min
-		for (var i = 0; i < this.distro.length; i++)
-			for (var j = 0; j < other.distro.length; j++)
-				combined[i + j] += this.distro[i] * other.distro[j]
-		this.distro = combined
+		for (var i = 0; i < this.dist.length; i++)
+			for (var j = 0; j < other.dist.length; j++)
+				combined[i + j] += this.dist[i] * other.dist[j]
+		this.dist = combined
 		this.min = min
+	}
+
+	addNumber = function (num) {
+		this.min += num
 	}
 }
 
@@ -86,6 +95,7 @@ class Roll extends Distribution {
 }
 
 if (typeof module !== "undefined") {
+	module.exports.Dice = Dice
 	module.exports.Distribution = Distribution
 	module.exports.Roll = Roll
 }
