@@ -17,9 +17,13 @@ parser = {
 	evaluate: function (tree) {
 		if (Array.isArray(tree)) {
 			if (tree.length == 1) return this.evaluate(tree[0])
-			if (tree.length == 3)
-				return this.evaluate(tree[0]).combine(this.evaluate(tree[2]))
-			else throw new Error("tree has wrong number of nodes at this level")
+			if (tree.length == 3) {
+				val1 = this.evaluate(tree[0])
+				op = tree[1]
+				val2 = this.evaluate(tree[2])
+				if (op === "-") val2.negate()
+				return val1.combine(val2)
+			} else throw new Error("tree has wrong number of nodes at this level")
 		} else {
 			if (typeof tree === "number") return new Distribution([1], tree)
 			if (tree instanceof Dice) return tree.createDistribution()

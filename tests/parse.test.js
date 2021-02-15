@@ -121,8 +121,8 @@ describe("evaluating AST's", () => {
 			["5", 5],
 			["1+1", 2],
 			["10+12", 22],
-			//["4-9", -5],
-			//["34-14", 20],
+			["4-9", -5],
+			["34-14", 20],
 		]) {
 			res = parser.evaluate(parser.feed(text)[0])
 			expect(res.min).toBe(expectedResult)
