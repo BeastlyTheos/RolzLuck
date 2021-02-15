@@ -113,3 +113,20 @@ describe("dice codes", () => {
 		} //end if they are not both arrays
 	}
 })
+
+describe("evaluating AST's", () => {
+	test("simple maths without dice codes", () => {
+		for ([text, expectedResult] of [
+			["1", 1],
+			["5", 5],
+			["1+1", 2],
+			["10+12", 22],
+			//["4-9", -5],
+			//["34-14", 20],
+		]) {
+			res = parser.evaluate(parser.feed(text)[0])
+			expect(res.min).toBe(expectedResult)
+			expect(res.dist).toEqual([1])
+		}
+	})
+})
