@@ -1,10 +1,6 @@
 @{%
-class dice {
-	constructor(sides, numDice=1) {
-		this.numDice = numDice
-		this.sides = sides
-	}
-}
+const Distribution = require("./distribution").Distribution
+const Dice = require("./distribution").Dice
 %}
 
 
@@ -16,11 +12,11 @@ scalar -> dice{% id %}
 	| int {% id %}
 dice -> int [Dd] int {%
 	function ([numDice, d, sides]) {
-		return new dice(sides, numDice) 
+		return new Dice(sides, numDice)
 	} %}
 	| [dD] int {%
 	 function([d, sides]) {
-		return new dice(sides)
+		return new Dice(sides)
 	} %}
 int -> [0-9]:+ {% (data) => { return parseInt(data[0].join("")) } %}
 	| [+-] int {% ([operator, value]) => "-"==operator? -1*value: value %}
