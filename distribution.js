@@ -45,6 +45,10 @@ class Dice {
 
 class Distribution {
 	constructor(odds, min = 1) {
+		if (!odds.length)
+			throw new Error(
+				"cannot create a probability distribution with 0 possible outcomes"
+			)
 		this.dist = odds
 		this.min = min
 	}
@@ -61,6 +65,10 @@ class Distribution {
 	}
 
 	combine = function (other) {
+		if (!other instanceof Distribution)
+			throw new ValueError(
+				"Cannot combine " + typeof other + " with a distribution"
+			)
 		var combined = new Array(this.dist.length + other.dist.length - 1).fill(0)
 		const min = this.min + other.min
 		for (var i = 0; i < this.dist.length; i++)

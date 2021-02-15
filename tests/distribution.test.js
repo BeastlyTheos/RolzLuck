@@ -51,7 +51,7 @@ describe("misc distribution functions", () => {
 
 describe("creating distributions from dice codes", () => {
 	test("trivial dice codes", () => {
-		for (sides of [1, 2, 3, 0, 10, 20, 103]) {
+		for (sides of [1, 2, 3, 10, 20, 103]) {
 			dist = new Dice(sides).createDistribution()
 			expect(dist.dist).toEqual(new Array(sides).fill(1))
 		}
