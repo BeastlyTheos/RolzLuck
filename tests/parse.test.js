@@ -115,7 +115,7 @@ describe("dice codes", () => {
 })
 
 describe("evaluating AST's", () => {
-	test("math without dice codes", () => {
+	;-test("math without dice codes", () => {
 		for ([text, expectedResult] of [
 			["1", 1],
 			["5", 5],
@@ -133,7 +133,7 @@ describe("evaluating AST's", () => {
 			["+----+++-12", -12],
 			["---++--38+---+14", -52],
 		]) {
-			res = parser.evaluate(parser.feed(text)[0])
+			res = parser.parse(text)
 			expect(res.min).toBe(expectedResult)
 			expect(res.dist).toEqual([1])
 		}

@@ -8,6 +8,10 @@ if (typeof module !== "undefined") {
 const compiledGrammar = nearley.Grammar.fromCompiled(grammar)
 
 parser = {
+	parse: function (input) {
+		return this.evaluate(this.feed(input)[0])
+	},
+
 	feed: function (input) {
 		_parser = new nearley.Parser(compiledGrammar)
 		_parser.feed(input)
