@@ -1,6 +1,5 @@
 if (typeof module !== "undefined") {
-	Distribution = require("./distribution").Distribution
-	Roll = require("./distribution").Roll
+	Roll = require("./roll")
 }
 
 class RollMessage {

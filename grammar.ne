@@ -1,6 +1,8 @@
 @{%
-const Distribution = require("./distribution").Distribution
-const Dice = require("./distribution").Dice
+if (typeof module !== "undefined" && typeof require != "undefined") {
+	const Distribution = require("./distribution").Distribution
+	const Dice = require("./distribution").Dice
+}
 %}
 
 
