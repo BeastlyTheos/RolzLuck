@@ -51,7 +51,7 @@ describe("misc distribution functions", () => {
 
 describe("creating distributions from dice codes", () => {
 	test("trivial dice codes", () => {
-		for (sides of [1, 2, 3, 0, 10, 20, 103]) {
+		for (sides of [1, 2, 3, 10, 20, 103]) {
 			dist = new Dice(sides).createDistribution()
 			expect(dist.dist).toEqual(new Array(sides).fill(1))
 		}
@@ -136,6 +136,20 @@ describe("mathematical operations on distributions", () => {
 		expect(distroMultiple1.oddsOfResult(21)).toBe(4)
 		expect(distroMultiple1.oddsOfResult(22)).toBe(9)
 		distroMultiple1.addNumber(-20)
+		expect(distroMultiple1.oddsOfResult(1)).toBe(4)
+		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
+	})
+
+	test("negate distribution", () => {
+		distro1.negate()
+		expect(distro1.oddsOfResult(-1)).toBe(1)
+		distro1.negate()
+		expect(distro1.oddsOfResult(1)).toBe(1)
+
+		distroMultiple1.negate()
+		expect(distroMultiple1.oddsOfResult(-1)).toBe(4)
+		expect(distroMultiple1.oddsOfResult(-2)).toBe(9)
+		distroMultiple1.negate()
 		expect(distroMultiple1.oddsOfResult(1)).toBe(4)
 		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
 	})

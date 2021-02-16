@@ -45,6 +45,10 @@ class Dice {
 
 class Distribution {
 	constructor(odds, min = 1) {
+		if (!odds.length)
+			throw new Error(
+				"cannot create a probability distribution with 0 possible outcomes"
+			)
 		this.dist = odds
 		this.min = min
 	}
@@ -61,6 +65,10 @@ class Distribution {
 	}
 
 	combine = function (other) {
+		if (!other instanceof Distribution)
+			throw new ValueError(
+				"Cannot combine " + typeof other + " with a distribution"
+			)
 		var combined = new Array(this.dist.length + other.dist.length - 1).fill(0)
 		const min = this.min + other.min
 		for (var i = 0; i < this.dist.length; i++)
@@ -68,34 +76,21 @@ class Distribution {
 				combined[i + j] += this.dist[i] * other.dist[j]
 		this.dist = combined
 		this.min = min
+		return this
 	}
 
 	addNumber = function (num) {
 		this.min += num
 	}
-}
 
-class Roll extends Distribution {
-	constructor(diceCode, result, resultNode) {
-		this.diceCode = diceCode
-		this.result = result
-		this.resultNode = resultNode
-		this.dist = new Distribution(this.diceCode)
-	}
-
-	combineRoll = function (roll) {
-		this.dist.combine(roll.dist)
-		this.result += roll.result
-	}
-
-	getLuck = function () {
-		if (!this.luck) this.luck = this.dist.luckOfResult(this.result)
-		return this.luck
+	negate = function () {
+		this.min = -1 * this.min - this.dist.length + 1
+		this.dist.reverse()
+		return this
 	}
 }
 
 if (typeof module !== "undefined") {
 	module.exports.Dice = Dice
 	module.exports.Distribution = Distribution
-	module.exports.Roll = Roll
 }
