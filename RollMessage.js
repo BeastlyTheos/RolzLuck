@@ -1,3 +1,4 @@
+/* globals module, Roll:writable */
 if (typeof module !== "undefined") {
 	Roll = require("./roll")
 }

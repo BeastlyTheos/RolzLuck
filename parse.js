@@ -1,3 +1,4 @@
+/* globals Dice:writable, Distribution:writable, grammar:writable, module, nearley:writable, */
 if (typeof module !== "undefined") {
 	nearley = require("nearley")
 	grammar = require("./grammar.js")
@@ -7,13 +8,13 @@ if (typeof module !== "undefined") {
 
 const compiledGrammar = nearley.Grammar.fromCompiled(grammar)
 
-parser = {
+const parser = {
 	parse: function (input) {
 		return this.evaluate(this.feed(input)[0])
 	},
 
 	feed: function (input) {
-		_parser = new nearley.Parser(compiledGrammar)
+		let _parser = new nearley.Parser(compiledGrammar)
 		_parser.feed(input)
 		return _parser.results
 	},
@@ -22,9 +23,9 @@ parser = {
 		if (Array.isArray(tree)) {
 			if (tree.length == 1) return this.evaluate(tree[0])
 			if (tree.length == 3) {
-				val1 = this.evaluate(tree[0])
-				op = tree[1]
-				val2 = this.evaluate(tree[2])
+				let val1 = this.evaluate(tree[0])
+				let op = tree[1]
+				let val2 = this.evaluate(tree[2])
 				if (op === "-") val2.negate()
 				return val1.combine(val2)
 			} else throw new Error("tree has wrong number of nodes at this level")

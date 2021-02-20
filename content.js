@@ -1,3 +1,4 @@
+/* globals chrome, errorWrapper:writable, RollMessage, */
 var logs = []
 
 errorWrapper = function (func) {
@@ -9,10 +10,11 @@ errorWrapper = function (func) {
 	}
 }
 
-str = JSON.stringify
+const str = JSON.stringify
 
 // code to execute when receiving a message from the background script
 // currently runs whenever the browser action is requested
+// eslint-disable-next-line no-unused-vars
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	errorWrapper(function () {
 		window.prompt("", JSON.stringify(logs))
@@ -27,6 +29,7 @@ errorWrapper(function () {
 	const config = {childList: true}
 
 	// Callback function to execute when mutations are observed
+	// eslint-disable-next-line no-unused-vars
 	const callback = function (mutationsList, observer) {
 		errorWrapper(() => {
 			for (const mutation of mutationsList)
@@ -49,6 +52,7 @@ errorWrapper(function () {
 	}
 
 	//debugger callback function for displaying mutations as they happen
+	// eslint-disable-next-line no-unused-vars
 	const debuggerCallback = function (mutationsList, observer) {
 		// Use traditional 'for loops' for IE 11
 		for (const mutation of mutationsList) {
