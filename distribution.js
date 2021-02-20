@@ -1,25 +1,4 @@
-function min(arr) {
-	var len = arr.length,
-		min = Infinity
-	while (len--) {
-		if (arr[len] < min) {
-			min = arr[len]
-		}
-	}
-	return min
-}
-
-function max(arr) {
-	var len = arr.length,
-		max = -Infinity
-	while (len--) {
-		if (arr[len] > max) {
-			max = arr[len]
-		}
-	}
-	return max
-}
-
+/* globals module, ValueError */
 function sum(arr) {
 	var len = arr.length,
 		sum = 0
@@ -35,7 +14,7 @@ class Dice {
 		this.sides = sides
 	}
 
-	createDistribution = function () {
+	createDistribution() {
 		var odds = new Array(this.sides).fill(1)
 		var dist = new Distribution(odds)
 		for (var i = 1; i < this.numDice; i++) dist.combine(new Distribution(odds))
@@ -53,19 +32,19 @@ class Distribution {
 		this.min = min
 	}
 
-	oddsOfResult = function (result) {
+	oddsOfResult(result) {
 		return this.dist[result - this.min]
 	}
 
-	luckOfResult = function (result) {
+	luckOfResult(result) {
 		result -= this.min
 		return (
 			(sum(this.dist.slice(0, result)) + this.dist[result] / 2) / sum(this.dist)
 		)
 	}
 
-	combine = function (other) {
-		if (!other instanceof Distribution)
+	combine(other) {
+		if (!(other instanceof Distribution))
 			throw new ValueError(
 				"Cannot combine " + typeof other + " with a distribution"
 			)
@@ -79,11 +58,11 @@ class Distribution {
 		return this
 	}
 
-	addNumber = function (num) {
+	addNumber(num) {
 		this.min += num
 	}
 
-	negate = function () {
+	negate() {
 		this.min = -1 * this.min - this.dist.length + 1
 		this.dist.reverse()
 		return this
