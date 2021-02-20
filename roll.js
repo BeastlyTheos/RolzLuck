@@ -1,3 +1,4 @@
+/* globals module, Roll */
 if (typeof module !== "undefined" && typeof require !== "undefined") {
 	parser = require("./parse")
 }
