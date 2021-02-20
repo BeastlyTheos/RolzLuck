@@ -1,13 +1,13 @@
 const Distribution = require("../distribution").Distribution
 const Dice = require("../distribution").Dice
 
-const distro1 = new Distribution([1])
+var distro1 = new Distribution([1])
 const distroNegative = new Distribution([-3])
 const distroMultiple1 = new Distribution([4, 9])
 const distroMultiple2 = new Distribution([18, 42])
 const distroD6 = new Distribution([1, 2, 3, 4, 5, 6])
 
-arrayEqual = function (a, b) {
+const arrayEqual = function (a, b) {
 	expect(a).toEqual(expect.arrayContaining(b))
 	expect(b).toEqual(expect.arrayContaining(a))
 }
@@ -42,7 +42,7 @@ describe("misc distribution functions", () => {
 		expect(distroD4.min).toBe(2)
 
 		var distroD2 = new Distribution([1, 1])
-		var distro1 = new Distribution([1])
+		distro1 = new Distribution([1])
 		distroD2.combine(distro1)
 		expect(distroD2.dist).toEqual([1, 1])
 		expect(distroD2.min).toBe(2)
@@ -51,20 +51,20 @@ describe("misc distribution functions", () => {
 
 describe("creating distributions from dice codes", () => {
 	test("trivial dice codes", () => {
-		for (sides of [1, 2, 3, 10, 20, 103]) {
-			dist = new Dice(sides).createDistribution()
+		for (var sides of [1, 2, 3, 10, 20, 103]) {
+			let dist = new Dice(sides).createDistribution()
 			expect(dist.dist).toEqual(new Array(sides).fill(1))
 		}
 	})
 
 	test("dice codes with few dice", () => {
 		try {
-			for ([numDice, sides, expectedDist] of [
+			for (var [numDice, sides, expectedDist] of [
 				[2, 1, [1]],
 				[2, 2, [1, 2, 1]],
 				[3, 3, [1, 3, 6, 7, 6, 3, 1]],
 			]) {
-				dist = new Dice(sides, numDice).createDistribution()
+				let dist = new Dice(sides, numDice).createDistribution()
 				expect(dist.min).toBe(numDice)
 				expect(dist.dist).toEqual(expectedDist)
 			}
@@ -76,7 +76,7 @@ describe("creating distributions from dice codes", () => {
 
 	test("dice codes with huge numbers of dice", () => {
 		try {
-			for ([numDice, sides] of [
+			for (var [numDice, sides] of [
 				[1, 1],
 				[1, 2],
 				[1, 3],
@@ -113,7 +113,7 @@ describe("creating distributions from dice codes", () => {
 				[93, 20],
 				[93, 103],
 			]) {
-				dist = new Dice(sides, numDice).createDistribution()
+				let dist = new Dice(sides, numDice).createDistribution()
 				expect(dist.min).toBe(numDice)
 				expect(dist.dist.length).toBe(numDice * sides - numDice + 1)
 				expect(dist.dist[0]).toBe(1)
