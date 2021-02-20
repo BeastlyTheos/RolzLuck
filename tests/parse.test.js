@@ -51,9 +51,9 @@ describe("mathematical operations", () => {
 		try {
 			for (var [expr, expectedTree] of [
 				["-10", -10],
-				["-+9", 9],
+				["-+9", -9],
 				["1+-1", [1, "+", -1]],
-				["2-+4", [2, "+", 4]],
+				["2-+4", [2, "-", 4]],
 				["-5+2-8", [[-5, "+", 2], "-", 8]],
 				["-12", -12],
 				["+42", 42],
@@ -100,9 +100,9 @@ describe("dice codes", () => {
 	test("adding scalars and dice codes", () => {
 		try {
 			for (var [expr, expectedTree] of [
-				["d1+1", [{numDice: 1, sides: 1}, 1]],
-				["d20+4", [{numDice: 1, sides: 20}, 4]],
-				["92D12+83", [{numDice: 92, sides: 12}, 83]],
+				["d1+1", [{numDice: 1, sides: 1}, "+", 1]],
+				["d20+4", [{numDice: 1, sides: 20}, "+", 4]],
+				["92D12+83", [{numDice: 92, sides: 12}, "+", 83]],
 				["4+92D12+83", [[4, "+", {numDice: 92, sides: 12}], "+", 83]],
 				["4-92D12-83", [[4, "-", {numDice: 92, sides: 12}], "-", 83]],
 			]) {
