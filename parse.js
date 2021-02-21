@@ -14,6 +14,7 @@ const parser = {
 	},
 
 	feed: function (input) {
+		input = input.replace(/\s+/g, "")
 		let _parser = new nearley.Parser(compiledGrammar)
 		_parser.feed(input)
 		return _parser.results
