@@ -5,8 +5,11 @@
 			"matches": ["https://rolz.org/dr?*"],
 			"js": [
 				"jquery-2.2.4.min.js",
-				"parse.js",
 				"distribution.js",
+				"node_modules/nearley/lib/nearley.js",
+				"grammar.js",
+				"parse.js",
+				"roll.js",
 				"RollMessage.js",
 				"content.js"
 			]
