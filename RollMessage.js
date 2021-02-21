@@ -1,10 +1,11 @@
 /* globals module, Roll:writable */
-if (typeof module !== "undefined") {
+if (typeof module !== "undefined" && typeof require !== "undefined") {
 	Roll = require("./roll")
 }
 
 class RollMessage {
-	constructor(mutation) {
+	constructor(mutation, injectedRoll = null) {
+		Roll = injectedRoll || Roll
 		this.node = mutation.addedNodes[0]
 		var span = this.node.getElementsByClassName("username")
 		var name = span[0].innerHTML
@@ -23,10 +24,15 @@ class RollMessage {
 				resultNodes[i]
 			)
 
-		this.combinedRoll = null
+		this.combinedRoll = this.rolls[0]
+		for (let i = 1; i < this.rolls.length; i++)
+			this.combinedRoll.combineRoll(this.rolls[i])
 		this.time = Date.now()
 	}
 
+	toString() {
+		return "[RollMessage: " + this.node.innerHTML + "]"
+	}
 	static isNewMessageMutation(mutation) {
 		if (mutation.type !== "childList" || !mutation.addedNodes.length)
 			return false
@@ -39,5 +45,4 @@ class RollMessage {
 
 if (typeof module !== "undefined") {
 	module.exports = RollMessage
-	module.exports.Roll = Roll
 }

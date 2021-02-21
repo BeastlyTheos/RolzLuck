@@ -35,18 +35,9 @@ errorWrapper(function () {
 			for (const mutation of mutationsList)
 				if (RollMessage.isNewMessageMutation(mutation)) {
 					var log = new RollMessage(mutation)
-					try {
-						for (var i = 0; i < log.rolls.length; i++)
-							logs[logs.length] = JSON.stringify({
-								name: log.name,
-								diceCode: log.diceCodes[i],
-								result: log.results[i],
-								luck: log.rolls[i].luck(),
-								time: log.time,
-							})
-					} catch (TypeError) {
-						//throw new Error("improper distro object : "+ log.diceCodes[i] + " produced distro "+ JSON.stringify(log.rolls[i].distro))
-					}
+					var e = document.createElement("span")
+					e.innerHTML = log.combinedRoll.getLuck() + "% luck"
+					log.node.appendChild(e)
 				}
 		})
 	}

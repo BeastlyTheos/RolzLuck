@@ -1,12 +1,11 @@
-/* globals Distribution, module, */
+/* globals module, parser, */
 
 class Roll {
 	constructor(diceCode, result, resultNode) {
-		this.super()
 		this.diceCode = diceCode
 		this.result = result
 		this.resultNode = resultNode
-		this.dist = new Distribution(this.diceCode)
+		this.dist = parser.parse(this.diceCode)
 	}
 
 	combineRoll(roll) {
