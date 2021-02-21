@@ -1,7 +1,10 @@
-/* globals Roll */
+/* globals Roll:writable */
 const RollMessage = require("../RollMessage")
 const samples = require("./testSamples")
-Roll = RollMessage.Roll.prototype.constructor = jest.fn() //eslint-disable-line
+
+Roll = jest.fn()
+Roll.prototype.constructor = jest.fn()
+Roll.prototype.combineRoll = jest.fn()
 
 test("isNewMessageMutation returns true when given a new message mutation", () => {
 	for (let mutation of samples.rollMutations) {
@@ -25,7 +28,7 @@ test("parseNewMessageMutation finds correct name", () => {
 test("RollMessage constructor", () => {
 	for (let sampleRoll of samples.rolls) {
 		Roll.mockClear()
-		var log = new RollMessage(sampleRoll.mutation)
+		var log = new RollMessage(sampleRoll.mutation, Roll)
 		expect(log.name).toBe(sampleRoll.name)
 		expect(Roll.mock.calls.length).toBe(sampleRoll.diceCodes.length)
 		for (let i = 0; i < sampleRoll.diceCodes.length; i++) {
