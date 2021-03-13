@@ -1,5 +1,3 @@
-var p = console.log
-
 var fs = require("fs")
 
 var findFiles = function (m) {
@@ -21,5 +19,5 @@ var m = JSON.parse(data)
 var files = findFiles(m)
 files.push("manifest.json")
 
-p(files.length)
-for (var f in files) p(files[f])
+if (fs.existsSync("package")) fs.rmdirSync("package", {recursive: true})
+fs.mkdirSync("package")
