@@ -28,7 +28,6 @@
 			},
 			"description": "runs the button"
 		}
-		//		"description": "command desc"
 	},
 	"manifest_version": 2,
 	"version": "0.2"
