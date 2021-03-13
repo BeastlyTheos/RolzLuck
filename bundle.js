@@ -1,4 +1,5 @@
 var fs = require("fs")
+var dirname = require("path").dirname
 
 var findFiles = function (m) {
 	var files = []
@@ -19,5 +20,11 @@ var m = JSON.parse(data)
 var files = findFiles(m)
 files.push("manifest.json")
 
-if (fs.existsSync("package")) fs.rmdirSync("package", {recursive: true})
-fs.mkdirSync("package")
+if (fs.existsSync("dist")) fs.rmdirSync("dist", {recursive: true})
+fs.mkdirSync("dist")
+
+for (var file of files) {
+	var path = "dist/" + dirname(file)
+	if (!fs.existsSync(path)) fs.mkdirSync(path, {recursive: true})
+	fs.copyFileSync(file, "dist/" + file)
+}
