@@ -22,11 +22,7 @@ var findFiles = function (m) {
 	} //end looping
 }
 
-fs.readFile("manifest.json", "utf8", function (err, data) {
-	if (err) {
-		return console.log(err)
-	}
-	//console.log(data);
-	var m = JSON.parse(data)
-	findFiles(m)
-})
+var data = fs.readFileSync("manifest.json", "utf8")
+//console.log(data);
+var m = JSON.parse(data)
+findFiles(m)
