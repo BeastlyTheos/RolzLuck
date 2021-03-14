@@ -118,3 +118,4 @@ dist
 # custom
 diff.c
 grammar.js
+*.zip

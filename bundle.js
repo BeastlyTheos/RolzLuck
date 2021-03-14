@@ -1,5 +1,6 @@
+var AdmZip = require("adm-zip")
 var fs = require("fs")
-var dirname = require("path").dirname
+var path = require("path")
 
 var findFiles = function (m) {
 	var files = []
@@ -20,11 +21,13 @@ var m = JSON.parse(data)
 var files = findFiles(m)
 files.push("manifest.json")
 
-if (fs.existsSync("dist")) fs.rmdirSync("dist", {recursive: true})
-fs.mkdirSync("dist")
+if (fs.existsSync("RolzLuck.zip")) fs.rmSync("RolzLuck.zip")
 
+var zip = AdmZip()
 for (var file of files) {
-	var path = "dist/" + dirname(file)
-	if (!fs.existsSync(path)) fs.mkdirSync(path, {recursive: true})
-	fs.copyFileSync(file, "dist/" + file)
+	var folder = path.dirname(file)
+	if (folder == ".") folder = ""
+	zip.addLocalFile(file, folder)
 }
+
+zip.writeZip("RolzLuck.zip")
