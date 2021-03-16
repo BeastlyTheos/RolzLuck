@@ -1,4 +1,4 @@
-const parser = require("../parse")
+const parser = require("../../parse")
 const zip = (a, b) => a.map((e, i) => [e, b[i]])
 
 const treeEquality = function (a, b) {
@@ -20,7 +20,7 @@ const treeEquality = function (a, b) {
 }
 
 describe("mathematical operations", () => {
-	test("simple addition and subtraction", () => {
+	it("simple addition and subtraction", () => {
 		try {
 			for (var [expr, expectedTree] of [
 				["10", 10],
@@ -47,7 +47,7 @@ describe("mathematical operations", () => {
 		}
 	})
 
-	test("unary plus and minus", () => {
+	it("unary plus and minus", () => {
 		try {
 			for (var [expr, expectedTree] of [
 				["-10", -10],
@@ -75,7 +75,7 @@ describe("mathematical operations", () => {
 })
 
 describe("dice codes", () => {
-	test("parsing atomic dice codes", () => {
+	it("parsing atomic dice codes", () => {
 		for (var [code, numDice, sides] of [
 			["D1", 1, 1],
 			["d6", 1, 6],
@@ -97,7 +97,7 @@ describe("dice codes", () => {
 		}
 	})
 
-	test("adding scalars and dice codes", () => {
+	it("adding scalars and dice codes", () => {
 		try {
 			for (var [expr, expectedTree] of [
 				["d1+1", [{numDice: 1, sides: 1}, "+", 1]],
@@ -119,7 +119,7 @@ describe("dice codes", () => {
 })
 
 describe("evaluating AST's", () => {
-	;-test("math without dice codes", () => {
+	;-it("math without dice codes", () => {
 		for (var [text, expectedResult] of [
 			["1", 1],
 			["5", 5],
