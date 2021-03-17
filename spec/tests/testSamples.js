@@ -1,3 +1,4 @@
+/* globals module */
 class sampleData {
 	constructor(mutation, name, diceCodes, results) {
 		this.mutation = mutation

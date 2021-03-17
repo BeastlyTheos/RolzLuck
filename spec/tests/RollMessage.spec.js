@@ -1,31 +1,31 @@
-/* globals Roll:writable */
-const RollMessage = require("../RollMessage")
+/* globals jasmine, Roll:writable */
+const RollMessage = require("../../RollMessage")
 const samples = require("./testSamples")
 
-Roll = jest.fn()
-Roll.prototype.constructor = jest.fn()
-Roll.prototype.combineRoll = jest.fn()
+Roll = jasmine.createSpy("")
+Roll.prototype.constructor = jasmine.createSpy("")
+Roll.prototype.combineRoll = jasmine.createSpy("")
 
-test("isNewMessageMutation returns true when given a new message mutation", () => {
+it("isNewMessageMutation returns true when given a new message mutation", () => {
 	for (let mutation of samples.rollMutations) {
 		expect(RollMessage.isNewMessageMutation(mutation)).toBe(true)
 	}
 })
 
-test("isNewMessageMutation returns false when given anything that is not a new message mutation", () => {
+it("isNewMessageMutation returns false when given anything that is not a new message mutation", () => {
 	for (let mutation of samples.nonRollMutations) {
 		expect(RollMessage.isNewMessageMutation(mutation)).toBe(false)
 	}
 })
 
-test("parseNewMessageMutation finds correct name", () => {
+it("parseNewMessageMutation finds correct name", () => {
 	for (let mutation of samples.rollMutations) {
 		var log = new RollMessage(mutation)
 		expect(log.name).toBe("_Alfred")
 	}
 })
 
-test("RollMessage constructor", () => {
+it("RollMessage constructor", () => {
 	for (let sampleRoll of samples.rolls) {
 		Roll.mockClear()
 		var log = new RollMessage(sampleRoll.mutation, Roll)
