@@ -1,4 +1,10 @@
-jquery-2.2.4.min.js
-tests/samples/*
-coverage/* 
-moo.js
+# ignore all except .js and .json files
+*
+!*.js
+!*.json
+
+# any JQuery library
+jquery*.js
+
+# do not reformat sample data
+spec/tests/testSamples.js

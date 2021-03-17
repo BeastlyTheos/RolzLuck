@@ -1,0 +1,9 @@
+# ignore all except .js files
+*
+!*.js
+
+# any JQuery library
+jquery*.js
+
+# compiled nearley grammar file
+grammar.js
