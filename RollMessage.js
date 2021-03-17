@@ -26,7 +26,7 @@ class RollMessage {
 
 		this.combinedRoll = this.rolls[0]
 		for (let i = 1; i < this.rolls.length; i++)
-			this.combinedRoll.combineRoll(this.rolls[i])
+			this.combinedRoll = Roll.combineRoll(this.combinedRoll, this.rolls[i])
 		this.time = Date.now()
 	}
 

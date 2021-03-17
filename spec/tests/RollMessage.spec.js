@@ -1,10 +1,6 @@
-/* globals jasmine, Roll:writable */
+/* globals jasmine */
 const RollMessage = require("../../RollMessage")
 const samples = require("./testSamples")
-
-Roll = jasmine.createSpy("")
-Roll.prototype.constructor = jasmine.createSpy("")
-Roll.prototype.combineRoll = jasmine.createSpy("")
 
 it("isNewMessageMutation returns true when given a new message mutation", () => {
 	for (let mutation of samples.rollMutations) {
@@ -18,22 +14,17 @@ it("isNewMessageMutation returns false when given anything that is not a new mes
 	}
 })
 
-it("parseNewMessageMutation finds correct name", () => {
-	for (let mutation of samples.rollMutations) {
-		var log = new RollMessage(mutation)
-		expect(log.name).toBe("_Alfred")
-	}
-})
-
 it("RollMessage constructor", () => {
+	var Roll = jasmine.createSpy("Roll class")
+	Roll.combineRoll = jasmine.createSpy("Roll.combineRoll method")
 	for (let sampleRoll of samples.rolls) {
-		Roll.mockClear()
 		var log = new RollMessage(sampleRoll.mutation, Roll)
 		expect(log.name).toBe(sampleRoll.name)
-		expect(Roll.mock.calls.length).toBe(sampleRoll.diceCodes.length)
+		expect(Roll.calls.count()).toBe(sampleRoll.diceCodes.length)
 		for (let i = 0; i < sampleRoll.diceCodes.length; i++) {
-			expect(Roll.mock.calls[i][0]).toBe(sampleRoll.diceCodes[i])
-			expect(Roll.mock.calls[i][1]).toBe(sampleRoll.results[i])
+			expect(Roll.calls.argsFor(i)[0]).toBe(sampleRoll.diceCodes[i])
+			expect(Roll.calls.argsFor(i)[1]).toBe(sampleRoll.results[i])
 		}
+		Roll.calls.reset()
 	}
 })
