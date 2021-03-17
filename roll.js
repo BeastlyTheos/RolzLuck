@@ -8,9 +8,10 @@ class Roll {
 		this.dist = parser.parse(this.diceCode)
 	}
 
-	combineRoll(roll) {
-		this.dist.combine(roll.dist)
-		this.result += roll.result
+	static combineb(a, b) {
+		a.dist.combine(b.dist)
+		a.result += b.result
+		return a
 	}
 
 	getLuck() {

@@ -1,5 +1,5 @@
-const Distribution = require("../distribution").Distribution
-const Dice = require("../distribution").Dice
+const Distribution = require("../../distribution").Distribution
+const Dice = require("../../distribution").Dice
 
 var distro1 = new Distribution([1])
 const distroNegative = new Distribution([-3])
@@ -7,13 +7,8 @@ const distroMultiple1 = new Distribution([4, 9])
 const distroMultiple2 = new Distribution([18, 42])
 const distroD6 = new Distribution([1, 2, 3, 4, 5, 6])
 
-const arrayEqual = function (a, b) {
-	expect(a).toEqual(expect.arrayContaining(b))
-	expect(b).toEqual(expect.arrayContaining(a))
-}
-
 describe("misc distribution functions", () => {
-	test("oddsOfResult", () => {
+	it("oddsOfResult", () => {
 		expect(distro1.oddsOfResult(1)).toBe(1)
 		expect(distroNegative.oddsOfResult(1)).toBe(-3)
 		expect(distroMultiple2.oddsOfResult(1)).toBe(18)
@@ -21,7 +16,7 @@ describe("misc distribution functions", () => {
 		expect(distroD6.oddsOfResult(5)).toBe(5)
 	})
 
-	test("luckOfResult", () => {
+	it("luckOfResult", () => {
 		expect(distro1.luckOfResult(1)).toBe(0.5)
 		expect(distroNegative.luckOfResult(1)).toBe(0.5)
 		expect(distroMultiple1.luckOfResult(1)).toBe(2 / 13)
@@ -30,10 +25,10 @@ describe("misc distribution functions", () => {
 		expect(distroD6.luckOfResult(4)).toBe(8 / 21)
 	})
 
-	test("combine distributions", () => {
+	it("combine distributions", () => {
 		var distro1 = new Distribution([1])
 		distro1.combine(distro1)
-		arrayEqual(distro1.dist, [1])
+		expect(distro1.dist).toEqual([1])
 
 		var distroD4 = new Distribution([1, 1, 1, 1])
 		var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
@@ -50,14 +45,14 @@ describe("misc distribution functions", () => {
 })
 
 describe("creating distributions from dice codes", () => {
-	test("trivial dice codes", () => {
+	it("trivial dice codes", () => {
 		for (var sides of [1, 2, 3, 10, 20, 103]) {
 			let dist = new Dice(sides).createDistribution()
 			expect(dist.dist).toEqual(new Array(sides).fill(1))
 		}
 	})
 
-	test("dice codes with few dice", () => {
+	it("dice codes with few dice", () => {
 		try {
 			for (var [numDice, sides, expectedDist] of [
 				[2, 1, [1]],
@@ -74,7 +69,7 @@ describe("creating distributions from dice codes", () => {
 		}
 	})
 
-	test("dice codes with huge numbers of dice", () => {
+	it("dice codes with huge numbers of dice", () => {
 		try {
 			for (var [numDice, sides] of [
 				[1, 1],
@@ -126,7 +121,7 @@ describe("creating distributions from dice codes", () => {
 })
 
 describe("mathematical operations on distributions", () => {
-	test("addNumber", () => {
+	it("addNumber", () => {
 		distro1.addNumber(12)
 		expect(distro1.oddsOfResult(13)).toBe(1)
 		distro1.addNumber(-12)
@@ -140,7 +135,7 @@ describe("mathematical operations on distributions", () => {
 		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
 	})
 
-	test("negate distribution", () => {
+	it("negate distribution", () => {
 		distro1.negate()
 		expect(distro1.oddsOfResult(-1)).toBe(1)
 		distro1.negate()
