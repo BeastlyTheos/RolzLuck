@@ -5,6 +5,7 @@
 		"test": "jasmine"
 	},
 	"devDependencies": {
+		"adm-zip": "^0.5.4",
 		"eslint": "^7.20.0",
 		"eslint-config-prettier": "^7.2.0",
 		"eslint-plugin-prettier": "^3.3.1",
@@ -13,7 +14,6 @@
 		"prettier": "^2.2.1"
 	},
 	"dependencies": {
-		"adm-zip": "^0.5.4",
 		"nearley": "^2.20.1"
 	}
 }
