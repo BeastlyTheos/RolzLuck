@@ -17,21 +17,25 @@ class RollMessage {
 			if (ancor.hasAttribute("onclick"))
 				diceCodes[diceCodes.length] = ancor.innerHTML
 		var resultNodes = this.node.getElementsByClassName("result2")
-		for (var i = 0; i < diceCodes.length; i++)
-			try {
-				this.rolls[this.rolls.length] = new Roll(
-					diceCodes[i],
-					parseInt(resultNodes[i].innerHTML),
-					resultNodes[i]
-				)
-			} catch (err) {
-				err.message += `\nError caused by dice code '${diceCodes[i]}' with result '${resultNodes[i].innerHTML}'.`
-				throw err
-			}
+		for (var i = 0; i < diceCodes.length; i++) {
+			if (!resultNodes[i].innerHTML.startsWith("Error: "))
+				try {
+					this.rolls[this.rolls.length] = new Roll(
+						diceCodes[i],
+						parseInt(resultNodes[i].innerHTML),
+						resultNodes[i]
+					)
+				} catch (err) {
+					err.message += `\nError caused by dice code '${diceCodes[i]}' with result '${resultNodes[i].innerHTML}'.`
+					throw err
+				}
+		}
 
-		this.combinedRoll = this.rolls[0]
-		for (let i = 1; i < this.rolls.length; i++)
-			this.combinedRoll = Roll.combineRoll(this.combinedRoll, this.rolls[i])
+		if (this.rolls.length) {
+			this.combinedRoll = this.rolls[0]
+			for (let i = 1; i < this.rolls.length; i++)
+				this.combinedRoll = Roll.combineRoll(this.combinedRoll, this.rolls[i])
+		}
 		this.time = Date.now()
 	}
 
