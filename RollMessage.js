@@ -14,8 +14,11 @@ class RollMessage {
 
 		var diceCodes = []
 		for (const ancor of this.node.getElementsByTagName("a"))
-			if (ancor.hasAttribute("onclick"))
-				diceCodes[diceCodes.length] = ancor.innerHTML
+			if (ancor.hasAttribute("onclick")) {
+				var code = ancor.innerHTML
+				if (code.toLowerCase().startsWith("roll")) code = code.slice(4)
+				diceCodes[diceCodes.length] = code
+			}
 		var resultNodes = this.node.getElementsByClassName("result2")
 		for (var i = 0; i < diceCodes.length; i++) {
 			if (!resultNodes[i].innerHTML.startsWith("Error: "))
