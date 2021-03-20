@@ -2,8 +2,5 @@
 *
 !*.js
 
-# any JQuery library
-jquery*.js
-
 # compiled nearley grammar file
 grammar.js

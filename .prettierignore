@@ -3,8 +3,5 @@
 !*.js
 !*.json
 
-# any JQuery library
-jquery*.js
-
 # do not reformat sample data
 spec/tests/testSamples.js

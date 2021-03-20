@@ -4,7 +4,6 @@
 		{
 			"matches": ["https://rolz.org/dr?*"],
 			"js": [
-				"jquery-2.2.4.min.js",
 				"distribution.js",
 				"node_modules/nearley/lib/nearley.js",
 				"grammar.js",
