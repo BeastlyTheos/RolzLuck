@@ -16,5 +16,6 @@
 			]
 		}
 	],
+	"permissions": ["storage"],
 	"manifest_version": 2
 }

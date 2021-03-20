@@ -5,7 +5,9 @@ errorWrapper = function (func) {
 	try {
 		func()
 	} catch (err) {
-		window.prompt("error!", err.stack)
+		chrome.storage.sync.get(["debug"], (result) => {
+			if (result.debug === true) window.prompt("error!", err.stack)
+		})
 		throw err
 	}
 }
