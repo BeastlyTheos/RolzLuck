@@ -21,11 +21,12 @@ class RollMessage {
 			}
 		var resultNodes = this.node.getElementsByClassName("result2")
 		for (var i = 0; i < diceCodes.length; i++) {
-			if (!resultNodes[i].innerHTML.startsWith("Error: "))
+			var result = parseInt(resultNodes[i].innerHTML)
+			if (!isNaN(result))
 				try {
 					this.rolls[this.rolls.length] = new Roll(
 						diceCodes[i],
-						parseInt(resultNodes[i].innerHTML),
+						result,
 						resultNodes[i]
 					)
 				} catch (err) {
