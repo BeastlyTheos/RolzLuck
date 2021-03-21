@@ -1,10 +1,11 @@
 {
-	"name": "My Cool Extension",
+	"name": "Rolz Luck",
+	"version": "1",
+	"description": "A friend of your sanity. Have you ever wondered if the dice on rolz.org were bias against you? Are your opponents consistently getting ridiculously good rolls? Rolz Luck is here to show you just how faithful those virtual dice are to your noble quest for glory.",
 	"content_scripts": [
 		{
 			"matches": ["https://rolz.org/dr?*"],
 			"js": [
-				"jquery-2.2.4.min.js",
 				"distribution.js",
 				"node_modules/nearley/lib/nearley.js",
 				"grammar.js",
@@ -15,20 +16,5 @@
 			]
 		}
 	],
-	"browser_action": {},
-	"background": {
-		"description": "desc",
-		"scripts": ["background.js"]
-	},
-	"commands": {
-		"_execute_browser_action": {
-			"suggested_key": {
-				"default": "Ctrl+Shift+A",
-				"mac": "Command+Shift+A"
-			},
-			"description": "runs the button"
-		}
-	},
-	"manifest_version": 2,
-	"version": "0.2"
+	"manifest_version": 2
 }

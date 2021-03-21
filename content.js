@@ -36,7 +36,7 @@ errorWrapper(function () {
 				if (RollMessage.isNewMessageMutation(mutation)) {
 					var log = new RollMessage(mutation)
 					var e = document.createElement("span")
-					e.innerHTML = Math.round(log.combinedRoll.getLuck() *100) + "% luck"
+					e.innerHTML = Math.round(log.combinedRoll.getLuck() * 100) + "% luck"
 					log.node.appendChild(e)
 				}
 		})
