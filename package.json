@@ -1,7 +1,7 @@
 {
 	"scripts": {
-		"lint": "eslint --fix",
-		"style": "prettier --write",
+		"lint": "eslint --fix **/*.js",
+		"style": "prettier --write **/*.json",
 		"test": "jasmine",
 		"testmon": "nodemon --exec  jasmine"
 	},
