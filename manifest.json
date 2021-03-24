@@ -11,7 +11,7 @@
 				"grammar.js",
 				"parse.js",
 				"roll.js",
-				"RollMessage.js",
+				"Message.js",
 				"content.js"
 			]
 		}

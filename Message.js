@@ -3,8 +3,8 @@ if (typeof module !== "undefined" && typeof require !== "undefined") {
 	Roll = require("./roll")
 }
 
-class RollMessage {
-	static parseRollMessage(mutation, injectedRoll = null) {
+class Message {
+	static parseMessage(mutation, injectedRoll = null) {
 		Roll = injectedRoll || Roll
 		if (mutation.type !== "childList" || !mutation.addedNodes.length)
 			return null
@@ -38,7 +38,7 @@ class RollMessage {
 		var combinedRoll = rolls[0]
 		for (let i = 1; i < rolls.length; i++)
 			combinedRoll = Roll.combineRoll(combinedRoll, rolls[i])
-		return new RollMessage(node, name, rolls, combinedRoll)
+		return new Message(node, name, rolls, combinedRoll)
 	}
 
 	constructor(node, name, rolls, combinedRoll) {
@@ -50,10 +50,10 @@ class RollMessage {
 	}
 
 	toString() {
-		return "[RollMessage: " + this.node.innerHTML + "]"
+		return "[Message: " + this.node.innerHTML + "]"
 	}
 }
 
 if (typeof module !== "undefined") {
-	module.exports = RollMessage
+	module.exports = Message
 }
