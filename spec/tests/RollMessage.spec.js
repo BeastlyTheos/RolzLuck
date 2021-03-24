@@ -3,14 +3,18 @@ const RollMessage = require("../../RollMessage")
 const samples = require("./testSamples")
 
 it("isNewMessageMutation returns true when given a new message mutation", () => {
+	var Roll = jasmine.createSpy("Roll class")
+	Roll.combineRoll = jasmine.createSpy("Roll.combineRoll method")
 	for (let data of samples.rollMutations) {
-		expect(RollMessage.isNewMessageMutation(data.mutation)).toBe(true)
+		expect(RollMessage.parseRollMessage(data.mutation, Roll)).not.toEqual(null)
 	}
 })
 
-it("isNewMessageMutation returns false when given anything that is not a new message mutation", () => {
+it("isNewMessageMutation returns null when given anything that is not a new message mutation", () => {
+	var Roll = jasmine.createSpy("Roll class")
+	Roll.combineRoll = jasmine.createSpy("Roll.combineRoll method")
 	for (let data of samples.nonRollMutations) {
-		expect(RollMessage.isNewMessageMutation(data.mutation)).toBe(false)
+		expect(RollMessage.parseRollMessage(data.mutation, Roll)).toBeFalsy()
 	}
 })
 
@@ -18,7 +22,7 @@ it("RollMessage constructor", () => {
 	var Roll = jasmine.createSpy("Roll class")
 	Roll.combineRoll = jasmine.createSpy("Roll.combineRoll method")
 	for (let data of samples.rollMutations) {
-		var log = new RollMessage(data.mutation, Roll)
+		var log = RollMessage.parseRollMessage(data.mutation, Roll)
 		expect(log.name).toBe(data.roll.name)
 		expect(Roll.calls.count()).toBe(data.roll.diceCodes.length)
 		for (let i = 0; i < data.roll.diceCodes.length; i++) {

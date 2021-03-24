@@ -34,16 +34,17 @@ errorWrapper(function () {
 	// eslint-disable-next-line no-unused-vars
 	const callback = function (mutationsList, observer) {
 		errorWrapper(() => {
-			for (const mutation of mutationsList)
-				if (RollMessage.isNewMessageMutation(mutation)) {
-					var log = new RollMessage(mutation)
+			for (const mutation of mutationsList) {
+				var log = RollMessage.parseRollMessage(mutation)
+				if (log) {
 					if (log.combinedRoll) {
 						var e = document.createElement("span")
 						e.innerHTML =
 							Math.round(log.combinedRoll.getLuck() * 100) + "% luck"
-						log.node.appendChild(e)
+						mutation.addedNodes[0].appendChild(e)
 					}
 				}
+			}
 		})
 	}
 

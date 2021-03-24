@@ -4,55 +4,53 @@ if (typeof module !== "undefined" && typeof require !== "undefined") {
 }
 
 class RollMessage {
-	constructor(mutation, injectedRoll = null) {
+	static parseRollMessage(mutation, injectedRoll = null) {
 		Roll = injectedRoll || Roll
-		this.node = mutation.addedNodes[0]
-		var span = this.node.getElementsByClassName("username")
-		var name = span[0].innerHTML
-		this.name = name
-		this.rolls = []
-
+		if (mutation.type !== "childList" || !mutation.addedNodes.length)
+			return null
+		var node = mutation.addedNodes[0]
+		var resultNodes = node.getElementsByClassName("result2")
+		if (!resultNodes.length) return null
 		var diceCodes = []
-		for (const ancor of this.node.getElementsByTagName("a"))
+		var rolls = []
+
+		var name = node.getElementsByClassName("username")[0].innerHTML
+
+		for (const ancor of node.getElementsByTagName("a"))
 			if (ancor.hasAttribute("onclick")) {
 				var code = ancor.innerHTML
 				if (code.toLowerCase().startsWith("roll")) code = code.slice(4)
 				diceCodes[diceCodes.length] = code
 			}
-		var resultNodes = this.node.getElementsByClassName("result2")
+
 		for (var i = 0; i < diceCodes.length; i++) {
 			var result = parseInt(resultNodes[i].innerHTML)
 			if (!isNaN(result))
 				try {
-					this.rolls[this.rolls.length] = new Roll(
-						diceCodes[i],
-						result,
-						resultNodes[i]
-					)
+					rolls[rolls.length] = new Roll(diceCodes[i], result, resultNodes[i])
 				} catch (err) {
 					err.message += `\nError caused by dice code '${diceCodes[i]}' with result '${resultNodes[i].innerHTML}'.`
 					throw err
 				}
 		}
 
-		if (this.rolls.length) {
-			this.combinedRoll = this.rolls[0]
-			for (let i = 1; i < this.rolls.length; i++)
-				this.combinedRoll = Roll.combineRoll(this.combinedRoll, this.rolls[i])
-		}
+		if (!rolls.length) return null
+		var combinedRoll = rolls[0]
+		for (let i = 1; i < rolls.length; i++)
+			combinedRoll = Roll.combineRoll(combinedRoll, rolls[i])
+		return new RollMessage(node, name, rolls, combinedRoll)
+	}
+
+	constructor(node, name, rolls, combinedRoll) {
+		this.node = node
+		this.name = name
+		this.rolls = rolls
+		this.combinedRoll = combinedRoll
 		this.time = Date.now()
 	}
 
 	toString() {
 		return "[RollMessage: " + this.node.innerHTML + "]"
-	}
-	static isNewMessageMutation(mutation) {
-		if (mutation.type !== "childList" || !mutation.addedNodes.length)
-			return false
-		var node = mutation.addedNodes[0]
-		var span = node.getElementsByClassName("result2")
-		if (span.length) return true
-		return false
 	}
 }
 
