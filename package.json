@@ -2,12 +2,13 @@
 	"scripts": {
 		"lint": "eslint --fix **/*.js",
 		"format-json": "prettier --write **/*.json",
+		"compile-parser": "nearleyc grammar.ne -o grammar.js",
 		"test": "jasmine",
 		"testmon": "nodemon --exec  jasmine"
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "lint-staged && jasmine"
+			"pre-commit": "lint-staged && jasmine && nearleyc grammar.ne -o grammar.js"
 		}
 	},
 	"lint-staged": {
