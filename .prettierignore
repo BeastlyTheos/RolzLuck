@@ -1,7 +1,0 @@
-# ignore all except .js and .json files
-*
-!*.js
-!*.json
-
-# do not reformat sample data
-spec/tests/testSamples.js

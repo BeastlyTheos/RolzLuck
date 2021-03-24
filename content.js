@@ -1,11 +1,13 @@
-/* globals chrome, errorWrapper:writable, RollMessage, */
-var logs = []
+/* globals chrome, errorWrapper:writable, Message, */
+var msgs = []
 
 errorWrapper = function (func) {
 	try {
 		func()
 	} catch (err) {
-		window.prompt("error!", err.stack)
+		chrome.storage.sync.get(["debug"], (result) => {
+			if (result.debug === true) window.prompt("error!", err.stack)
+		})
 		throw err
 	}
 }
@@ -17,7 +19,7 @@ const str = JSON.stringify
 // eslint-disable-next-line no-unused-vars
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	errorWrapper(function () {
-		window.prompt("", JSON.stringify(logs))
+		window.prompt("", JSON.stringify(msgs))
 	})
 })
 
@@ -32,13 +34,17 @@ errorWrapper(function () {
 	// eslint-disable-next-line no-unused-vars
 	const callback = function (mutationsList, observer) {
 		errorWrapper(() => {
-			for (const mutation of mutationsList)
-				if (RollMessage.isNewMessageMutation(mutation)) {
-					var log = new RollMessage(mutation)
-					var e = document.createElement("span")
-					e.innerHTML = Math.round(log.combinedRoll.getLuck() * 100) + "% luck"
-					log.node.appendChild(e)
+			for (const mutation of mutationsList) {
+				var msg = Message.parseMessage(mutation)
+				if (msg) {
+					if (msg.combinedRoll) {
+						var e = document.createElement("span")
+						e.innerHTML =
+							Math.round(msg.combinedRoll.getLuck() * 100) + "% luck"
+						mutation.addedNodes[0].appendChild(e)
+					}
 				}
+			}
 		})
 	}
 

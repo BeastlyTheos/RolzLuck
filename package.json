@@ -1,7 +1,7 @@
 {
 	"scripts": {
-		"lint": "eslint --fix",
-		"format-json": "prettier --write",
+		"lint": "eslint --fix **/*.js",
+		"format-json": "prettier --write **/*.json",
 		"test": "jasmine",
 		"testmon": "nodemon --exec  jasmine"
 	},
@@ -11,7 +11,7 @@
 		}
 	},
 	"lint-staged": {
-		"*.js": "eslint --cache --fix",
+		"*.js": "eslint  --fix",
 		"*.json": "prettier --write"
 	},
 	"devDependencies": {
