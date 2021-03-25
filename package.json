@@ -29,6 +29,7 @@
 		"jsdom": "^16.5.1",
 		"lint-staged": "^10.5.4",
 		"nodemon": "^2.0.7",
+		"nyc": "^15.1.0",
 		"prettier": "^2.2.1"
 	},
 	"dependencies": {
