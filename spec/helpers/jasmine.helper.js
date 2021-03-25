@@ -6,6 +6,7 @@ window = new jsdom.JSDOM(
 	'<html><head></head><body><div id="rondavu_container"></div></body></html>'
 ).window
 
+/* istanbul ignore if */
 if (Object.keys(window).length === 0) {
 	// this hapens if contextify, one of jsdom's dependencies doesn't install correctly
 	// (it installs different code depending on the OS, so it cannot get checked in.);

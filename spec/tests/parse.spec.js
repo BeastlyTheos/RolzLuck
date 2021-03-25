@@ -41,7 +41,7 @@ describe("mathematical operations", () => {
 				expect(res).toEqual(expectedTree)
 				treeEquality(res, expectedTree)
 			}
-		} catch (err) {
+		} catch (err) /* istanbul ignore next */ {
 			err.message += "\nexpression: " + expr + "\n" + res //eslint-disable-line no-undef
 			throw err
 		}
@@ -67,7 +67,7 @@ describe("mathematical operations", () => {
 				expect(res).toEqual(expectedTree)
 				treeEquality(res, expectedTree)
 			}
-		} catch (err) {
+		} catch (err) /* istanbul ignore next */ {
 			err.message += "\nexpression: " + expr
 			throw err
 		}
@@ -90,7 +90,7 @@ describe("dice codes", () => {
 				let res = results[0]
 				expect(res.numDice).toBe(numDice)
 				expect(res.sides).toBe(sides)
-			} catch (err) {
+			} catch (err) /* istanbul ignore next */ {
 				err.message += "\nProblem with " + code + "\nres is " + res //eslint-disable-line no-undef
 				throw err
 			}
@@ -111,7 +111,7 @@ describe("dice codes", () => {
 				let res = results[0]
 				treeEquality(res, expectedTree)
 			}
-		} catch (err) {
+		} catch (err) /* istanbul ignore next */ {
 			err.message += "\nexpression: " + expr //eslint-disable-line no-undef
 			throw err
 		}

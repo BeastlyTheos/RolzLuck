@@ -3,8 +3,18 @@
 		"lint": "eslint --fix **/*.js",
 		"format-json": "prettier --write **/*.json",
 		"compile-parser": "nearleyc grammar.ne -o grammar.js",
-		"test": "jasmine",
-		"testmon": "nodemon --exec  jasmine"
+		"test": "jasmine --fail-fast=true",
+		"testmon": "nodemon --exec  jasmine",
+		"coverage": "nyc npx jasmine --fail-fast=false --stop-on-failure=false"
+	},
+	"nyc": {
+		"exclude": "grammar.js",
+		"statements": 80,
+		"branches": 60,
+		"functions": 80,
+		"lines": 80,
+		"skip-empty": true,
+		"skip-full": true
 	},
 	"husky": {
 		"hooks": {
@@ -15,7 +25,7 @@
 		"grammar.ne": "nearleyc -o grammar.js",
 		"*.js": [
 			"eslint  --fix",
-			"jasmine --fail-fast=true spec/tests/*.js"
+			"test-coverage.bat"
 		],
 		"*.json": "prettier --write"
 	},

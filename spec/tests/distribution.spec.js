@@ -63,7 +63,7 @@ describe("creating distributions from dice codes", () => {
 				expect(dist.min).toBe(numDice)
 				expect(dist.dist).toEqual(expectedDist)
 			}
-		} catch (err) {
+		} catch (err) /* istanbul ignore next */ {
 			err.message += "\nnumDice " + numDice + ". sides " + sides
 			throw err
 		}
