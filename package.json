@@ -8,11 +8,15 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "lint-staged && jasmine && nearleyc grammar.ne -o grammar.js"
+			"pre-commit": "lint-staged"
 		}
 	},
 	"lint-staged": {
-		"*.js": "eslint  --fix",
+		"grammar.ne": "nearleyc -o grammar.js",
+		"*.js": [
+			"eslint  --fix",
+			"jasmine --fail-fast=true spec/tests/*.js"
+		],
 		"*.json": "prettier --write"
 	},
 	"devDependencies": {
