@@ -156,6 +156,33 @@ describe("creating distributions from dice codes", () => {
 	})
 })
 
+describe("creating distributions from partial sum dice codes", () => {
+	it("dice codes with few dice", () => {
+		var data, dist
+		for (var [numDice, sides, keep, expectedDist] of [
+			[1, 1, 0, [1]],
+			[1, 1, 1, [1]],
+			[2, 1, 0, [1]],
+			[2, 1, 1, [1]],
+			[2, 1, 2, [1]],
+			[1, 2, 0, [2]],
+			[1, 2, 1, [1, 1]],
+			[2, 2, 0, [4]],
+			[2, 2, 1, [1, 3]],
+			[2, 2, 2, [1, 2, 1]],
+			[3, 3, 0, [27]],
+			[3, 3, 1, [1, 7, 19]],
+			[3, 3, 2, [1, 3, 7, 9, 7]],
+			[3, 3, 3, [1, 3, 6, 7, 6, 3, 1]],
+		]) {
+			data = `${numDice}d${sides}h${keep}`
+			dist = new Dice(sides, numDice, keep).createDistribution()
+			expect(dist.min).withContext(data).toBe(keep)
+			expect(dist.dist).withContext(data).toEqual(expectedDist)
+		}
+	})
+})
+
 describe("mathematical operations on distributions", () => {
 	it("addNumber", () => {
 		distro1.addNumber(12)
