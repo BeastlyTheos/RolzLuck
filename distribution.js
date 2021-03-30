@@ -57,6 +57,22 @@ class Distribution {
 		return this
 	}
 
+	union(other) {
+		if (!(other instanceof Distribution))
+			throw new ValueError(`need A Distribution to derive a union`)
+		var max =
+			Math.max(this.dist.length + this.min, other.dist.length + other.min) - 1
+		var min = Math.min(this.min, other.min)
+		var length = max - min + 1
+		var dist = new Array(length).fill(0)
+		for (let i = 0; i < this.dist.length; i++)
+			dist[i + this.min - min] += this.dist[i]
+		for (let i = 0; i < other.dist.length; i++)
+			dist[i + other.min - min] += other.dist[i]
+		this.dist = dist
+		this.min = min
+		return this
+	}
 	addNumber(num) {
 		this.min += num
 	}

@@ -42,6 +42,24 @@ describe("misc distribution functions", () => {
 		expect(distroD2.dist).toEqual([1, 1])
 		expect(distroD2.min).toBe(2)
 	})
+
+	it("derives unions between distributions", () => {
+		var distro1 = new Distribution([1])
+		distro1.union(distro1)
+		expect(distro1.dist).toEqual([2])
+
+		var distroD4 = new Distribution([1, 1, 1, 1])
+		var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
+		distroD4.union(distroD6)
+		expect(distroD4.dist).toEqual([2, 2, 2, 2, 1, 1])
+		expect(distroD4.min).toBe(1)
+
+		var distroD2 = new Distribution([1, 1])
+		distro1 = new Distribution([1])
+		distroD2.union(distro1)
+		expect(distroD2.dist).toEqual([2, 1])
+		expect(distroD2.min).toBe(1)
+	})
 })
 
 describe("creating distributions from dice codes", () => {
