@@ -8,8 +8,8 @@ class Roll {
 		this.dist = parser.parse(this.diceCode)
 	}
 
-	static combineb(a, b) {
-		a.dist.combine(b.dist)
+	static intersection(a, b) {
+		a.dist.intersection(b.dist)
 		a.result += b.result
 		return a
 	}

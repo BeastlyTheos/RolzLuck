@@ -25,20 +25,20 @@ describe("misc distribution functions", () => {
 		expect(distroD6.luckOfResult(4)).toBe(8 / 21)
 	})
 
-	it("combine distributions", () => {
+	it("derives intersections between distributions", () => {
 		var distro1 = new Distribution([1])
-		distro1.combine(distro1)
+		distro1.intersection(distro1)
 		expect(distro1.dist).toEqual([1])
 
 		var distroD4 = new Distribution([1, 1, 1, 1])
 		var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
-		distroD4.combine(distroD6)
+		distroD4.intersection(distroD6)
 		expect(distroD4.dist).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
 		expect(distroD4.min).toBe(2)
 
 		var distroD2 = new Distribution([1, 1])
 		distro1 = new Distribution([1])
-		distroD2.combine(distro1)
+		distroD2.intersection(distro1)
 		expect(distroD2.dist).toEqual([1, 1])
 		expect(distroD2.min).toBe(2)
 	})

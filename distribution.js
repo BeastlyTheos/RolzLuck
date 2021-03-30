@@ -17,7 +17,8 @@ class Dice {
 	createDistribution() {
 		var odds = new Array(this.sides).fill(1)
 		var dist = new Distribution(odds)
-		for (var i = 1; i < this.numDice; i++) dist.combine(new Distribution(odds))
+		for (var i = 1; i < this.numDice; i++)
+			dist.intersection(new Distribution(odds))
 		return dist
 	}
 }
@@ -43,17 +44,15 @@ class Distribution {
 		)
 	}
 
-	combine(other) {
+	intersection(other) {
 		if (!(other instanceof Distribution))
-			throw new ValueError(
-				"Cannot combine " + typeof other + " with a distribution"
-			)
-		var combined = new Array(this.dist.length + other.dist.length - 1).fill(0)
+			throw new ValueError(`need A Distribution to derive an intersection`)
+		var dist = new Array(this.dist.length + other.dist.length - 1).fill(0)
 		const min = this.min + other.min
 		for (var i = 0; i < this.dist.length; i++)
 			for (var j = 0; j < other.dist.length; j++)
-				combined[i + j] += this.dist[i] * other.dist[j]
-		this.dist = combined
+				dist[i + j] += this.dist[i] * other.dist[j]
+		this.dist = dist
 		this.min = min
 		return this
 	}
