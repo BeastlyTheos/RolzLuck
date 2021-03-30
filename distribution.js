@@ -15,6 +15,7 @@ class Dice {
 	}
 
 	createDistribution() {
+		if (this.numDice === 0 || this.sides === 0) return new Distribution([1], 0)
 		var odds = new Array(this.sides).fill(1)
 		var dist = new Distribution(odds)
 		for (var i = 1; i < this.numDice; i++)
@@ -25,10 +26,6 @@ class Dice {
 
 class Distribution {
 	constructor(odds, min = 1) {
-		if (!odds.length)
-			throw new Error(
-				"cannot create a probability distribution with 0 possible outcomes"
-			)
 		this.dist = odds
 		this.min = min
 	}

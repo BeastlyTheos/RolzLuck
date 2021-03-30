@@ -70,6 +70,28 @@ describe("creating distributions from dice codes", () => {
 		}
 	})
 
+	it("dice codes with either 0 dice or 0 sides", () => {
+		try {
+			for (var [numDice, sides] of [
+				[1, 0],
+				[2, 0],
+				[7, 0],
+				[0, 0],
+				[0, 10],
+				[0, 20],
+				[0, 103],
+				[93, 0],
+			]) {
+				let dist = new Dice(sides, numDice).createDistribution()
+				expect(dist.min).withContext(`${numDice} and ${sides}`).toBe(0)
+				expect(dist.dist).toEqual([1])
+			}
+		} catch (err) /* istanbul ignore next */ {
+			err.message += "\nnumDice " + numDice + ". sides " + sides
+			throw err
+		}
+	})
+
 	it("dice codes with few dice", () => {
 		try {
 			for (var [numDice, sides, expectedDist] of [
@@ -93,47 +115,43 @@ describe("creating distributions from dice codes", () => {
 				[1, 1],
 				[1, 2],
 				[1, 3],
-				[1, 0],
 				[1, 10],
 				[1, 20],
 				[1, 103],
 				[2, 1],
 				[2, 2],
 				[2, 3],
-				[2, 0],
 				[2, 10],
 				[2, 20],
 				[2, 103],
 				[7, 1],
 				[7, 2],
 				[7, 3],
-				[7, 0],
 				[7, 10],
 				[7, 20],
 				[7, 103],
 				[0, 1],
 				[0, 2],
 				[0, 3],
-				[0, 0],
 				[0, 10],
 				[0, 20],
 				[0, 103],
 				[93, 1],
 				[93, 2],
 				[93, 3],
-				[93, 0],
 				[93, 10],
 				[93, 20],
 				[93, 103],
 			]) {
 				let dist = new Dice(sides, numDice).createDistribution()
-				expect(dist.min).toBe(numDice)
+				expect(dist.min).withContext(`${numDice} and ${sides}`).toBe(numDice)
 				expect(dist.dist.length).toBe(numDice * sides - numDice + 1)
 				expect(dist.dist[0]).toBe(1)
 				expect(dist.dist[dist.dist.length - 1]).toBe(1)
 			}
-		} catch (err) {
+		} catch (err) /* istanbul ignore next */ {
 			err.message += "\nnumDice " + numDice + ". sides " + sides
+			throw err
 		}
 	})
 })
