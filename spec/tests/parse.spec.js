@@ -1,3 +1,13 @@
+/* globals process */
+const {execSync} = require("child_process")
+
+try {
+	execSync("npm run compile-grammar", {windowsHide: true})
+} catch (err) /* istanbul ignore next */ {
+	console.error(`\nNearley compiler exited with error [${err.status}]`)
+	process.exit(15)
+}
+
 const parser = require("../../parse")
 const zip = (a, b) => a.map((e, i) => [e, b[i]])
 
