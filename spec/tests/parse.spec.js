@@ -25,6 +25,8 @@ const treeEquality = function (a, b) {
 			// they are likely dice objects
 			expect(a.numDice).toBe(b.numDice)
 			expect(a.sides).toBe(b.sides)
+			if (typeof a.keep !== "undefined" && typeof b.keep !== "undefined")
+				expect(a.keep).toBe(b.keep)
 		} else expect(a).toBe(b)
 	} //end if they are not both arrays
 }
@@ -126,10 +128,26 @@ describe("dice codes", () => {
 			throw err
 		}
 	})
+
+	it("parses partial sum dice codes", () => {
+		for (var [expr, expectedTree] of [
+			["2d4h9", {numDice: 2, sides: 4, keep: 9}],
+			["2d4h3", {numDice: 2, sides: 4, keep: 3}],
+			["4d6h3+3", [{numDice: 4, sides: 6, keep: 3}, "+", 3]],
+			["4-8d6h3", [4, "-", {numDice: 8, sides: 6, keep: 3}]],
+			["12-+8d6h5--40", [[12, "-", {numDice: 8, sides: 6, keep: 5}], "-", -40]],
+			// ["12+-8d6h5--40", [[12, "-", {numDice: 8, sides: 6, keep:5}], "+", 40]] // this last case should combine the +- into a -, leaving the 8 positive. Can be fixed either by refactoring createDistribution to handle negative numDice or by fixing parser
+		]) {
+			let results = parser.feed(expr)
+			expect(results.length).toBe(1)
+			let res = results[0]
+			treeEquality(res, expectedTree)
+		}
+	})
 })
 
 describe("evaluating AST's", () => {
-	;-it("math without dice codes", () => {
+	it("math without dice codes", () => {
 		for (var [text, expectedResult] of [
 			["1", 1],
 			["5", 5],

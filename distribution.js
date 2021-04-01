@@ -28,7 +28,7 @@ class Dice {
 
 	createDistribution() {
 		if (this.numDice === 0 || this.sides === 0) return new Distribution([1], 0)
-		if (this.numDice == this.keep) return this.createTrivialDistribution()
+		if (this.numDice <= this.keep) return this.createTrivialDistribution()
 		else return this.createPartialSumDistribution()
 	}
 
