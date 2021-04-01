@@ -65,7 +65,7 @@ describe("misc distribution functions", () => {
 describe("creating distributions from dice codes", () => {
 	it("trivial dice codes", () => {
 		for (var sides of [1, 2, 3, 10, 20, 103]) {
-			let dist = new Dice(sides).createDistribution()
+			let dist = new Dice(1, sides).createDistribution()
 			expect(dist.dist).toEqual(new Array(sides).fill(1))
 		}
 	})
@@ -82,7 +82,7 @@ describe("creating distributions from dice codes", () => {
 				[0, 103],
 				[93, 0],
 			]) {
-				let dist = new Dice(sides, numDice).createDistribution()
+				let dist = new Dice(numDice, sides).createDistribution()
 				expect(dist.min).withContext(`${numDice} and ${sides}`).toBe(0)
 				expect(dist.dist).toEqual([1])
 			}
@@ -99,7 +99,7 @@ describe("creating distributions from dice codes", () => {
 				[2, 2, [1, 2, 1]],
 				[3, 3, [1, 3, 6, 7, 6, 3, 1]],
 			]) {
-				let dist = new Dice(sides, numDice).createDistribution()
+				let dist = new Dice(numDice, sides).createDistribution()
 				expect(dist.min).toBe(numDice)
 				expect(dist.dist).toEqual(expectedDist)
 			}
@@ -143,7 +143,7 @@ describe("creating distributions from dice codes", () => {
 				[93, 20],
 				[93, 103],
 			]) {
-				let dist = new Dice(sides, numDice).createDistribution()
+				let dist = new Dice(numDice, sides).createDistribution()
 				expect(dist.min).withContext(`${numDice} and ${sides}`).toBe(numDice)
 				expect(dist.dist.length).toBe(numDice * sides - numDice + 1)
 				expect(dist.dist[0]).toBe(1)
@@ -176,7 +176,7 @@ describe("creating distributions from partial sum dice codes", () => {
 			[3, 3, 3, [1, 3, 6, 7, 6, 3, 1]],
 		]) {
 			data = `${numDice}d${sides}h${keep}`
-			dist = new Dice(sides, numDice, keep).createDistribution()
+			dist = new Dice(numDice, sides, keep).createDistribution()
 			expect(dist.min).withContext(data).toBe(keep)
 			expect(dist.dist).withContext(data).toEqual(expectedDist)
 		}

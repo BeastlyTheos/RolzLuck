@@ -14,7 +14,7 @@ function factorial(n) {
 }
 
 class Dice {
-	constructor(sides, numDice = 1, keep = null) {
+	constructor(numDice, sides, keep = null) {
 		this.numDice = numDice
 		this.sides = sides
 		if (keep === null) this.keep = this.numDice

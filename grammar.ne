@@ -17,15 +17,15 @@ scalar -> dice{% id %}
 
 dice -> int [Dd] int [Hh] int {%
 	function ([numDice, d, sides, h, keep]) {
-		return new Dice(sides, numDice, keep)
+		return new Dice(numDice, sides, keep)
 	} %}
 	| int [Dd] int {%
 	function ([numDice, d, sides]) {
-		return new Dice(sides, numDice)
+		return new Dice(numDice, sides)
 	} %}
 	| [dD] int {%
 	 function([d, sides]) {
-		return new Dice(sides)
+		return new Dice(1, sides)
 	} %}
 
 int -> [0-9]:+ {% (data) => { return parseInt(data[0].join("")) } %}
