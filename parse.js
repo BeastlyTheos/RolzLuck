@@ -28,7 +28,7 @@ const parser = {
 				let op = tree[1]
 				let val2 = this.evaluate(tree[2])
 				if (op === "-") val2.negate()
-				return val1.combine(val2)
+				return val1.intersection(val2)
 			} else throw new Error("tree has wrong number of nodes at this level")
 		} else {
 			if (typeof tree === "number") return new Distribution([1], tree)

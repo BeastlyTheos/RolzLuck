@@ -2,10 +2,17 @@
 	"scripts": {
 		"lint": "eslint --fix **/*.js",
 		"format-json": "prettier --write **/*.json",
-		"compile-parser": "nearleyc grammar.ne -o grammar.js",
+		"compile-grammar": "nearleyc grammar.ne -o grammar.js",
 		"test": "jasmine --fail-fast=true",
-		"testmon": "nodemon --exec  jasmine",
+		"testmon": "npx nodemon --exec npm run test",
 		"coverage": "nyc npx jasmine --fail-fast=false --stop-on-failure=false"
+	},
+	"nodemonConfig": {
+		"watch": [
+			"*.*",
+			"grammar.ne"
+		],
+		"ignore": "grammar.js"
 	},
 	"nyc": {
 		"exclude": "grammar.js",
