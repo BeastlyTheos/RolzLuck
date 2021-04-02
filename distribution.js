@@ -22,8 +22,10 @@ class Dice {
 	}
 
 	toString() {
-		/* istanbul ignore next */
-		return `${this.numDice}d${this.sides}h${this.keep}`
+		var s = "D" + this.sides
+		if (this.numDice != 1) s = this.numDice + s
+		if (this.keep != this.numDice) s += "H" + this.keep
+		return s
 	}
 
 	createDistribution() {

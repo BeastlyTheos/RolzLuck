@@ -212,3 +212,18 @@ describe("mathematical operations on distributions", () => {
 		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
 	})
 })
+
+describe("Dice.toString", () => {
+	it("shows only sides when numDice is 1", () => {
+		var die = new Dice(1, 4)
+		expect(die.toString()).toBe("D4")
+	})
+	it("shows number of dice and sides when there are more than one die but no keep value", () => {
+		var die = new Dice(3, 6)
+		expect(die.toString()).toBe("3D6")
+	})
+	it("shows full syntax when keep value is specified", () => {
+		var die = new Dice(4, 8, 2)
+		expect(die.toString()).toBe("4D8H2")
+	})
+})
