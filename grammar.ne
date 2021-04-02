@@ -15,9 +15,9 @@ sum -> sum "+" scalar
 scalar -> dice{% id %}
 	| int {% id %}
 
-dice -> int [Dd] int [Hh] int {%
-	function ([numDice, d, sides, h, numKeep]) {
-		return new Dice(numDice, sides, Dice.highest, numKeep)
+dice -> int [Dd] int [HhLl] int {%
+	function ([numDice, d, sides, k, numKeep]) {
+		return new Dice(numDice, sides, k.toUpperCase() === "H"? Dice.highest: Dice.lowest, numKeep)
 	} %}
 	| int [Dd] int {%
 	function ([numDice, d, sides]) {

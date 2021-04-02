@@ -9,6 +9,7 @@ try {
 }
 
 const parser = require("../../parse")
+const {lowest} = require("../../distribution").Dice
 const zip = (a, b) => a.map((e, i) => [e, b[i]])
 
 const treeEquality = function (a, b) {
@@ -25,6 +26,8 @@ const treeEquality = function (a, b) {
 			// they are likely dice objects
 			expect(a.numDice).toBe(b.numDice)
 			expect(a.sides).toBe(b.sides)
+			if (typeof a.keep !== "undefined" && typeof b.keep !== "undefined")
+				expect(a.keep).toBe(b.keep)
 			if (typeof a.numKeep !== "undefined" && typeof b.numKeep !== "undefined")
 				expect(a.numKeep).toBe(b.numKeep)
 		} else expect(a).toBe(b)
@@ -129,7 +132,7 @@ describe("dice codes", () => {
 		}
 	})
 
-	it("parses partial sum dice codes", () => {
+	it("parses higher partial sum dice codes", () => {
 		for (var [expr, expectedTree] of [
 			["2d4h9", {numDice: 2, sides: 4, numKeep: 9}],
 			["2d4h3", {numDice: 2, sides: 4, numKeep: 3}],
@@ -140,6 +143,24 @@ describe("dice codes", () => {
 				[[12, "-", {numDice: 8, sides: 6, numKeep: 5}], "-", -40],
 			],
 			// ["12+-8d6h5--40", [[12, "-", {numDice: 8, sides: 6, numKeep:5}], "+", 40]] // this last case should combine the +- into a -, leaving the 8 positive. Can be fixed either by refactoring createDistribution to handle negative numDice or by fixing parser
+		]) {
+			let results = parser.feed(expr)
+			expect(results.length).toBe(1)
+			let res = results[0]
+			treeEquality(res, expectedTree)
+		}
+	})
+
+	it("parses lower partial sum dice codes", () => {
+		for (var [expr, expectedTree] of [
+			["2d4l9", {numDice: 2, sides: 4, keep: lowest, numKeep: 9}],
+			["2d4l3", {numDice: 2, sides: 4, keep: lowest, numKeep: 3}],
+			["4d6l3+3", [{numDice: 4, sides: 6, keep: lowest, numKeep: 3}, "+", 3]],
+			["4-8d6L3", [4, "-", {numDice: 8, sides: 6, keep: lowest, numKeep: 3}]],
+			[
+				"12-+8d6L5--40",
+				[[12, "-", {numDice: 8, sides: 6, keep: lowest, numKeep: 5}], "-", -40],
+			],
 		]) {
 			let results = parser.feed(expr)
 			expect(results.length).toBe(1)
