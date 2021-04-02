@@ -158,8 +158,8 @@ describe("creating distributions from dice codes", () => {
 
 describe("creating distributions from partial sum dice codes", () => {
 	it("dice codes with few dice", () => {
-		var data, dist
-		for (var [numDice, sides, keep, expectedDist] of [
+		var die, dist
+		for (let [numDice, sides, numKeep, expectedDist] of [
 			[1, 1, 0, [1]],
 			[1, 1, 1, [1]],
 			[2, 1, 0, [1]],
@@ -175,10 +175,10 @@ describe("creating distributions from partial sum dice codes", () => {
 			[3, 3, 2, [1, 3, 7, 9, 7]],
 			[3, 3, 3, [1, 3, 6, 7, 6, 3, 1]],
 		]) {
-			data = `${numDice}d${sides}h${keep}`
-			dist = new Dice(numDice, sides, keep).createDistribution()
-			expect(dist.min).withContext(data).toBe(keep)
-			expect(dist.dist).withContext(data).toEqual(expectedDist)
+			die = new Dice(numDice, sides, Dice.highest, numKeep)
+			dist = die.createDistribution()
+			expect(dist.min).withContext(die).toBe(numKeep)
+			expect(dist.dist).withContext(die).toEqual(expectedDist)
 		}
 	})
 })
@@ -222,8 +222,12 @@ describe("Dice.toString", () => {
 		var die = new Dice(3, 6)
 		expect(die.toString()).toBe("3D6")
 	})
-	it("shows full syntax when keep value is specified", () => {
-		var die = new Dice(4, 8, 2)
+	it("shows full syntax when keeping a subset of highest dice", () => {
+		var die = new Dice(4, 8, Dice.highest, 2)
 		expect(die.toString()).toBe("4D8H2")
+	})
+	it("shows full syntax when keeping a subset of lowest dice", () => {
+		var die = new Dice(7, 6, Dice.lowest, 3)
+		expect(die.toString()).toBe("7D6L3")
 	})
 })

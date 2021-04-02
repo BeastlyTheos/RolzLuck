@@ -14,23 +14,28 @@ function factorial(n) {
 }
 
 class Dice {
-	constructor(numDice, sides, keep = null) {
+	constructor(numDice, sides, keep, numKeep) {
 		this.numDice = numDice
 		this.sides = sides
-		if (keep === null) this.keep = this.numDice
-		else this.keep = keep
+		if (typeof keep === "undefined" || keep === null) {
+			this.keep = Dice.highest
+			this.numKeep = this.numDice
+		} else {
+			this.keep = keep
+			this.numKeep = numKeep
+		}
 	}
 
 	toString() {
 		var s = "D" + this.sides
 		if (this.numDice != 1) s = this.numDice + s
-		if (this.keep != this.numDice) s += "H" + this.keep
+		if (this.numKeep != this.numDice) s += this.keep + this.numKeep
 		return s
 	}
 
 	createDistribution() {
 		if (this.numDice === 0 || this.sides === 0) return new Distribution([1], 0)
-		if (this.numDice <= this.keep) return this.createTrivialDistribution()
+		if (this.numDice <= this.numKeep) return this.createTrivialDistribution()
 		else return this.createPartialSumDistribution()
 	}
 
@@ -54,7 +59,7 @@ class Dice {
 		return this._createPartialSumDistribution(
 			this.numDice,
 			this.sides,
-			this.keep,
+			this.numKeep,
 			0,
 			0,
 			1
@@ -79,7 +84,7 @@ class Dice {
 	_createPartialSumDistribution(
 		numDice,
 		sides,
-		keep,
+		numKeep,
 		depth,
 		streekOfEquals,
 		divisorOfFactorial
@@ -89,7 +94,7 @@ class Dice {
 		/* istanbul ignore if */
 		if (numDice < 0)
 			throw Error(
-				`exceeded maximum depth: n=${numDice}, s=${sides}, k=${keep}, depth=${depth}, streek=${streekOfEquals}, div=${divisorOfFactorial}`
+				`exceeded maximum depth: ${numDice}D${sides}${this.keep}${numKeep}, depth=${depth}, streek=${streekOfEquals}, div=${divisorOfFactorial}`
 			)
 
 		var dist, d, newStreek
@@ -99,12 +104,12 @@ class Dice {
 			d = this._createPartialSumDistribution(
 				numDice - 1,
 				s,
-				keep - 1,
+				numKeep - 1,
 				depth + 1,
 				newStreek,
 				divisorOfFactorial * newStreek
 			)
-			if (keep > 0) d.min += s
+			if (numKeep > 0) d.min += s
 			if (dist) dist.union(d)
 			else dist = d
 		}
@@ -112,6 +117,8 @@ class Dice {
 		return dist
 	}
 }
+Dice.highest = "H"
+Dice.lowest = "L"
 
 class Distribution {
 	constructor(odds, min = 1) {

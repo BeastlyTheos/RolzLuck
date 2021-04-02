@@ -16,8 +16,8 @@ scalar -> dice{% id %}
 	| int {% id %}
 
 dice -> int [Dd] int [Hh] int {%
-	function ([numDice, d, sides, h, keep]) {
-		return new Dice(numDice, sides, keep)
+	function ([numDice, d, sides, h, numKeep]) {
+		return new Dice(numDice, sides, Dice.highest, numKeep)
 	} %}
 	| int [Dd] int {%
 	function ([numDice, d, sides]) {
