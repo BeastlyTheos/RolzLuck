@@ -157,7 +157,7 @@ describe("creating distributions from dice codes", () => {
 })
 
 describe("creating distributions from partial sum dice codes", () => {
-	it("dice codes with few dice", () => {
+	it("keeping highest dice codes with few dice", () => {
 		var die, dist
 		for (let [numDice, sides, numKeep, expectedDist] of [
 			[1, 1, 0, [1]],
@@ -176,6 +176,31 @@ describe("creating distributions from partial sum dice codes", () => {
 			[3, 3, 3, [1, 3, 6, 7, 6, 3, 1]],
 		]) {
 			die = new Dice(numDice, sides, Dice.highest, numKeep)
+			dist = die.createDistribution()
+			expect(dist.min).withContext(die).toBe(numKeep)
+			expect(dist.dist).withContext(die).toEqual(expectedDist)
+		}
+	})
+
+	it("keeping lowest dice codes with few dice", () => {
+		var die, dist
+		for (let [numDice, sides, numKeep, expectedDist] of [
+			[1, 1, 0, [1]],
+			[1, 1, 1, [1]],
+			[2, 1, 0, [1]],
+			[2, 1, 1, [1]],
+			[2, 1, 2, [1]],
+			[1, 2, 0, [2]],
+			[1, 2, 1, [1, 1]],
+			[2, 2, 0, [4]],
+			[2, 2, 1, [3, 1]],
+			[2, 2, 2, [1, 2, 1]],
+			[3, 3, 0, [27]],
+			[3, 3, 1, [19, 7, 1]],
+			[3, 3, 2, [7, 9, 7, 3, 1]],
+			[3, 3, 3, [1, 3, 6, 7, 6, 3, 1]],
+		]) {
+			die = new Dice(numDice, sides, Dice.lowest, numKeep)
 			dist = die.createDistribution()
 			expect(dist.min).withContext(die).toBe(numKeep)
 			expect(dist.dist).withContext(die).toEqual(expectedDist)

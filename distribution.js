@@ -56,7 +56,7 @@ class Dice {
 	 * returns a probability distribution where distro[sum] is the number of permutations that create a given sum
 	 */
 	createPartialSumDistribution() {
-		return this._createPartialSumDistribution(
+		let dist = this._createPartialSumDistribution(
 			this.numDice,
 			this.sides,
 			this.numKeep,
@@ -64,6 +64,8 @@ class Dice {
 			0,
 			1
 		)
+		if (this.keep === Dice.lowest) dist.dist.reverse()
+		return dist
 	}
 
 	/* _createPartialSumDistribution
