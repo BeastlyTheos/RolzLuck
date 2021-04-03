@@ -7,70 +7,37 @@ const distroMultiple1 = new Distribution([4, 9])
 const distroMultiple2 = new Distribution([18, 42])
 const distroD6 = new Distribution([1, 2, 3, 4, 5, 6])
 
-describe("misc distribution functions", () => {
-	it("oddsOfResult", () => {
-		expect(distro1.oddsOfResult(1)).toBe(1)
-		expect(distroNegative.oddsOfResult(1)).toBe(-3)
-		expect(distroMultiple2.oddsOfResult(1)).toBe(18)
-		expect(distroMultiple2.oddsOfResult(2)).toBe(42)
-		expect(distroD6.oddsOfResult(5)).toBe(5)
+describe("Dice.toString", () => {
+	it("shows only sides when numDice is 1", () => {
+		var die = new Dice(1, 4)
+		expect(die.toString()).toBe("D4")
 	})
 
-	it("luckOfResult", () => {
-		expect(distro1.luckOfResult(1)).toBe(0.5)
-		expect(distroNegative.luckOfResult(1)).toBe(0.5)
-		expect(distroMultiple1.luckOfResult(1)).toBe(2 / 13)
-		expect(distroMultiple1.luckOfResult(2)).toBe(8.5 / 13)
-		expect(distroD6.luckOfResult(1)).toBe(0.5 / 21)
-		expect(distroD6.luckOfResult(4)).toBe(8 / 21)
+	it("shows number of dice and sides when there are more than one die but no keep value", () => {
+		var die = new Dice(3, 6)
+		expect(die.toString()).toBe("3D6")
 	})
 
-	it("derives intersections between distributions", () => {
-		var distro1 = new Distribution([1])
-		distro1.intersection(distro1)
-		expect(distro1.dist).toEqual([1])
-
-		var distroD4 = new Distribution([1, 1, 1, 1])
-		var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
-		distroD4.intersection(distroD6)
-		expect(distroD4.dist).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
-		expect(distroD4.min).toBe(2)
-
-		var distroD2 = new Distribution([1, 1])
-		distro1 = new Distribution([1])
-		distroD2.intersection(distro1)
-		expect(distroD2.dist).toEqual([1, 1])
-		expect(distroD2.min).toBe(2)
+	it("shows full syntax when keeping a subset of highest dice", () => {
+		var die = new Dice(4, 8, Dice.highest, 2)
+		expect(die.toString()).toBe("4D8H2")
 	})
 
-	it("derives unions between distributions", () => {
-		var distro1 = new Distribution([1])
-		distro1.union(distro1)
-		expect(distro1.dist).toEqual([2])
-
-		var distroD4 = new Distribution([1, 1, 1, 1])
-		var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
-		distroD4.union(distroD6)
-		expect(distroD4.dist).toEqual([2, 2, 2, 2, 1, 1])
-		expect(distroD4.min).toBe(1)
-
-		var distroD2 = new Distribution([1, 1])
-		distro1 = new Distribution([1])
-		distroD2.union(distro1)
-		expect(distroD2.dist).toEqual([2, 1])
-		expect(distroD2.min).toBe(1)
+	it("shows full syntax when keeping a subset of lowest dice", () => {
+		var die = new Dice(7, 6, Dice.lowest, 3)
+		expect(die.toString()).toBe("7D6L3")
 	})
 })
 
-describe("creating distributions from dice codes", () => {
-	it("trivial dice codes", () => {
+describe("Dice.createDistribution", () => {
+	it("creates a distribution of 1's for trivial dice codes", () => {
 		for (var sides of [1, 2, 3, 10, 20, 103]) {
 			let dist = new Dice(1, sides).createDistribution()
 			expect(dist.dist).toEqual(new Array(sides).fill(1))
 		}
 	})
 
-	it("dice codes with either 0 dice or 0 sides", () => {
+	it("creates a distribution with a 100% chance of 0 when given a dice code with either 0 dice or 0 sides", () => {
 		try {
 			for (var [numDice, sides] of [
 				[1, 0],
@@ -92,7 +59,7 @@ describe("creating distributions from dice codes", () => {
 		}
 	})
 
-	it("dice codes with few dice", () => {
+	it("creates specified distribution for dice codes with few dice", () => {
 		try {
 			for (var [numDice, sides, expectedDist] of [
 				[2, 1, [1]],
@@ -109,7 +76,7 @@ describe("creating distributions from dice codes", () => {
 		}
 	})
 
-	it("dice codes with huge numbers of dice", () => {
+	it("creates a distribution within sensable boundaries for dice codes with huge numbers of dice", () => {
 		try {
 			for (var [numDice, sides] of [
 				[1, 1],
@@ -156,8 +123,8 @@ describe("creating distributions from dice codes", () => {
 	})
 })
 
-describe("creating distributions from partial sum dice codes", () => {
-	it("keeping highest dice codes with few dice", () => {
+describe("Dice.createPartialSumDistribution", () => {
+	it("creates specified distribution when a subset of the highest dice are kept and there are few dice", () => {
 		var die, dist
 		for (let [numDice, sides, numKeep, expectedDist] of [
 			[1, 1, 0, [1]],
@@ -182,7 +149,7 @@ describe("creating distributions from partial sum dice codes", () => {
 		}
 	})
 
-	it("keeping lowest dice codes with few dice", () => {
+	it("creates specified distribution when a subset of the lowest dice are kept and there are few dice", () => {
 		var die, dist
 		for (let [numDice, sides, numKeep, expectedDist] of [
 			[1, 1, 0, [1]],
@@ -208,8 +175,8 @@ describe("creating distributions from partial sum dice codes", () => {
 	})
 })
 
-describe("mathematical operations on distributions", () => {
-	it("addNumber", () => {
+describe("distribution method", () => {
+	it("add (scalar) increases the domain of results while the range does not change", () => {
 		distro1.addNumber(12)
 		expect(distro1.oddsOfResult(13)).toBe(1)
 		distro1.addNumber(-12)
@@ -223,7 +190,7 @@ describe("mathematical operations on distributions", () => {
 		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
 	})
 
-	it("negate distribution", () => {
+	it("negate inverses the range of results while the negating the domain", () => {
 		distro1.negate()
 		expect(distro1.oddsOfResult(-1)).toBe(1)
 		distro1.negate()
@@ -236,23 +203,57 @@ describe("mathematical operations on distributions", () => {
 		expect(distroMultiple1.oddsOfResult(1)).toBe(4)
 		expect(distroMultiple1.oddsOfResult(2)).toBe(9)
 	})
-})
 
-describe("Dice.toString", () => {
-	it("shows only sides when numDice is 1", () => {
-		var die = new Dice(1, 4)
-		expect(die.toString()).toBe("D4")
+	it("intersection merges in another distribution such that the current distribution reflects the odds that both happen", () => {
+		var distro1 = new Distribution([1])
+		distro1.intersection(distro1)
+		expect(distro1.dist).toEqual([1])
+
+		var distroD4 = new Distribution([1, 1, 1, 1])
+		var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
+		distroD4.intersection(distroD6)
+		expect(distroD4.dist).toEqual([1, 2, 3, 4, 4, 4, 3, 2, 1])
+		expect(distroD4.min).toBe(2)
+
+		var distroD2 = new Distribution([1, 1])
+		distro1 = new Distribution([1])
+		distroD2.intersection(distro1)
+		expect(distroD2.dist).toEqual([1, 1])
+		expect(distroD2.min).toBe(2)
 	})
-	it("shows number of dice and sides when there are more than one die but no keep value", () => {
-		var die = new Dice(3, 6)
-		expect(die.toString()).toBe("3D6")
+
+	it("union merges another distribution such that the current distribution reflects the odds of either or happening", () => {
+		var distro1 = new Distribution([1])
+		distro1.union(distro1)
+		expect(distro1.dist).toEqual([2])
+
+		var distroD4 = new Distribution([1, 1, 1, 1])
+		var distroD6 = new Distribution([1, 1, 1, 1, 1, 1])
+		distroD4.union(distroD6)
+		expect(distroD4.dist).toEqual([2, 2, 2, 2, 1, 1])
+		expect(distroD4.min).toBe(1)
+
+		var distroD2 = new Distribution([1, 1])
+		distro1 = new Distribution([1])
+		distroD2.union(distro1)
+		expect(distroD2.dist).toEqual([2, 1])
+		expect(distroD2.min).toBe(1)
 	})
-	it("shows full syntax when keeping a subset of highest dice", () => {
-		var die = new Dice(4, 8, Dice.highest, 2)
-		expect(die.toString()).toBe("4D8H2")
+
+	it("oddsOfResult returns the odds that a given result happens", () => {
+		expect(distro1.oddsOfResult(1)).toBe(1)
+		expect(distroNegative.oddsOfResult(1)).toBe(-3)
+		expect(distroMultiple2.oddsOfResult(1)).toBe(18)
+		expect(distroMultiple2.oddsOfResult(2)).toBe(42)
+		expect(distroD6.oddsOfResult(5)).toBe(5)
 	})
-	it("shows full syntax when keeping a subset of lowest dice", () => {
-		var die = new Dice(7, 6, Dice.lowest, 3)
-		expect(die.toString()).toBe("7D6L3")
+
+	it("luckOfResult returns the user's luck rating given the result", () => {
+		expect(distro1.luckOfResult(1)).toBe(0.5)
+		expect(distroNegative.luckOfResult(1)).toBe(0.5)
+		expect(distroMultiple1.luckOfResult(1)).toBe(2 / 13)
+		expect(distroMultiple1.luckOfResult(2)).toBe(8.5 / 13)
+		expect(distroD6.luckOfResult(1)).toBe(0.5 / 21)
+		expect(distroD6.luckOfResult(4)).toBe(8 / 21)
 	})
 })

@@ -24,8 +24,8 @@ const treeEquality = function (a, b) {
 	} //end if they are not both arrays
 }
 
-describe("mathematical operations", () => {
-	it("simple addition and subtraction", () => {
+describe("parser", () => {
+	it("parses simple addition and subtraction", () => {
 		try {
 			for (var [expr, expectedTree] of [
 				["10", 10],
@@ -52,7 +52,7 @@ describe("mathematical operations", () => {
 		}
 	})
 
-	it("unary plus and minus", () => {
+	it("merges unary plus and minus into a single sign", () => {
 		try {
 			for (var [expr, expectedTree] of [
 				["-10", -10],
@@ -77,10 +77,8 @@ describe("mathematical operations", () => {
 			throw err
 		}
 	})
-})
 
-describe("dice codes", () => {
-	it("parsing atomic dice codes", () => {
+	it("parses single-die dice codes", () => {
 		for (var [code, numDice, sides] of [
 			["D1", 1, 1],
 			["d6", 1, 6],
@@ -102,7 +100,7 @@ describe("dice codes", () => {
 		}
 	})
 
-	it("adding scalars and dice codes", () => {
+	it("parses scalars added with dice codes", () => {
 		try {
 			for (var [expr, expectedTree] of [
 				["d1+1", [{numDice: 1, sides: 1}, "+", 1]],
@@ -122,7 +120,7 @@ describe("dice codes", () => {
 		}
 	})
 
-	it("parses higher partial sum dice codes", () => {
+	it("parses dice codes that only sum a subset of the highest dice", () => {
 		for (var [expr, expectedTree] of [
 			["2d4h9", {numDice: 2, sides: 4, numKeep: 9}],
 			["2d4h3", {numDice: 2, sides: 4, numKeep: 3}],
@@ -141,7 +139,7 @@ describe("dice codes", () => {
 		}
 	})
 
-	it("parses lower partial sum dice codes", () => {
+	it("parses dice codes that only sum a subset of the lowest dice", () => {
 		for (var [expr, expectedTree] of [
 			["2d4l9", {numDice: 2, sides: 4, keep: lowest, numKeep: 9}],
 			["2d4l3", {numDice: 2, sides: 4, keep: lowest, numKeep: 3}],
@@ -160,8 +158,8 @@ describe("dice codes", () => {
 	})
 })
 
-describe("evaluating AST's", () => {
-	it("math without dice codes", () => {
+describe("abstract syntax trees", () => {
+	it("have the specified structure", () => {
 		for (var [text, expectedResult] of [
 			["1", 1],
 			["5", 5],
