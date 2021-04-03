@@ -3,6 +3,14 @@ const Message = require("../../Message")
 const samples = require("./testSamples")
 
 describe("Message", () => {
+	describe(".toString", () => {
+		it("shows inner HTML of the initial node", () => {
+			let node = {innerHTML: "developer rolls 10d100 = 10"}
+			let msg = new Message(node)
+			expect(msg.toString()).toEqual(`[Message: ${node.innerHTML}]`)
+		})
+	})
+
 	it("constructor returns truthy when when given a new message mutation", () => {
 		var Roll = jasmine.createSpy("Roll class")
 		Roll.combineRoll = jasmine.createSpy("Roll.combineRoll method")
