@@ -29,7 +29,6 @@
 		}
 	},
 	"lint-staged": {
-		"grammar.ne": "nearleyc -o grammar.js",
 		"*.js": [
 			"eslint  --fix",
 			"test-coverage.bat"
