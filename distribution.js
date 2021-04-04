@@ -1,4 +1,3 @@
-/* globals module, ValueError */
 function sum(arr) {
 	var len = arr.length,
 		sum = 0
@@ -149,7 +148,7 @@ class Distribution {
 	intersection(other) {
 		/* istanbul ignore if */
 		if (!(other instanceof Distribution))
-			throw new ValueError(`need A Distribution to derive an intersection`)
+			throw new Error(`need A Distribution to derive an intersection`)
 		var dist = new Array(this.dist.length + other.dist.length - 1).fill(0)
 		const min = this.min + other.min
 		for (var i = 0; i < this.dist.length; i++)
@@ -163,7 +162,7 @@ class Distribution {
 	union(other) {
 		/* istanbul ignore if */
 		if (!(other instanceof Distribution))
-			throw new ValueError(`need A Distribution to derive a union`)
+			throw new Error(`need A Distribution to derive a union`)
 		var max =
 			Math.max(this.dist.length + this.min, other.dist.length + other.min) - 1
 		var min = Math.min(this.min, other.min)

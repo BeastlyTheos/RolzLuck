@@ -1,7 +1,7 @@
-/* globals chrome, errorWrapper:writable, Message, */
+/* globals chrome, Message: writable */
 var msgs = []
 
-errorWrapper = function (func) {
+const errorWrapper = function (func) {
 	try {
 		func()
 	} catch (err) {

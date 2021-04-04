@@ -1,4 +1,3 @@
-/* globals module */
 class RollStub {
 	constructor(name, diceCodes, results) {
 		this.name = name

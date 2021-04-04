@@ -1,4 +1,4 @@
-/* globals Dice:writable, Distribution:writable, grammar:writable, module, nearley:writable, */
+/* globals Dice:writable, Distribution:writable, grammar:writable, nearley:writable, */
 if (typeof module !== "undefined") {
 	nearley = require("nearley")
 	grammar = require("./grammar.js")

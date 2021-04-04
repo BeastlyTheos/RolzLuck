@@ -1,4 +1,3 @@
-/* globals process */
 const fs = require("fs")
 
 /* istanbul ignore if */

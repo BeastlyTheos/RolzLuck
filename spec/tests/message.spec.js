@@ -1,4 +1,4 @@
-/* globals jasmine */
+/* eslint-env jasmine */
 const Message = require("../../Message")
 const samples = require("./testSamples")
 

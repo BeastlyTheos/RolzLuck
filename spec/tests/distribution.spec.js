@@ -1,3 +1,4 @@
+/* eslint-env jasmine */
 const Distribution = require("../../distribution").Distribution
 const Dice = require("../../distribution").Dice
 

@@ -1,4 +1,4 @@
-/* globals module, parser, */
+/* globals parser */
 
 class Roll {
 	constructor(diceCode, result, resultNode) {
