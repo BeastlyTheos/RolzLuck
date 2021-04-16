@@ -1,5 +1,5 @@
 /* eslint-env jasmine */
-const Message = require("../../Message")
+const Message = require("../../src/Message")
 const samples = require("./testSamples")
 
 describe("Message", () => {

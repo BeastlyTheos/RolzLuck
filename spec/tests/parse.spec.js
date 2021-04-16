@@ -1,6 +1,6 @@
 /* eslint-env jasmine */
-const parser = require("../../parse")
-const {lowest} = require("../../distribution").Dice
+const parser = require("../../src/parse")
+const {lowest} = require("../../src/distribution").Dice
 const zip = (a, b) => a.map((e, i) => [e, b[i]])
 
 const treeEquality = function (a, b) {

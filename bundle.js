@@ -28,6 +28,7 @@ for (var file of files) {
 	var folder = path.dirname(file)
 	if (folder == ".") folder = ""
 	zip.addLocalFile(file, folder)
+	console.log(`bundled ${folder}/${file}`)
 }
 
 zip.writeZip("RolzLuck.zip")

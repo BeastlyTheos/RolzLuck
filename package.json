@@ -2,7 +2,7 @@
 	"scripts": {
 		"lint": "eslint --fix **/*.js",
 		"format-json": "prettier --write **/*.json",
-		"compile-grammar": "nearleyc grammar.ne -o grammar.js",
+		"compile-grammar": "nearleyc src/grammar.ne -o src/grammar.js",
 		"test": "jasmine --fail-fast=true",
 		"testmon": "npx nodemon --exec npm run test",
 		"coverage": "nyc npx jasmine --fail-fast=false --stop-on-failure=false"

@@ -6,13 +6,13 @@
 		{
 			"matches": ["https://rolz.org/dr?*"],
 			"js": [
-				"distribution.js",
+				"src/distribution.js",
 				"node_modules/nearley/lib/nearley.js",
-				"grammar.js",
-				"parse.js",
-				"roll.js",
-				"Message.js",
-				"content.js"
+				"src/grammar.js",
+				"src/parse.js",
+				"src/roll.js",
+				"src/Message.js",
+				"src/content.js"
 			]
 		}
 	],
