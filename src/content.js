@@ -1,6 +1,9 @@
 /* globals chrome, Message: writable */
 var msgs = []
 
+// uncomment the following line to run in debug mode
+//chrome.storage.local.set({"debug": true})
+
 const errorWrapper = function (func) {
 	try {
 		func()

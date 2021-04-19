@@ -2,6 +2,7 @@
 	"name": "Rolz Luck",
 	"version": "1",
 	"description": "A friend of your sanity. Have you ever wondered if the dice on rolz.org were bias against you? Are your opponents consistently getting ridiculously good rolls? Rolz Luck is here to show you just how faithful those virtual dice are to your noble quest for glory.",
+	"permissions": ["storage"],
 	"content_scripts": [
 		{
 			"matches": ["https://rolz.org/dr?*"],
@@ -16,6 +17,10 @@
 			]
 		}
 	],
-	"permissions": ["storage"],
+	"browser_action": {
+		"default_popup": "public/popup.html"
+	},
+	"web_accessible_resources": ["public/popup.html"],
+	"content_security_policy": "script-src 'self' https://unpkg.com; object-src 'self'",
 	"manifest_version": 2
 }
