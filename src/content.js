@@ -17,6 +17,16 @@ const errorWrapper = function (func) {
 
 const str = JSON.stringify
 
+let body = document.getElementsByTagName("body")[0]
+let e = document.createElement("a")
+e.setAttribute(
+	"href",
+	"chrome-extension://" + chrome.runtime.id + "/public/popup.html"
+)
+e.setAttribute("target", "_blank")
+e.innerHTML = "view luck statistics"
+body.prepend(e)
+
 // code to execute when receiving a message from the background script
 // currently runs whenever the browser action is requested
 // eslint-disable-next-line no-unused-vars
