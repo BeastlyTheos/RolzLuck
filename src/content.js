@@ -40,6 +40,7 @@ errorWrapper(function () {
 					var e = document.createElement("span")
 					e.innerHTML = Math.round(msg.combinedRoll.getLuck() * 100) + "% luck"
 					mutation.addedNodes[0].appendChild(e)
+					chrome.storage.sync.set({[msg.id]: msg})
 				}
 			}
 		})
