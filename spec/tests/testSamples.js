@@ -1,5 +1,6 @@
 class RollStub {
-	constructor(name, diceCodes, results) {
+	constructor(id, name, diceCodes, results) {
+		this.id = id
 		this.name = name
 		this.diceCodes = diceCodes
 		this.results = results
@@ -76,7 +77,7 @@ const sampleData2 = new SampleData(
 	</div>
 `,
 	]),
-	new RollStub("_Alfred", ["d20 "], [1])
+	new RollStub("jjl36b1b8r:kkhgawq6", "_Alfred", ["d20 "], [1])
 )
 
 //3, plaintext, looks like a dice code
@@ -129,7 +130,7 @@ const sampleData4 = new SampleData(
 	</div>
 `,
 	]),
-	new RollStub("_Alfred", ["d48 "], [34])
+	new RollStub("jjl36b1b8r:kkhgizi8", "_Alfred", ["d48 "], [34])
 )
 
 //5, plaintext with inline rolls
@@ -162,7 +163,7 @@ const sampleData5 = new SampleData(
 		</div>
 `,
 	]),
-	new RollStub("_Alfred", ["d8"], [5])
+	new RollStub("jjl36b1b8r:kkhgou3p", "_Alfred", ["d8"], [5])
 )
 
 //6, server message
@@ -212,7 +213,7 @@ const sampleData7 = new SampleData(
 	</div>
 `,
 	]),
-	new RollStub("_Alfredh", ["d20", "d12"], [6, 11])
+	new RollStub("jjl36b1b8r:kkkuvhxp", "_Alfredh", ["d20", "d12"], [6, 11])
 )
 
 module.exports.rollMutations = [
