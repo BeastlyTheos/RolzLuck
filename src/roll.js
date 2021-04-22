@@ -1,6 +1,6 @@
-/* globals parser */
+import parser from "./parser"
 
-class Roll {
+export default class {
 	constructor(diceCode, result, resultNode) {
 		this.diceCode = diceCode
 		this.result = result
@@ -19,6 +19,3 @@ class Roll {
 		return this.luck
 	}
 }
-
-if (typeof module !== "undefined" && typeof module.exports !== "undefined")
-	module.exports = Roll

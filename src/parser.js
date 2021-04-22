@@ -1,14 +1,10 @@
-/* globals Dice:writable, Distribution:writable, grammar:writable, nearley:writable, */
-if (typeof module !== "undefined") {
-	nearley = require("nearley")
-	grammar = require("./grammar.js")
-	Distribution = require("./distribution").Distribution
-	Dice = require("./distribution").Dice
-}
+import nearley from "nearley"
+import grammar from "./grammar"
+import {Dice, Distribution} from "./distribution"
 
 const compiledGrammar = nearley.Grammar.fromCompiled(grammar)
 
-const parser = {
+export default {
 	parse: function (input) {
 		return this.evaluate(this.feed(input)[0])
 	},
@@ -44,8 +40,4 @@ const parser = {
 				)
 		}
 	},
-}
-
-if (typeof module !== "undefined") {
-	module.exports = parser
 }

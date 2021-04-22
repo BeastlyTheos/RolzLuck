@@ -3,16 +3,16 @@
 		"lint": "eslint --fix **/*.js",
 		"format": "prettier --write **/*.html **/*.json",
 		"compile-grammar": "nearleyc src/grammar.ne -o src/grammar.js",
-		"test": "babel-node spec/run.js --fail-fast=true",
-		"testmon": "npx nodemon --exec npm test",
+		"test": "babel-node spec/run.js",
+		"testmon": "npx nodemon node_modules/@babel/node/lib/babel-node.js spec/run.js",
 		"coverage": "nyc npx npm test"
 	},
 	"nodemonConfig": {
 		"watch": [
 			"*.*",
-			"grammar.ne"
+			"src/grammar.ne"
 		],
-		"ignore": "grammar.js"
+		"ignore": "src/grammar.js"
 	},
 	"nyc": {
 		"exclude": "public/grammar.js",

@@ -1,7 +1,6 @@
 var jsdom = require("jsdom")
 
-// eslint-disable-next-line no-global-assign
-window = new jsdom.JSDOM(
+const window = new jsdom.JSDOM(
 	'<html><head></head><body><div id="rondavu_container"></div></body></html>'
 ).window
 
