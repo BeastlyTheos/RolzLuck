@@ -188,7 +188,4 @@ class Distribution {
 }
 
 /* istanbul ignore next */
-if (typeof module !== "undefined") {
-	module.exports.Dice = Dice
-	module.exports.Distribution = Distribution
-}
+export {Dice, Distribution}

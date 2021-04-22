@@ -1,4 +1,6 @@
-/* globals chrome, Message: writable */
+/* globals chrome */
+import Message from "./message"
+
 // uncomment the following line to run in debug mode
 //chrome.storage.local.set({"debug": true})
 
