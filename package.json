@@ -3,9 +3,9 @@
 		"lint": "eslint --fix **/*.js",
 		"format": "prettier --write **/*.html **/*.json",
 		"compile-grammar": "nearleyc src/grammar.ne -o src/grammar.js",
-		"test": "jasmine --fail-fast=true",
-		"testmon": "npx nodemon --exec npm run test",
-		"coverage": "nyc npx jasmine --fail-fast=false --stop-on-failure=false"
+		"test": "babel-node spec/run.js --fail-fast=true",
+		"testmon": "npx nodemon --exec npm test",
+		"coverage": "nyc npx npm test"
 	},
 	"nodemonConfig": {
 		"watch": [
@@ -37,10 +37,14 @@
 		"public/*.html": "prettier --write"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.13.16",
+		"@babel/node": "^7.13.13",
+		"@babel/preset-env": "^7.13.15",
 		"adm-zip": "^0.5.4",
 		"eslint": "^7.20.0",
 		"eslint-config-prettier": "^7.2.0",
 		"eslint-plugin-prettier": "^3.3.1",
+		"getopts": "^2.3.0",
 		"husky": "^4.3.8",
 		"jasmine": "^3.6.4",
 		"jsdom": "^16.5.1",
