@@ -6,15 +6,7 @@
 	"content_scripts": [
 		{
 			"matches": ["https://rolz.org/dr?*"],
-			"js": [
-				"src/distribution.js",
-				"node_modules/nearley/lib/nearley.js",
-				"src/grammar.js",
-				"src/parse.js",
-				"src/roll.js",
-				"src/Message.js",
-				"src/content.js"
-			]
+			"js": ["dist/content.js"]
 		}
 	],
 	"browser_action": {
