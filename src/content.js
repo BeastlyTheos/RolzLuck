@@ -19,7 +19,7 @@ const errorWrapper = function (func) {
 let e = document.createElement("a")
 e.setAttribute(
 	"href",
-	"chrome-extension://" + chrome.runtime.id + "/public/popup.html"
+	"chrome-extension://" + chrome.runtime.id + "/popup.html"
 )
 e.setAttribute("target", "_blank")
 e.innerHTML = "view luck statistics"
