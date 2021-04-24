@@ -58,6 +58,7 @@
 		"webpack-cli": "^4.6.0"
 	},
 	"dependencies": {
+		"crx-hotreload": "^1.0.6",
 		"nearley": "^2.20.1"
 	}
 }
