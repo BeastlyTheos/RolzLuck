@@ -6,7 +6,7 @@
 		"test": "babel-node spec/run.js",
 		"testmon": "npx nodemon node_modules/@babel/node/lib/babel-node.js spec/run.js",
 		"coverage": "nyc npx npm test",
-		"build": "webpack"
+		"build": "build.bat"
 	},
 	"nodemonConfig": {
 		"watch": [
