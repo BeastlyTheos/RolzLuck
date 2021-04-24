@@ -1,4 +1,6 @@
-/* globals chrome, Message: writable */
+/* globals chrome */
+import Message from "./message"
+
 // uncomment the following line to run in debug mode
 //chrome.storage.local.set({"debug": true})
 
@@ -17,7 +19,7 @@ const errorWrapper = function (func) {
 let e = document.createElement("a")
 e.setAttribute(
 	"href",
-	"chrome-extension://" + chrome.runtime.id + "/public/popup.html"
+	"chrome-extension://" + chrome.runtime.id + "/popup.html"
 )
 e.setAttribute("target", "_blank")
 e.innerHTML = "view luck statistics"

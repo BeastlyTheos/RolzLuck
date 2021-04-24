@@ -1,6 +1,6 @@
 /* eslint-env jasmine */
-const Message = require("../../src/Message")
-const samples = require("./testSamples")
+import Message from "../../src/message"
+import samples from "./testSamples"
 
 describe("Message", () => {
 	describe(".toString", () => {

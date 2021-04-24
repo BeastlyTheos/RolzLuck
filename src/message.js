@@ -1,11 +1,8 @@
-/* globals Roll: writable */
-if (typeof module !== "undefined" && typeof require !== "undefined") {
-	Roll = require("./roll")
-}
+import Roll from "./roll" // eslint-disable-line no-unused-vars
 
-class Message {
+export default class Message {
 	static parseMessage(mutation, injectedRoll = null) {
-		Roll = injectedRoll || Roll
+		let Roll = injectedRoll || Roll
 		/* istanbul ignore if */
 		if (mutation.type !== "childList" || !mutation.addedNodes.length)
 			return null
@@ -61,8 +58,4 @@ class Message {
 	toString() {
 		return "[Message: " + this.node.innerHTML + "]"
 	}
-}
-
-if (typeof module !== "undefined") {
-	module.exports = Message
 }

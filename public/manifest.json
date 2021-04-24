@@ -6,21 +6,13 @@
 	"content_scripts": [
 		{
 			"matches": ["https://rolz.org/dr?*"],
-			"js": [
-				"src/distribution.js",
-				"node_modules/nearley/lib/nearley.js",
-				"src/grammar.js",
-				"src/parse.js",
-				"src/roll.js",
-				"src/Message.js",
-				"src/content.js"
-			]
+			"js": ["content.js"]
 		}
 	],
 	"browser_action": {
-		"default_popup": "public/popup.html"
+		"default_popup": "popup.html"
 	},
-	"web_accessible_resources": ["public/popup.html"],
+	"web_accessible_resources": ["popup.html"],
 	"content_security_policy": "script-src 'self' https://unpkg.com; object-src 'self'",
 	"manifest_version": 2
 }
