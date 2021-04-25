@@ -1,6 +1,5 @@
 /* eslint-env jasmine */
-const Distribution = require("../../distribution").Distribution
-const Dice = require("../../distribution").Dice
+import {Dice, Distribution} from "../../src/distribution"
 
 var distro1 = new Distribution([1])
 const distroNegative = new Distribution([-3])

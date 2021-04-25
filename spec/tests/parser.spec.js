@@ -1,6 +1,7 @@
 /* eslint-env jasmine */
-const parser = require("../../parse")
-const {lowest} = require("../../distribution").Dice
+import parser from "../../src/parser"
+import {Dice} from "../../src/distribution"
+const lowest = Dice.lowest
 const zip = (a, b) => a.map((e, i) => [e, b[i]])
 
 const treeEquality = function (a, b) {
@@ -27,55 +28,45 @@ const treeEquality = function (a, b) {
 
 describe("parser", () => {
 	it("parses simple addition and subtraction", () => {
-		try {
-			for (var [expr, expectedTree] of [
-				["10", 10],
-				["1+1", [1, "+", 1]],
-				["2+4", [2, "+", 4]],
-				["83+92+12", [[83, "+", 92], "+", 12]],
-				["1-1", [1, "-", 1]],
-				["8-9+3", [[8, "-", 9], "+", 3]],
-				["5+2-8", [[5, "+", 2], "-", 8]],
-				["-5+2-8", [[-5, "+", 2], "-", 8]],
-				["+-12", -12],
-				["-+12", -12],
-				["+83+92+-12", [[83, "+", 92], "+", -12]],
-			]) {
-				let results = parser.feed(expr)
-				expect(results.length).toBe(1)
-				let res = results[0]
-				expect(res).toEqual(expectedTree)
-				treeEquality(res, expectedTree)
-			}
-		} catch (err) /* istanbul ignore next */ {
-			err.message += "\nexpression: " + expr + "\n" + res //eslint-disable-line no-undef
-			throw err
+		for (var [expr, expectedTree] of [
+			["10", 10],
+			["1+1", [1, "+", 1]],
+			["2+4", [2, "+", 4]],
+			["83+92+12", [[83, "+", 92], "+", 12]],
+			["1-1", [1, "-", 1]],
+			["8-9+3", [[8, "-", 9], "+", 3]],
+			["5+2-8", [[5, "+", 2], "-", 8]],
+			["-5+2-8", [[-5, "+", 2], "-", 8]],
+			["+-12", -12],
+			["-+12", -12],
+			["+83+92+-12", [[83, "+", 92], "+", -12]],
+		]) {
+			let results = parser.feed(expr)
+			expect(results.length).toBe(1)
+			let res = results[0]
+			expect(res).toEqual(expectedTree)
+			treeEquality(res, expectedTree)
 		}
 	})
 
 	it("merges unary plus and minus into a single sign", () => {
-		try {
-			for (var [expr, expectedTree] of [
-				["-10", -10],
-				["-+9", -9],
-				["1+-1", [1, "+", -1]],
-				["2-+4", [2, "-", 4]],
-				["-5+2-8", [[-5, "+", 2], "-", 8]],
-				["-12", -12],
-				["+42", 42],
-				["+-090", -90],
-				["-+13", -13],
-				["+83+92+-12", [[83, "+", 92], "+", -12]],
-			]) {
-				let results = parser.feed(expr)
-				expect(results.length).toBe(1)
-				let res = results[0]
-				expect(res).toEqual(expectedTree)
-				treeEquality(res, expectedTree)
-			}
-		} catch (err) /* istanbul ignore next */ {
-			err.message += "\nexpression: " + expr
-			throw err
+		for (var [expr, expectedTree] of [
+			["-10", -10],
+			["-+9", -9],
+			["1+-1", [1, "+", -1]],
+			["2-+4", [2, "-", 4]],
+			["-5+2-8", [[-5, "+", 2], "-", 8]],
+			["-12", -12],
+			["+42", 42],
+			["+-090", -90],
+			["-+13", -13],
+			["+83+92+-12", [[83, "+", 92], "+", -12]],
+		]) {
+			let results = parser.feed(expr)
+			expect(results.length).toBe(1)
+			let res = results[0]
+			expect(res).toEqual(expectedTree)
+			treeEquality(res, expectedTree)
 		}
 	})
 
@@ -88,36 +79,26 @@ describe("parser", () => {
 			["3D8", 3, 8],
 			["4d6", 4, 6],
 		]) {
-			try {
-				let results = parser.feed(code)
-				expect(results.length).toBe(1)
-				let res = results[0]
-				expect(res.numDice).toBe(numDice)
-				expect(res.sides).toBe(sides)
-			} catch (err) /* istanbul ignore next */ {
-				err.message += "\nProblem with " + code + "\nres is " + res //eslint-disable-line no-undef
-				throw err
-			}
+			let results = parser.feed(code)
+			expect(results.length).toBe(1)
+			let res = results[0]
+			expect(res.numDice).toBe(numDice)
+			expect(res.sides).toBe(sides)
 		}
 	})
 
 	it("parses scalars added with dice codes", () => {
-		try {
-			for (var [expr, expectedTree] of [
-				["d1+1", [{numDice: 1, sides: 1}, "+", 1]],
-				["d20+4", [{numDice: 1, sides: 20}, "+", 4]],
-				["92D12+83", [{numDice: 92, sides: 12}, "+", 83]],
-				["4+92D12+83", [[4, "+", {numDice: 92, sides: 12}], "+", 83]],
-				["4-92D12-83", [[4, "-", {numDice: 92, sides: 12}], "-", 83]],
-			]) {
-				let results = parser.feed(expr)
-				expect(results.length).toBe(1)
-				let res = results[0]
-				treeEquality(res, expectedTree)
-			}
-		} catch (err) /* istanbul ignore next */ {
-			err.message += "\nexpression: " + expr //eslint-disable-line no-undef
-			throw err
+		for (var [expr, expectedTree] of [
+			["d1+1", [{numDice: 1, sides: 1}, "+", 1]],
+			["d20+4", [{numDice: 1, sides: 20}, "+", 4]],
+			["92D12+83", [{numDice: 92, sides: 12}, "+", 83]],
+			["4+92D12+83", [[4, "+", {numDice: 92, sides: 12}], "+", 83]],
+			["4-92D12-83", [[4, "-", {numDice: 92, sides: 12}], "-", 83]],
+		]) {
+			let results = parser.feed(expr)
+			expect(results.length).toBe(1)
+			let res = results[0]
+			treeEquality(res, expectedTree)
 		}
 	})
 

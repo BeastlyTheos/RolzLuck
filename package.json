@@ -1,21 +1,22 @@
 {
 	"scripts": {
 		"lint": "eslint --fix **/*.js",
-		"format-json": "prettier --write **/*.json",
-		"compile-grammar": "nearleyc grammar.ne -o grammar.js",
-		"test": "jasmine --fail-fast=true",
-		"testmon": "npx nodemon --exec npm run test",
-		"coverage": "nyc npx jasmine --fail-fast=false --stop-on-failure=false"
+		"format": "prettier --write **/*.html **/*.json",
+		"compile-grammar": "nearleyc src/grammar.ne -o src/grammar.js",
+		"test": "babel-node spec/run.js",
+		"testmon": "npx nodemon node_modules/@babel/node/lib/babel-node.js spec/run.js",
+		"coverage": "nyc npx npm test",
+		"build": "build.bat"
 	},
 	"nodemonConfig": {
 		"watch": [
 			"*.*",
-			"grammar.ne"
+			"src/grammar.ne"
 		],
-		"ignore": "grammar.js"
+		"ignore": "src/grammar.js"
 	},
 	"nyc": {
-		"exclude": "grammar.js",
+		"exclude": "public/grammar.js",
 		"statements": 80,
 		"branches": 60,
 		"functions": 80,
@@ -33,22 +34,31 @@
 			"eslint  --fix",
 			"test-coverage.bat"
 		],
-		"*.json": "prettier --write"
+		"**/*.json": "prettier --write",
+		"public/*.html": "prettier --write"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.13.16",
+		"@babel/node": "^7.13.13",
+		"@babel/preset-env": "^7.13.15",
 		"adm-zip": "^0.5.4",
+		"babel-loader": "^8.2.2",
 		"eslint": "^7.20.0",
 		"eslint-config-prettier": "^7.2.0",
 		"eslint-plugin-prettier": "^3.3.1",
+		"getopts": "^2.3.0",
 		"husky": "^4.3.8",
 		"jasmine": "^3.6.4",
 		"jsdom": "^16.5.1",
 		"lint-staged": "^10.5.4",
 		"nodemon": "^2.0.7",
 		"nyc": "^15.1.0",
-		"prettier": "^2.2.1"
+		"prettier": "^2.2.1",
+		"webpack": "^5.35.1",
+		"webpack-cli": "^4.6.0"
 	},
 	"dependencies": {
+		"crx-hotreload": "^1.0.6",
 		"nearley": "^2.20.1"
 	}
 }

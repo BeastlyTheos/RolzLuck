@@ -1,9 +1,9 @@
 const fs = require("fs")
 
-/* istanbul ignore if */
+/* istanbul ignore next */
 if (
-	!fs.existsSync("grammar.js") ||
-	fs.statSync("grammar.ne").mtime > fs.statSync("grammar.js").mtime
+	!fs.existsSync("src/grammar.js") ||
+	fs.statSync("src/grammar.ne").mtime > fs.statSync("src/grammar.js").mtime
 )
 	try {
 		const {execSync} = require("child_process")

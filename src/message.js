@@ -1,13 +1,12 @@
-/* globals Roll: writable */
-if (typeof module !== "undefined" && typeof require !== "undefined") {
-	Roll = require("./roll")
-}
+import RollClass from "./roll"
 
-class Message {
-	static parseMessage(mutation, injectedRoll = null) {
-		Roll = injectedRoll || Roll
+export default class Message {
+	static parseMessage(mutation, injectedRoll) {
+		const Roll = injectedRoll || RollClass
+		/* istanbul ignore if */
 		if (mutation.type !== "childList" || !mutation.addedNodes.length)
 			return null
+		var id
 		var node = mutation.addedNodes[0]
 		var resultNodes = node.getElementsByClassName("result2")
 		if (!resultNodes.length) return null
@@ -16,12 +15,18 @@ class Message {
 
 		var name = node.getElementsByClassName("username")[0].innerHTML
 
-		for (const ancor of node.getElementsByTagName("a"))
+		for (const ancor of node.getElementsByTagName("a")) {
+			if (
+				ancor.hasAttribute("href") &&
+				ancor.getAttribute("href").startsWith("/info?")
+			)
+				id = ancor.getAttribute("href").slice(6)
 			if (ancor.hasAttribute("onclick")) {
 				var code = ancor.innerHTML
 				if (code.toLowerCase().startsWith("roll")) code = code.slice(4)
 				diceCodes[diceCodes.length] = code
 			}
+		}
 
 		for (var i = 0; i < diceCodes.length; i++) {
 			var result = parseInt(resultNodes[i].innerHTML)
@@ -38,10 +43,11 @@ class Message {
 		var combinedRoll = rolls[0]
 		for (let i = 1; i < rolls.length; i++)
 			combinedRoll = Roll.combineRoll(combinedRoll, rolls[i])
-		return new Message(node, name, rolls, combinedRoll)
+		return new Message(id, node, name, rolls, combinedRoll)
 	}
 
-	constructor(node, name, rolls, combinedRoll) {
+	constructor(id, node, name, rolls, combinedRoll) {
+		this.id = id
 		this.node = node
 		this.name = name
 		this.rolls = rolls
@@ -52,8 +58,4 @@ class Message {
 	toString() {
 		return "[Message: " + this.node.innerHTML + "]"
 	}
-}
-
-if (typeof module !== "undefined") {
-	module.exports = Message
 }
