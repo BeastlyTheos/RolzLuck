@@ -135,7 +135,10 @@ class Distribution {
 	}
 
 	oddsOfResult(result) {
-		return this.dist[result - this.min]
+		result -= this.min
+		return (
+this.dist[result] / sum(this.dist)
+		)
 	}
 
 	luckOfResult(result) {
@@ -188,4 +191,5 @@ class Distribution {
 }
 
 /* istanbul ignore next */
-export {Dice, Distribution}
+exports.Dice  = Dice
+exports.Distribution  = Distribution

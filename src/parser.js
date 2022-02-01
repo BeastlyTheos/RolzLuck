@@ -1,10 +1,10 @@
-import nearley from "nearley"
-import grammar from "./grammar"
-import {Dice, Distribution} from "./distribution"
+const nearley = require("nearley")
+const grammar = require("./grammar")
+const {Dice, Distribution} = require("./distribution")
 
 const compiledGrammar = nearley.Grammar.fromCompiled(grammar)
 
-export default {
+exports.parser  = {
 	parse: function (input) {
 		return this.evaluate(this.feed(input)[0])
 	},
